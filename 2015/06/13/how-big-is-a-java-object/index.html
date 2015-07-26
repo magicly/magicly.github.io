@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>一个Java对象到底有多大 | JustForFun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="经常遇到一个问题，需要在内存里缓存一批数据来提高效率（避免每次都读取DB）。那问题来了，这些对象到底会占用多大内存呢，这直接决定了可以缓存多少条记录，以及上线之后是否会内存不够等问题。
+来看几种解决方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个Java对象到底有多大">
+<meta property="og:url" content="http://magicly.me/2015/06/13/how-big-is-a-java-object/index.html">
+<meta property="og:site_name" content="JustForFun">
+<meta property="og:description" content="经常遇到一个问题，需要在内存里缓存一批数据来提高效率（避免每次都读取DB）。那问题来了，这些对象到底会占用多大内存呢，这直接决定了可以缓存多少条记录，以及上线之后是否会内存不够等问题。
+来看几种解决方法。">
+<meta property="og:updated_time" content="2015-07-26T04:33:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一个Java对象到底有多大">
+<meta name="twitter:description" content="经常遇到一个问题，需要在内存里缓存一批数据来提高效率（避免每次都读取DB）。那问题来了，这些对象到底会占用多大内存呢，这直接决定了可以缓存多少条记录，以及上线之后是否会内存不够等问题。
+来看几种解决方法。">
+  
+    <link rel="alternative" href="/atom.xml" title="JustForFun" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">JustForFun</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://magicly.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-how-big-is-a-java-object" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/13/how-big-is-a-java-object/" class="article-date">
+  <time datetime="2015-06-13T13:34:10.000Z" itemprop="datePublished">2015-06-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      一个Java对象到底有多大
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>经常遇到一个问题，需要在内存里缓存一批数据来提高效率（避免每次都读取DB）。那问题来了，这些对象到底会占用多大内存呢，这直接决定了可以缓存多少条记录，以及上线之后是否会内存不够等问题。</p>
+<p>来看几种解决方法。</p>
+<a id="more"></a>
+<h1 id="测试">测试</h1><p>实践是检验真理的唯一标准！比如你要想cache10w条记录，那你就把10w条记录加载到内存，然后看看到底用了多少内存。至于怎么看内存花了多少，你可以</p>
+<ol>
+<li>任务管理器</li>
+<li>top</li>
+<li>Java Runtime类</li>
+<li>blabla。。。。</li>
+</ol>
+<p>我们来看看直接从Java程序里能获取到的Runtime。</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by magicalli on 2015/2/3.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> class TestMemory &#123;</span><br><span class="line">    <span class="keyword">static</span> class A &#123;</span><br><span class="line">        <span class="built_in">int</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"--- Memory Usage ---:"</span>);</span><br><span class="line">        Runtime rt = Runtime.getRuntime();</span><br><span class="line">        <span class="comment">//打印总内存大小 //打印空闲内存大小 //打印已用内存大小 单位(字节)</span></span><br><span class="line">        <span class="keyword">long</span> usedMemory = rt.totalMemory() - rt.freeMemory();</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"Total Memory= "</span> + rt.totalMemory() + <span class="string">" Free Memory = "</span> + rt.freeMemory() + <span class="string">" Used　Memory="</span> + usedMemory);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 把你要测试的占用内存的代码放在这里------start--------------</span></span><br><span class="line">        <span class="keyword">final</span> <span class="built_in">int</span> N = <span class="number">100000</span>;</span><br><span class="line">        <span class="built_in">int</span>[] arr = <span class="keyword">new</span> <span class="built_in">int</span>[N];</span><br><span class="line">        Integer[] arr2 = <span class="keyword">new</span> Integer[N];</span><br><span class="line">        A[] arrA = <span class="keyword">new</span> A[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            arr[i] = i;</span><br><span class="line"><span class="comment">//            arr2[i] = i;</span></span><br><span class="line"><span class="comment">//            arrA[i] = new A();</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();</span></span><br><span class="line">        Map&lt;Integer, <span class="keyword">String</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;Integer, <span class="keyword">String</span>&gt;();</span><br><span class="line"><span class="comment">//        for (int i = 0; i &lt; N; i++) &#123;</span></span><br><span class="line"><span class="comment">//            list.add(i);</span></span><br><span class="line"><span class="comment">//            map.put(i, UUID.randomUUID().toString());</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        System.out.println(map.size());</span></span><br><span class="line">        <span class="comment">// 把你要测试的占用内存的代码放在这里------end--------------</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> usedMemory2 = rt.totalMemory() - rt.freeMemory();</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"Total Memory= "</span> + rt.totalMemory() + <span class="string">" Free Memory = "</span> + rt.freeMemory() + <span class="string">" Used　Memory="</span> + usedMemory2);</span><br><span class="line">        <span class="keyword">long</span> objMemory = usedMemory2 - usedMemory;</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"object use memory: "</span> + objMemory / <span class="number">1024</span> + <span class="string">"k"</span> + <span class="string">" each is: "</span> + objMemory / N);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面方法的最大好处就是可以直接获得实际占用内存大小，是比较简单有效的方法。不好的地方就是如果数据量比较小，可能偏差比较大，而且你也不能解释为什么Integer[]比int[]占用内存大很多，关键是专家说：这种内存占用应该是心里算出来的，你还要去run一下程序，明显就low了，还想晋级？再练练吧！所以我们来看看怎么掐指一算！</p>
+<h1 id="计算">计算</h1><p>这个需要了解JVM里的内存分布，知道每个对象都有object header，blabal。这里推荐一篇好文<a href="http://www.cnblogs.com/magialmoon/p/3757767.html" target="_blank" rel="external">一个Java对象到底占用多大内存？</a>，我就不重复了。</p>
+<p>还看到另一种计算方式，用的Unsafe，不过感觉没有前面用Instrumentation的好。参考这里<a href="http://blog.csdn.net/bobpauline/article/details/20699233" target="_blank" rel="external">Java计算一个对象占用内存的大小</a></p>
+<h1 id="线上查看">线上查看</h1><p>如果是要查看线上程序哪个对象占用了大量内存（比如分析内存泄露），那么可以使用jmap。</p>
+<h1 id="相关知识">相关知识</h1><p>你可能需要了解jps，jinfo，打包jar，manifest，查看jvm运行参数等。</p>
+<h1 id="refers">refers</h1><ol>
+<li><a href="http://www.importnew.com/14948.html" target="_blank" rel="external">http://www.importnew.com/14948.html</a></li>
+<li><a href="http://www.cnblogs.com/magialmoon/p/3757767.html" target="_blank" rel="external">http://www.cnblogs.com/magialmoon/p/3757767.html</a></li>
+<li><a href="http://www.oschina.net/question/1_4486" target="_blank" rel="external">http://www.oschina.net/question/1_4486</a></li>
+<li><a href="http://blog.csdn.net/bobpauline/article/details/20699233" target="_blank" rel="external">http://blog.csdn.net/bobpauline/article/details/20699233</a></li>
+<li><a href="http://happyqing.iteye.com/blog/2013639" target="_blank" rel="external">http://happyqing.iteye.com/blog/2013639</a></li>
+<li><a href="http://sunqi.iteye.com/blog/1917802" target="_blank" rel="external">http://sunqi.iteye.com/blog/1917802</a></li>
+<li><a href="http://www.blogjava.net/stone2083/archive/2013/06/08/400410.html" target="_blank" rel="external">http://www.blogjava.net/stone2083/archive/2013/06/08/400410.html</a></li>
+<li><a href="http://yueyemaitian.iteye.com/blog/2033046" target="_blank" rel="external">http://yueyemaitian.iteye.com/blog/2033046</a></li>
+<li><a href="http://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html" target="_blank" rel="external">http://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html</a></li>
+<li><a href="http://www.ibm.com/developerworks/cn/java/j-lo-instrumentation/" target="_blank" rel="external">http://www.ibm.com/developerworks/cn/java/j-lo-instrumentation/</a></li>
+</ol>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://magicly.me/2015/06/13/how-big-is-a-java-object/" data-id="cicjy4gvg0004scjpe5z0hkik" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java反射/">Java反射</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/07/13/java-email/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Java发送邮件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/01/13/java-concurrrency-3-juc-source-code-read/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java Concurrency（三）——J.U.C AQS源码解读</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache-Commons/">Apache Commons</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Email/">Email</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaMail/">JavaMail</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java反射/">Java反射</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/concurrency/">concurrency</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/githubPages/">githubPages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weixin/">weixin</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微信/">微信</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码阅读/">源码阅读</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apache-Commons/" style="font-size: 10px;">Apache Commons</a> <a href="/tags/Email/" style="font-size: 10px;">Email</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaMail/" style="font-size: 10px;">JavaMail</a> <a href="/tags/Java反射/" style="font-size: 10px;">Java反射</a> <a href="/tags/concurrency/" style="font-size: 15px;">concurrency</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/githubPages/" style="font-size: 10px;">githubPages</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/jdk/" style="font-size: 15px;">jdk</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/weixin/" style="font-size: 10px;">weixin</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/源码阅读/" style="font-size: 15px;">源码阅读</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/07/26/ssh-reverse-tunnel-wx-local/">利用SSH反向通道在本地调试微信公共号</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/26/我的第一个hexo-Blog/">我的第一个hexo Blog</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/13/java-email/">Java发送邮件</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/13/how-big-is-a-java-object/">一个Java对象到底有多大</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/13/java-concurrrency-3-juc-source-code-read/">Java Concurrency（三）——J.U.C AQS源码解读</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 magicly<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
