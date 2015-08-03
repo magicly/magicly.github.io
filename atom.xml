@@ -1,115 +1,361 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
   
-  <title>Java Concurrency（三）——J.U.C AQS源码解读 | JustForFun</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title><![CDATA[JustForFun]]></title>
   
-    <meta name="author" content="magicly">
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://magicly.me//"/>
+  <updated>2015-07-26T04:23:24.000Z</updated>
+  <id>http://magicly.me//</id>
   
-  
-    <meta name="description" content="java5之后的java.util.concurrent包是世界级并发大师Doug Lea的作品，里面主要实现了
-
-atomic包里Integer/Long对应的原子类，主要基于CAS；
-一些同步子，包括Lock，CountDownLatch，Semaphore，FutureTask等，这些都是基于AbstractQueuedSynchronizer类；
-关于线程执行的Executors类等；
-一">
-  
-  <meta name="description" content="java5之后的java.util.concurrent包是世界级并发大师Doug Lea的作品，里面主要实现了
-
-atomic包里Integer/Long对应的原子类，主要基于CAS；
-一些同步子，包括Lock，CountDownLatch，Semaphore，FutureTask等，这些都是基于AbstractQueuedSynchronizer类；
-关于线程执行的Executors类等；
-一">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java Concurrency（三）——J.U.C AQS源码解读">
-<meta property="og:url" content="http://magicly.me/2015/01/13/java-concurrrency-3-juc-source-code-read/index.html">
-<meta property="og:site_name" content="JustForFun">
-<meta property="og:description" content="java5之后的java.util.concurrent包是世界级并发大师Doug Lea的作品，里面主要实现了
-
-atomic包里Integer/Long对应的原子类，主要基于CAS；
-一些同步子，包括Lock，CountDownLatch，Semaphore，FutureTask等，这些都是基于AbstractQueuedSynchronizer类；
-关于线程执行的Executors类等；
-一">
-<meta property="og:updated_time" content="2015-07-26T04:24:57.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java Concurrency（三）——J.U.C AQS源码解读">
-<meta name="twitter:description" content="java5之后的java.util.concurrent包是世界级并发大师Doug Lea的作品，里面主要实现了
-
-atomic包里Integer/Long对应的原子类，主要基于CAS；
-一些同步子，包括Lock，CountDownLatch，Semaphore，FutureTask等，这些都是基于AbstractQueuedSynchronizer类；
-关于线程执行的Executors类等；
-一">
-  
-    <link rel="alternate" href="/atom.xml" title="JustForFun" type="application/atom+xml">
-  
-  
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  
-
-  
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?4de38e2838c5de001401028af3beef7e";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
-
-</head>
-
-<body>
-  <div class="wrapper">
-    <header id="header">
-  <div class="title">
-    <h1><a href="/">JustForFun</a></h1>
-    <p><a href="/"></a></p>
-  </div>
-  <nav class="nav">
-    <ul>
-      
-        <li><a href="/archives">Archives</a></li>
-      
-        <li><a href="/reading">Reading</a></li>
-      
-        <li><a href="/about">About</a></li>
-      
-      
-        <li><a href="/atom.xml">RSS</a></li>
-      
-    </ul>
-    <div class="clearfix"></div>
-  </nav>
-  <div class="clearfix"></div>
-</header>
-    <div class="content"><article class="post">
-  <header>
+  <author>
+    <name><![CDATA[magicly]]></name>
     
-      <div class="icon"></div>
-      <a href="/2015/01/13/java-concurrrency-3-juc-source-code-read/">
-  <time datetime="2015-01-13T13:34:10.000Z">
-    2015-01-13
-  </time>
-</a>
-    
-    
+  </author>
   
-    <h1 class="title">Java Concurrency（三）——J.U.C AQS源码解读</h1>
+  <generator uri="http://hexo.io/">Hexo</generator>
   
+  <entry>
+    <title><![CDATA[利用SSH反向通道在本地调试微信公共号]]></title>
+    <link href="http://magicly.me/2015/07/26/ssh-reverse-tunnel-wx-local/"/>
+    <id>http://magicly.me/2015/07/26/ssh-reverse-tunnel-wx-local/</id>
+    <published>2015-07-26T03:40:25.000Z</published>
+    <updated>2015-07-26T04:23:24.000Z</updated>
+    <content type="html"><![CDATA[<p>微信公共号现在很火，一些简单的应用，做一个公共号比开发一款app成本要小很多，而且利用朋友圈的转发，相比app去app store里上架等着用户下载，要容易很多。</p>
+<p>但是微信公共号的调试有点不方便，必须在微信<a href="https://mp.weixin.qq.com/" target="_blank" rel="external">管理后台</a>配置一个微信能访问到（公网）的url，然后在公共号里输入内容，微信以xml格式转发给这个url，url回复之后微信再将response回复给使用公共号的微信用户。当然微信也提供了<a href="http://mp.weixin.qq.com/debug" target="_blank" rel="external">调试工具</a>， 可以直接构造数据，方便调试各个接口。 但是依然需要一个公网的url作为接口。于是最原始的开发方式就是，修改代码，上传到server，（如果是有些静态语言还需要重启服务器），然后看是否正常work，如果不行的话，在可能错误的地方打出log，然后又是修改代码，上传server，重启。。。。。就这样，每次改一点点，你都可以泡杯咖啡了，老板就会觉得你很闲。参看<a href="http://www.oschina.net/news/15579/reasons-why-people-who-work-with-computers-seem-to" target="_blank" rel="external">为什么搞计算机工作的人总是看上去很清闲</a>。</p>
+<a id="more"></a>
+<p>有没有办法可以直接在本地调试呢，简单说，就是微信把数据传到我本地的电脑上，我每次改完代码，不用重新上传server，直接在本地加log等。经过研究，找到几个方法，记录下来，与大家分享，绝对能节约很多很多很多时间，然后就可以去陪妹纸了， 如果你有的话，没有的话<a href="http://www.zhihu.com/question/20385321" target="_blank" rel="external">here</a>。</p>
+<p>第一种方法，你本地电脑有公网ip。比如家里宽带，没用路由，直接把网线插上，应该就是公网IP，吧。 如果家里有多人使用，你可以再路由器里配置NAT地址转换。自行<a href="https://www.google.com.hk/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#q=NAT%20%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2" target="_blank" rel="external">Google</a>吧。</p>
+<p>第二种，也是我搜到的最多的，用ngrok这个神器！网上一堆资料，比如<a href="http://www.mbnow.tk/2014/12/05/ngrok/" target="_blank" rel="external">这个</a>，我Google到的最多的也是这个，而且看上去也应该很简单。 <a href="http://www.oray.com/" target="_blank" rel="external">花生壳</a>我10年前用过（x，不小心暴露年龄了），应该是一样的。网上说，缺点是</p>
+<blockquote>
+<p>不过 ngrok 速度较慢，微信服务器对实时性要求较高，每次通信超过 5 秒便超时，所以此法也不建议使用。</p>
+</blockquote>
+<p>我觉得用花生壳的话可能好点，因为是国内的（有兴趣的可以自己去试试哈）。没有用ngrok试一下，因为“无法显示此网页”！网上就是“骗子”多，明明没有的网站，大家都描绘的绘声绘色。</p>
+<p>第三种，用ssh建立反向通道。对了，使用此种方法，你还是需要一个公网IP的。 作为一名专业工程师，拥有公网 ip 地址的 VPS 服务器基本成了标配，<a href="http://www.qcloud.com/redirect.php?redirect=1002&amp;cps_key=0a3641075e434bf76a016a44d2918e4a" target="_blank" rel="external">腾讯云VPS</a> 最便宜的一款每年也就几百块钱，平时挂挂自己喜欢的服务，做个站长，跑跑自己的开源项目甚爽。</p>
+<ol>
+<li>申请<a href="http://www.qcloud.com/redirect.php?redirect=1001&amp;cps_key=0a3641075e434bf76a016a44d2918e4a" target="_blank" rel="external">腾讯云</a></li>
+<li>本地安装ssh，如果是linux或mac，都是自带的。如果是windows的话，可以安装<a href="https://www.cygwin.com/" target="_blank" rel="external">Cygwin</a>，如果你嫌弃它太重了，安装了<a href="https://git-scm.com/download/gui/win" target="_blank" rel="external">Git</a>也是可以的。如果你也不想装或者不会装Git，额，(⊙o⊙)…，好吧，那你还是不要写程序了。</li>
+<li>建立ssh反向通道。<br>这一步里有很多坑，我花了差不多一天才完全搞定。你们可以先参考这几篇文章，了解下原理啥的。</li>
+</ol>
+<ul>
+<li><a href="http://blog.zjutoe.net/?p=95" target="_blank" rel="external">http://blog.zjutoe.net/?p=95</a></li>
+<li><a href="http://my.oschina.net/abcfy2/blog/177094" target="_blank" rel="external">http://my.oschina.net/abcfy2/blog/177094</a></li>
+<li><a href="http://www.zzbaike.com/wiki/PuTTY/Putty%E5%BB%BA%E7%AB%8B%E9%9A%A7%E9%81%93%E7%9A%84%E6%96%B9%E6%B3%95" target="_blank" rel="external">http://www.zzbaike.com/wiki/PuTTY/Putty%E5%BB%BA%E7%AB%8B%E9%9A%A7%E9%81%93%E7%9A%84%E6%96%B9%E6%B3%95</a></li>
+<li><a href="http://www.freeoa.net/osuport/netmanage/linux-ssh-tunneling-proxy_1892.html" target="_blank" rel="external">http://www.freeoa.net/osuport/netmanage/linux-ssh-tunneling-proxy_1892.html</a></li>
+<li><a href="https://qdan.me/list/VOSXmsI4tv7fIciF" target="_blank" rel="external">https://qdan.me/list/VOSXmsI4tv7fIciF</a></li>
+</ul>
+<p>好吧，来看我的具体一步一步做法。</p>
+<pre><code>1. <span class="tag">ssh</span> <span class="tag">-R</span> 9999<span class="pseudo">:localhost</span><span class="pseudo">:9000</span> <span class="tag">ubuntu</span><span class="at_rule">@<span class="keyword">myserver_ip_address，输入密码</span>
+<span class="number">2</span>. server上查看一下是否监听了<span class="number">9999</span>端口，netstat -anltp | grep <span class="number">9999</span>，</span>
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@VM-39-45-ubuntu:~$ netstat -anltp | grep 9999&#10;(Not all processes could be identified, non-owned process info&#10;will not be shown, you would have to be root to see it all.)&#10;tcp        0      0 127.0.0.1:9999          0.0.0.0:*               LISTEN      -&#10;tcp6       0      0 ::1:9999                :::*                    LISTEN      -</span><br></pre></td></tr></table></figure>
+<pre><code><span class="bullet">3. </span>在本地9000（我用的[<span class="link_label">play 1</span>](<span class="link_url">https://www.playframework.com/documentation/1.3.x/home</span>)，可以了解下它到底为啥这么好用[<span class="link_label">Play Framework —— Java开发者的梦想框架</span>](<span class="link_url">http://segmentfault.com/a/1190000000374033</span>)）上开启web服务
+<span class="bullet">4. </span>在浏览器里输入http://myserver<span class="emphasis">_ip_</span>address:9999， 居然是没有响应！奇怪！直接在server上用curl http://localhost:9999 是可以的！仔细看netstat输出，发现监听的9999端口是本地的！！！也就是说只能在本地访问，那有xx用啊！！！
+<span class="bullet">5. </span>看看ssh --help， 原来是可以指定bind_address的， man ssh看看
+<span class="blockquote">&gt;
+ By default, the listening socket on the server will be bound to the loopback interface only.  This may be overridden by specifying a bind_address.</span>
+<span class="code">         An empty bind_address, or the address ‘*’, indicates that the remote socket should listen on all interfaces.  Specifying a remote bind_address will</span>
+<span class="code">         only succeed if the server's GatewayPorts option is enabled (see sshd_config(5)).</span>
+</code></pre><p>继续看看 man sshd_config<br>&gt;<br> GatewayPorts<br>             Specifies whether remote hosts are allowed to connect to ports forwarded for the client.  By default, sshd(8) binds remote port forwardings to the<br>             loopback address.  This prevents other remote hosts from connecting to forwarded ports.  GatewayPorts can be used to specify that sshd should allow<br>             remote port forwardings to bind to non-loopback addresses, thus allowing other hosts to connect.  The argument may be “no” to force remote port<br>             forwardings to be available to the local host only, “yes” to force remote port forwardings to bind to the wildcard address, or “clientspecified” to<br>             allow the client to select the address to which the forwarding is bound.  The default is “no”.</p>
+<p> sudo vim /etc/ssh/sshd_config，添加GatewayPorts clientspecified，GatewayPorts yes也可以，退出，sudo service sshd restart，重启ssh服务。重新ssh -R :9999:localhost:9000 ubuntu@myserver_ip_address（仔细看，就9999前多了一个冒号:），输入密码，netstat -anltp | grep 9999，果然</p>
+<pre><code><span class="xml"><span class="comment"><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#9;tcp        0      0 0.0.0.0:9999            0.0.0.0:*               LISTEN      -&#10;&#9;tcp6       0      0 :::9999                 :::*                    LISTEN      -&#10;&#10;&#27983;&#35272;&#22120;&#37324;&#36755;&#20837;http://myserver_ip_address:9999&#65292; &#36825;&#22238;&#21487;&#20197;&#30475;&#21040;&#26412;&#22320;&#25171;&#20986;&#26085;&#24535;&#20102;&#12290;&#10;&#10;6. &#28982;&#21518;&#21457;&#29616;&#24494;&#20449;&#37324;&#38754;&#37197;&#32622;&#30340;url&#21482;&#33021;&#26159;80&#31471;&#21475;&#12290;&#31616;&#21333;&#65292;&#30452;&#25509;&#25913;&#25104;ssh -R :80:localhost:9000 ubuntu@myserver_ip_address&#23601;&#21487;&#20197;&#20102;&#65292;&#21543;&#65281;&#22855;&#24618;&#65292;&#30452;&#25509;&#35775;&#38382;http://myserver_ip_address&#65292; &#25171;&#19981;&#24320;&#32593;&#39029;&#65281;&#29992;netstat -anltp | grep 80&#65292;&#23621;&#28982;&#20160;&#20040;&#37117;&#27809;&#26377;&#65281;&#35828;&#26126;server&#27809;&#26377;&#22312;80&#31471;&#21475;&#30417;&#21548;&#21568;&#65281;&#21734;&#65292;&#23545;&#20102;ubuntu&#20302;&#20110;1024&#30340;&#31471;&#21475;&#26159;&#38656;&#35201;&#29992;root&#26435;&#38480;&#30340;&#12290;&#10;7. ubuntu&#37324;root&#40664;&#35748;&#26159;&#20851;&#38381;&#30340;&#12290;sudo passwd root&#65292;&#35774;&#32622;root&#23494;&#30721;&#21518;&#65292;&#21487;&#20197;&#25171;&#24320;&#12290;&#36824;&#38656;&#35201;&#22312;sudo vim /etc/ssh/sshd_config&#9;&#28155;&#21152;</span><br></pre></td></tr></table></figure></span></span>
 
-  </header>
-  
-  <div class="entry">
+<span class="header">#PermitRootLogin without-password</span>
+PermitRootLogin yes
+<span class="code">```</span>
+
+<span class="bullet">8. </span>重启ssh，再重新用root账号连接，ssh -R :80:localhost:9000 root@myserver<span class="emphasis">_ip_</span>address， 一切ok，http://myserver<span class="emphasis">_ip_</span>address， 本地代码打出日志，说明流量已经导入到本地了。
+<span class="bullet">9. </span>最后，就可以在[<span class="link_label">微信公众平台接口调试工具</span>](<span class="link_url">http://mp.weixin.qq.com/debug</span>)里调试了，配合[<span class="link_label">Play!</span>](<span class="link_url">http://playframework.com/</span>)的hot reload，随时修改代码，加log，然后马上就可以看到效果，不用重新编译，不用上传server，不用重启。。。。生活真是幸福美满啊。。。。
+<span class="bullet">10. </span>几个问题说明：
+<span class="code">    1. 直接用ssh连接的话，断开之后端口映射就没有了，可以用autossh， 只是我就是临时需要调试用的时候才ssh建立反向隧道，所以我不用autossh。</span>
+<span class="code">    2.  直接用root登陆ssh，开通80端口。应该是有安全隐患的， 吧！对安全不是很了解，但感觉直接用root肯定不是最佳实践。网上有各种方法解决这个问题，比如用iptables端口映射，或者nginx反向代理的，[看这里](http://stackoverflow.com/questions/23281895/node-js-eacces-error-when-listening-on-http-80-port-permission-denied)，参看1的原因，我没有采用。还是一次focus一个点吧，不然光环境就配置几天，有点太慢了。</span>
+</code></pre><p>通过本文的配置，可以在本地方便的开发调试微信公共号了。但是对于微信提供的<a href="http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html" target="_blank" rel="external">JS-SDK</a>，又存在另外的问题，这个我会<a href="http://my.oschina.net/magicly007/blog/480704" target="_blank" rel="external">另外写一篇blog来解决</a>。毕竟，我们程序员应该坚持<a href="https://en.wikipedia.org/wiki/Single_responsibility_principle" target="_blank" rel="external">Single responsibility principle</a>嘛。</p>
+<p>Refs</p>
+<ol>
+<li><a href="http://www.mbnow.tk/2014/12/05/ngrok/" target="_blank" rel="external">http://www.mbnow.tk/2014/12/05/ngrok/</a></li>
+<li><a href="http://my.oschina.net/jfinal/blog/336861" target="_blank" rel="external">http://my.oschina.net/jfinal/blog/336861</a></li>
+<li><a href="http://www.mbnow.tk/2014/12/05/ngrok/" target="_blank" rel="external">http://www.mbnow.tk/2014/12/05/ngrok/</a></li>
+<li><a href="http://liyaodong.com/2015/07/06/%E5%BE%AE%E4%BF%A1%E8%B0%83%E8%AF%95%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/" target="_blank" rel="external">http://liyaodong.com/2015/07/06/%E5%BE%AE%E4%BF%A1%E8%B0%83%E8%AF%95%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</a></li>
+<li><a href="http://my.oschina.net/abcfy2/blog/177094" target="_blank" rel="external">http://my.oschina.net/abcfy2/blog/177094</a></li>
+<li><a href="http://www.zhihu.com/question/25456655" target="_blank" rel="external">http://www.zhihu.com/question/25456655</a></li>
+<li>. <a href="http://my.oschina.net/atanl/blog/391611" target="_blank" rel="external">http://my.oschina.net/atanl/blog/391611</a></li>
+</ol>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>微信公共号现在很火，一些简单的应用，做一个公共号比开发一款app成本要小很多，而且利用朋友圈的转发，相比app去app store里上架等着用户下载，要容易很多。</p>
+<p>但是微信公共号的调试有点不方便，必须在微信<a href="https://mp.weixin.qq.com/">管理后台</a>配置一个微信能访问到（公网）的url，然后在公共号里输入内容，微信以xml格式转发给这个url，url回复之后微信再将response回复给使用公共号的微信用户。当然微信也提供了<a href="http://mp.weixin.qq.com/debug">调试工具</a>， 可以直接构造数据，方便调试各个接口。 但是依然需要一个公网的url作为接口。于是最原始的开发方式就是，修改代码，上传到server，（如果是有些静态语言还需要重启服务器），然后看是否正常work，如果不行的话，在可能错误的地方打出log，然后又是修改代码，上传server，重启。。。。。就这样，每次改一点点，你都可以泡杯咖啡了，老板就会觉得你很闲。参看<a href="http://www.oschina.net/news/15579/reasons-why-people-who-work-with-computers-seem-to">为什么搞计算机工作的人总是看上去很清闲</a>。</p>]]>
     
-      <p>java5之后的java.util.concurrent包是世界级并发大师Doug Lea的作品，里面主要实现了</p>
+    </summary>
+    
+      <category term="ssh" scheme="http://magicly.me/tags/ssh/"/>
+    
+      <category term="weixin" scheme="http://magicly.me/tags/weixin/"/>
+    
+      <category term="微信" scheme="http://magicly.me/tags/%E5%BE%AE%E4%BF%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[我的第一个hexo Blog]]></title>
+    <link href="http://magicly.me/2015/07/26/my-first-hexo-blog/"/>
+    <id>http://magicly.me/2015/07/26/my-first-hexo-blog/</id>
+    <published>2015-07-26T03:09:45.000Z</published>
+    <updated>2015-07-26T16:00:24.000Z</updated>
+    <content type="html"><![CDATA[<p>引用<a href="http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html" target="_blank" rel="external">阮老师</a>的话，</p>
+<blockquote>
+<p>喜欢写Blog的人，会经历三个阶段。</p>
+<pre><code>第一阶段，刚接触<span class="keyword">Blog，觉得很新鲜，试着选择一个免费空间来写。
+</span>第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。
+第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。
+</code></pre></blockquote>
+<p>自己比较懒惰，也就偶尔在<a href="http://my.oschina.net/magicly007/blog" target="_blank" rel="external">OC</a>上写点闲散的笔记，最近觉得还是应该要把自己的知识系统地梳理一下，便决定开一个独立的域名，自己记录Blog。</p>
+<p>之前就了解Github Pages，也断断续续用MarkDown写过几篇放着，但是没有用<a href="http://jekyllrb.com/" target="_blank" rel="external">jekyll</a>，或者<a href="http://octopress.org/" target="_blank" rel="external">octpress</a>等串起来，上个月再次想配置好jekyll，结果在mac下始终配置不好（怪我咯）。今天决定一定要配置好，搜集了大量资料（google “jekyll 像黑客一样”），结果意外在<a href="http://www.douban.com/group/topic/39939196/" target="_blank" rel="external">http://www.douban.com/group/topic/39939196/</a>的回复中看到“用pelican吧 python的 还有hexo是nodejs的 ”。因为最近刚好在看nodejs，觉得很有兴趣，于是改为尝试<a href="https://hexo.io/zh-cn/" target="_blank" rel="external">hexo</a>。</p>
+<a id="more"></a>
+<h1 id="简介">简介</h1><p><a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="external">http://ibruce.info/2013/11/22/hexo-your-blog/</a></p>
+<blockquote>
+<p>hexo出自台湾大学生<a href="https://twitter.com/tommy351" target="_blank" rel="external">tommy351</a>之手，是一个基于<a href="https://nodejs.org/" target="_blank" rel="external">Node.js</a>的静态博客程序，其编译上百篇文字只需要几秒。hexo生成的静态网页可以直接放到GitHub Pages，BAE，SAE等平台上。先看看tommy是如何吐槽Octopress的 →＿→ <a href="http://zespia.tw/blog/2012/10/11/hexo-debut/" target="_blank" rel="external">Hexo颯爽登場</a>。</p>
+</blockquote>
+<h1 id="安装">安装</h1><p>首先安装Node.js，然后运行<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli&#10;npm install hexo --save</span><br></pre></td></tr></table></figure></p>
+<h1 id="初始化配置">初始化配置</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init&#10;npm install</span><br></pre></td></tr></table></figure>
+<h1 id="写blog">写blog</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n</span><br></pre></td></tr></table></figure>
+<h1 id="生成">生成</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+<h1 id="本地预览">本地预览</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<h1 id="发布">发布</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>实在觉得没必<a href="https://en.wikipedia.org/wiki/Reinventing_the_wheel" target="_blank" rel="external">重复造轮子</a>，重写已经有很详细资料的东西。强烈推荐<a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="external">这篇</a>。 我觉得基本涵盖了方方面面，如果以后有新东西这里面没有的，我再写吧~</p>
+<p>Refs</p>
+<ol>
+<li><a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="external">http://ibruce.info/2013/11/22/hexo-your-blog/</a></li>
+<li><a href="http://wsgzao.github.io/post/hexo-guide/" target="_blank" rel="external">http://wsgzao.github.io/post/hexo-guide/</a></li>
+<li><a href="http://www.jianshu.com/p/05289a4bc8b2" target="_blank" rel="external">http://www.jianshu.com/p/05289a4bc8b2</a></li>
+<li><a href="http://yangjian.me/workspace/building-blog-with-hexo/" target="_blank" rel="external">http://yangjian.me/workspace/building-blog-with-hexo/</a></li>
+<li><a href="http://yangjian.me/workspace/building-blog-with-hexo/" target="_blank" rel="external">http://yangjian.me/workspace/building-blog-with-hexo/</a></li>
+<li><a href="http://blog.csdn.net/jackystudio/article/details/16117585" target="_blank" rel="external">http://blog.csdn.net/jackystudio/article/details/16117585</a></li>
+</ol>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>引用<a href="http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html">阮老师</a>的话，</p>
+<blockquote>
+<p>喜欢写Blog的人，会经历三个阶段。</p>
+<pre><code>第一阶段，刚接触<span class="keyword">Blog，觉得很新鲜，试着选择一个免费空间来写。
+</span>第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。
+第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。
+</code></pre></blockquote>
+<p>自己比较懒惰，也就偶尔在<a href="http://my.oschina.net/magicly007/blog">OC</a>上写点闲散的笔记，最近觉得还是应该要把自己的知识系统地梳理一下，便决定开一个独立的域名，自己记录Blog。</p>
+<p>之前就了解Github Pages，也断断续续用MarkDown写过几篇放着，但是没有用<a href="http://jekyllrb.com/">jekyll</a>，或者<a href="http://octopress.org/">octpress</a>等串起来，上个月再次想配置好jekyll，结果在mac下始终配置不好（怪我咯）。今天决定一定要配置好，搜集了大量资料（google “jekyll 像黑客一样”），结果意外在<a href="http://www.douban.com/group/topic/39939196/">http://www.douban.com/group/topic/39939196/</a>的回复中看到“用pelican吧 python的 还有hexo是nodejs的 ”。因为最近刚好在看nodejs，觉得很有兴趣，于是改为尝试<a href="https://hexo.io/zh-cn/">hexo</a>。</p>]]>
+    
+    </summary>
+    
+      <category term="github" scheme="http://magicly.me/tags/github/"/>
+    
+      <category term="githubPages" scheme="http://magicly.me/tags/githubPages/"/>
+    
+      <category term="hexo" scheme="http://magicly.me/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Java发送邮件]]></title>
+    <link href="http://magicly.me/2015/07/13/java-email/"/>
+    <id>http://magicly.me/2015/07/13/java-email/</id>
+    <published>2015-07-13T13:34:10.000Z</published>
+    <updated>2015-08-02T16:07:59.000Z</updated>
+    <content type="html"><![CDATA[<p>需要在代码里面发邮件是很经常的事情，包括找回密码，通知用户领奖，监控报警等。</p>
+<p>在Java里面实现比较简单，Oracle自己提供了<a href="http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-eeplat-419426.html#javamail-1.4.7-oth-JPR" target="_blank" rel="external">JavaMail</a>， 不过API比较底层，用起来不方便，可以自己封装下，也可以直接使用Apache的开源项目<a href="https://commons.apache.org/proper/commons-email/" target="_blank" rel="external">Commons Email</a>。 下面的代码，可以以小马哥的名义给自己发邮件，该功能仅用于测试，请谨慎使用，产生的问题，本人概不负责。 /微笑</p>
+<a id="more"></a>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">import</span> org.apache.commons.mail.EmailAttachment;</span><br><span class="line"><span class="built_in">import</span> org.apache.commons.mail.EmailException;</span><br><span class="line"><span class="built_in">import</span> org.apache.commons.mail.MultiPartEmail;</span><br><span class="line"></span><br><span class="line"><span class="built_in">import</span> java.net.MalformedURLException;</span><br><span class="line"><span class="built_in">import</span> java.net.URL;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by magicalli on 2015/7/6.</span><br><span class="line"> */</span></span><br><span class="line">public class MultiPartEmailTest &#123;</span><br><span class="line">    public static void main<span class="params">(String[] args)</span> throws EmailException, MalformedURLException &#123;</span><br><span class="line">        MultiPartEmail email = new MultiPartEmail<span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">        email.setHostName<span class="params">(<span class="string">"smtp.tencent.com"</span>)</span>;</span><br><span class="line"><span class="comment">//        email.setAuthentication("youremail@tencent.com", "***");//邮件服务器验证：用户名/密码</span></span><br><span class="line">        email.setCharset<span class="params">(<span class="string">"UTF-8"</span>)</span>;</span><br><span class="line"></span><br><span class="line">        email.setFrom<span class="params">(<span class="string">"pony@qq.com"</span>, <span class="string">"马化腾"</span>)</span>;</span><br><span class="line">        email.addTo<span class="params">(<span class="string">"magicalli@tencent.com"</span>)</span>;</span><br><span class="line"></span><br><span class="line">        email.setSubject<span class="params">(<span class="string">"加油奋斗！"</span>)</span>;</span><br><span class="line">        email.setMsg<span class="params">(<span class="string">"come on! 加油奋斗吧，早晚有一天你会出任CEO，迎娶白富美，走上人生巅峰！ http://www.qq.com\n\n\n pony"</span>)</span>;</span><br><span class="line"></span><br><span class="line">        EmailAttachment attachment = new EmailAttachment<span class="params">()</span>;</span><br><span class="line">        attachment.setPath<span class="params">(<span class="string">"d:/lzl.jpg"</span>)</span>;<span class="comment">// 本地文件</span></span><br><span class="line">        attachment.setDisposition<span class="params">(EmailAttachment.ATTACHMENT)</span>;</span><br><span class="line">        attachment.setDescription<span class="params">(<span class="string">"林志玲1"</span>)</span>;</span><br><span class="line">        attachment.setName<span class="params">(<span class="string">"lzl_1"</span>)</span>;</span><br><span class="line">        email.attach<span class="params">(attachment)</span>;</span><br><span class="line"></span><br><span class="line">        EmailAttachment attachment2 = new EmailAttachment<span class="params">()</span>;</span><br><span class="line">        attachment2.setURL<span class="params">(new URL<span class="params">(<span class="string">"http://mat1.qq.com/datalib_img/star/pic/lib/2007-01-15/2007011511104716122311.jpg"</span>)</span>)</span>;<span class="comment">//远程文件, 如果不是qq.com域名下，内网是访问不了的哈</span></span><br><span class="line">        attachment2.setDisposition<span class="params">(EmailAttachment.ATTACHMENT)</span>;</span><br><span class="line">        attachment2.setDescription<span class="params">(<span class="string">"林志玲2"</span>)</span>;</span><br><span class="line">        attachment2.setName<span class="params">(<span class="string">"lzl_2"</span>)</span>;</span><br><span class="line">        email.attach<span class="params">(attachment2)</span>;</span><br><span class="line"></span><br><span class="line">        email.send<span class="params">()</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://commons.apache.org/proper/commons-email/" target="_blank" rel="external">Commons Email</a>支持好几种格式，包括简单文本，html，带附件等。需要的可以自己查看文档。</p>
+<p>基于smtp的协议邮件协议很简单，大家甚至可以直接用telnet来发送，可以参考这边文章<a href="http://blog.csdn.net/ghsau/article/details/8602076" target="_blank" rel="external">Java Mail(一)：telnet实现发送收取邮件</a>. </p>
+<p>一般公司内网没有验证发送方，你可以冒充公司任何一个员工发送邮件（包括你们老板），一般外面的邮件服务器，比如qq, 126, 163等，是需要验证密码的。</p>
+<p>重申一遍，别用这个代码干坏事，后果自负， 与本人无关！</p>
+<p>Refs</p>
+<ol>
+<li><a href="http://blog.csdn.net/ghsau/article/details/8602076" target="_blank" rel="external">http://blog.csdn.net/ghsau/article/details/8602076</a></li>
+<li><a href="http://blog.csdn.net/ghsau/article/details/17839983" target="_blank" rel="external">http://blog.csdn.net/ghsau/article/details/17839983</a></li>
+<li><a href="http://haolloyin.blog.51cto.com/1177454/354320" target="_blank" rel="external">http://haolloyin.blog.51cto.com/1177454/354320</a></li>
+<li><a href="http://www.runoob.com/java/java-sending-email.html" target="_blank" rel="external">http://www.runoob.com/java/java-sending-email.html</a></li>
+<li><a href="https://commons.apache.org/proper/commons-email/" target="_blank" rel="external">https://commons.apache.org/proper/commons-email/</a></li>
+<li><a href="http://blog.csdn.net/qiaqia609/article/details/11580589" target="_blank" rel="external">http://blog.csdn.net/qiaqia609/article/details/11580589</a></li>
+</ol>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[this is desc.]]>
+    
+    </summary>
+    
+      <category term="Apache Commons" scheme="http://magicly.me/tags/Apache-Commons/"/>
+    
+      <category term="Email" scheme="http://magicly.me/tags/Email/"/>
+    
+      <category term="Java" scheme="http://magicly.me/tags/Java/"/>
+    
+      <category term="JavaMail" scheme="http://magicly.me/tags/JavaMail/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[一个Java对象到底有多大]]></title>
+    <link href="http://magicly.me/2015/06/13/how-big-is-a-java-object/"/>
+    <id>http://magicly.me/2015/06/13/how-big-is-a-java-object/</id>
+    <published>2015-06-13T13:34:10.000Z</published>
+    <updated>2015-07-26T04:33:31.000Z</updated>
+    <content type="html"><![CDATA[<p>经常遇到一个问题，需要在内存里缓存一批数据来提高效率（避免每次都读取DB）。那问题来了，这些对象到底会占用多大内存呢，这直接决定了可以缓存多少条记录，以及上线之后是否会内存不够等问题。</p>
+<p>来看几种解决方法。</p>
+<a id="more"></a>
+<h1 id="测试">测试</h1><p>实践是检验真理的唯一标准！比如你要想cache10w条记录，那你就把10w条记录加载到内存，然后看看到底用了多少内存。至于怎么看内存花了多少，你可以</p>
+<ol>
+<li>任务管理器</li>
+<li>top</li>
+<li>Java Runtime类</li>
+<li>blabla。。。。</li>
+</ol>
+<p>我们来看看直接从Java程序里能获取到的Runtime。</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by magicalli on 2015/2/3.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> class TestMemory &#123;</span><br><span class="line">    <span class="keyword">static</span> class A &#123;</span><br><span class="line">        <span class="built_in">int</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"--- Memory Usage ---:"</span>);</span><br><span class="line">        Runtime rt = Runtime.getRuntime();</span><br><span class="line">        <span class="comment">//打印总内存大小 //打印空闲内存大小 //打印已用内存大小 单位(字节)</span></span><br><span class="line">        <span class="keyword">long</span> usedMemory = rt.totalMemory() - rt.freeMemory();</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"Total Memory= "</span> + rt.totalMemory() + <span class="string">" Free Memory = "</span> + rt.freeMemory() + <span class="string">" Used　Memory="</span> + usedMemory);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 把你要测试的占用内存的代码放在这里------start--------------</span></span><br><span class="line">        <span class="keyword">final</span> <span class="built_in">int</span> N = <span class="number">100000</span>;</span><br><span class="line">        <span class="built_in">int</span>[] arr = <span class="keyword">new</span> <span class="built_in">int</span>[N];</span><br><span class="line">        Integer[] arr2 = <span class="keyword">new</span> Integer[N];</span><br><span class="line">        A[] arrA = <span class="keyword">new</span> A[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            arr[i] = i;</span><br><span class="line"><span class="comment">//            arr2[i] = i;</span></span><br><span class="line"><span class="comment">//            arrA[i] = new A();</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();</span></span><br><span class="line">        Map&lt;Integer, <span class="keyword">String</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;Integer, <span class="keyword">String</span>&gt;();</span><br><span class="line"><span class="comment">//        for (int i = 0; i &lt; N; i++) &#123;</span></span><br><span class="line"><span class="comment">//            list.add(i);</span></span><br><span class="line"><span class="comment">//            map.put(i, UUID.randomUUID().toString());</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        System.out.println(map.size());</span></span><br><span class="line">        <span class="comment">// 把你要测试的占用内存的代码放在这里------end--------------</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> usedMemory2 = rt.totalMemory() - rt.freeMemory();</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"Total Memory= "</span> + rt.totalMemory() + <span class="string">" Free Memory = "</span> + rt.freeMemory() + <span class="string">" Used　Memory="</span> + usedMemory2);</span><br><span class="line">        <span class="keyword">long</span> objMemory = usedMemory2 - usedMemory;</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"object use memory: "</span> + objMemory / <span class="number">1024</span> + <span class="string">"k"</span> + <span class="string">" each is: "</span> + objMemory / N);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面方法的最大好处就是可以直接获得实际占用内存大小，是比较简单有效的方法。不好的地方就是如果数据量比较小，可能偏差比较大，而且你也不能解释为什么Integer[]比int[]占用内存大很多，关键是专家说：这种内存占用应该是心里算出来的，你还要去run一下程序，明显就low了，还想晋级？再练练吧！所以我们来看看怎么掐指一算！</p>
+<h1 id="计算">计算</h1><p>这个需要了解JVM里的内存分布，知道每个对象都有object header，blabal。这里推荐一篇好文<a href="http://www.cnblogs.com/magialmoon/p/3757767.html" target="_blank" rel="external">一个Java对象到底占用多大内存？</a>，我就不重复了。</p>
+<p>还看到另一种计算方式，用的Unsafe，不过感觉没有前面用Instrumentation的好。参考这里<a href="http://blog.csdn.net/bobpauline/article/details/20699233" target="_blank" rel="external">Java计算一个对象占用内存的大小</a></p>
+<h1 id="线上查看">线上查看</h1><p>如果是要查看线上程序哪个对象占用了大量内存（比如分析内存泄露），那么可以使用jmap。</p>
+<h1 id="相关知识">相关知识</h1><p>你可能需要了解jps，jinfo，打包jar，manifest，查看jvm运行参数等。</p>
+<h1 id="refers">refers</h1><ol>
+<li><a href="http://www.importnew.com/14948.html" target="_blank" rel="external">http://www.importnew.com/14948.html</a></li>
+<li><a href="http://www.cnblogs.com/magialmoon/p/3757767.html" target="_blank" rel="external">http://www.cnblogs.com/magialmoon/p/3757767.html</a></li>
+<li><a href="http://www.oschina.net/question/1_4486" target="_blank" rel="external">http://www.oschina.net/question/1_4486</a></li>
+<li><a href="http://blog.csdn.net/bobpauline/article/details/20699233" target="_blank" rel="external">http://blog.csdn.net/bobpauline/article/details/20699233</a></li>
+<li><a href="http://happyqing.iteye.com/blog/2013639" target="_blank" rel="external">http://happyqing.iteye.com/blog/2013639</a></li>
+<li><a href="http://sunqi.iteye.com/blog/1917802" target="_blank" rel="external">http://sunqi.iteye.com/blog/1917802</a></li>
+<li><a href="http://www.blogjava.net/stone2083/archive/2013/06/08/400410.html" target="_blank" rel="external">http://www.blogjava.net/stone2083/archive/2013/06/08/400410.html</a></li>
+<li><a href="http://yueyemaitian.iteye.com/blog/2033046" target="_blank" rel="external">http://yueyemaitian.iteye.com/blog/2033046</a></li>
+<li><a href="http://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html" target="_blank" rel="external">http://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html</a></li>
+<li><a href="http://www.ibm.com/developerworks/cn/java/j-lo-instrumentation/" target="_blank" rel="external">http://www.ibm.com/developerworks/cn/java/j-lo-instrumentation/</a></li>
+</ol>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>经常遇到一个问题，需要在内存里缓存一批数据来提高效率（避免每次都读取DB）。那问题来了，这些对象到底会占用多大内存呢，这直接决定了可以缓存多少条记录，以及上线之后是否会内存不够等问题。</p>
+<p>来看几种解决方法。</p>]]>
+    
+    </summary>
+    
+      <category term="JVM" scheme="http://magicly.me/tags/JVM/"/>
+    
+      <category term="Java" scheme="http://magicly.me/tags/Java/"/>
+    
+      <category term="Java反射" scheme="http://magicly.me/tags/Java%E5%8F%8D%E5%B0%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[J.U.C源码解读之atomic]]></title>
+    <link href="http://magicly.me/2015/01/13/juc-source-code-read-atomic/"/>
+    <id>http://magicly.me/2015/01/13/juc-source-code-read-atomic/</id>
+    <published>2015-01-13T13:34:10.000Z</published>
+    <updated>2015-07-26T04:35:06.000Z</updated>
+    <content type="html"><![CDATA[<p>java5之后的java.util.concurrent包是世界级并发大师Doug Lea的作品，里面主要实现了</p>
+<ol>
+<li>atomic包里Integer/Long对应的原子类，主要基于CAS；</li>
+<li>一些同步子，包括Lock，CountDownLatch，Semaphore，FutureTask等，这些都是基于AbstractQueuedSynchronizer类；</li>
+<li>关于线程执行的Executors类等；</li>
+<li>一些并发的集合类，比如ConcurrentHashMap，ConcurrentLinkedQueue，CopyOnWriteArrayList等。</li>
+</ol>
+<p>今天我们主要介绍atomic包下相关内容。</p>
+<a id="more"></a>
+<h1 id="CAS">CAS</h1><p>atomic包下的类主要基于现代主流 CPU 都支持的一种指令，Compare and Swap（CAS），这个指令能为多线程编程带来更好的性能。引用《Java Concurrency in Practice》里的一段描述：</p>
+<blockquote>
+<p>在这里，CAS 指的是现代 CPU 广泛支持的一种对内存中的共享数据进行操作的一种特殊指令。这个指令会对内存中的共享数据做原子的读写操作。简单介绍一下这个指令的操作过程：首先，CPU 会将内存中将要被更改的数据与期望的值做比较。然后，当这两个值相等时，CPU 才会将内存中的数值替换为新的值。否则便不做操作。最后，CPU 会将旧的数值返回。这一系列的操作是原子的。它们虽然看似复杂，但却是 Java 5 并发机制优于原有锁机制的根本。简单来说，CAS 的含义是“我认为原有的值应该是什么，如果是，则将原有的值更新为新值，否则不做修改，并告诉我原来的值是多少”。</p>
+</blockquote>
+<h1 id="AtomicInteger">AtomicInteger</h1><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> <span class="keyword">value</span>;</span><br></pre></td></tr></table></figure>
+<p>AtomicInteger里面只包含一个字段，用来记录当前值，定义为volatile是为了满足<strong>可见性</strong>。<br><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// setup to use Unsafe.compareAndSwapInt for updates</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Unsafe unsafe = Unsafe.getUnsafe();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">long</span> valueOffset;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      valueOffset = unsafe.objectFieldOffset</span><br><span class="line">          (AtomicInteger.<span class="keyword">class</span>.getDeclaredField(<span class="string">"value"</span>));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception ex) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> Error(ex); &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>一开始定义了static变量Unsafe，AtomicInteger里面的方法都是对unsafe里面<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSwapInt</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">int</span> var4, <span class="keyword">int</span> var5)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>方法的封装。<br>我们来看原子性的i++，<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> getAndIncrement() &#123;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">int</span> current = get();</span><br><span class="line">        <span class="keyword">int</span> <span class="keyword">next</span> = current + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (compareAndSet(current, <span class="keyword">next</span>))</span><br><span class="line">            <span class="keyword">return</span> current;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在一个无限循环里面，首先获取当前值，用当前值+1，然后调用<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">return</span> unsafe.<span class="title">compareAndSwapInt</span><span class="params">(<span class="keyword">this</span>, valueOffset, expect, update)</span></span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>unsafe.compareAndSwapInt(this, valueOffset, expect, update)的含义是把this对象里面valueOffset（在一开始static代码里面获取）这个位置（即value值）跟expect比较，如果相等，则修改为update，返回true；如果不相等，说明在获取到current之后有其他线程修改过value的值，则重新来一遍，一直到修改成功为止。这里就可以看出，理论上来说，这个方法是有可能永远不能返回的，实际而言，当并发冲突很严重，反复compareAndSet(current, next)失败，有可能也需要花费很多时间。</p>
+<p>AtomicInteger里面的其他方法，基本类似；其他类包括AtomicLong，AtomicReference等也是基本对Unsafe里面compareAndSet的一个封装。</p>
+<h1 id="Unsafe">Unsafe</h1><p>前面可以看到Unsafe类在实现atomic的重要性。为什么有Unsafe这个class呢，基本原因是Java不允许代码直接操作内存，好处是更安全，一般不会出现内存泄露，因为有JVM的GC；坏处是有些底层调用执行不了。我的理解是，Unsafe就是这个java安全围城通向比如c++这个不安全外围的一道门，所以叫Unsafe嘛。Unsafe里面基本都是native，即通过JNI调用c/c++等代码。大部分是直接内存操作，以及后面会讲到的挂起唤醒线程等，包括park和unpark。</p>
+<p>前面到<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSwapInt</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">int</span> var4, <span class="keyword">int</span> var5)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>这个方法就不是java代码了，如果想看实现的话，需要下载OpenJDK源码，里面是c++代码调用汇编代码，blabla。我不建议大家再往下继续了，原因有几个，一是我们用java等高级语言的目的就是为了避免纠结复杂的底层细节，站在更高层的角度思考问题，而且java里面还有更多的问题等待你去解决，更多的知识可以学习呢！如果你说你已经把java完全掌握了，包括把jdk源码，tomcat、spring，xxxxx源码都看过了，实在没得看了，那我会说，多陪陪家人吧~除非你是JVM开发工程师，哦，那不好意思，大神，当我啥都没说。。。。为了完整性，我贴几个参考链接<a href="http://www.blogjava.net/mstar/archive/2013/04/24/398351.html" target="_blank" rel="external">http://www.blogjava.net/mstar/archive/2013/04/24/398351.html</a>, <a href="http://zl198751.iteye.com/blog/1848575" target="_blank" rel="external">http://zl198751.iteye.com/blog/1848575</a>.</p>
+<p>那么如果获取Unsafe呢？Unsafe有一个static方法可以获取Unsafe实例，如下<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function">Unsafe <span class="title">getUnsafe</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       Class var0 = Reflection.getCallerClass(<span class="number">2</span>);</span><br><span class="line">       <span class="keyword">if</span>(var0.getClassLoader() != <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">"Unsafe"</span>);</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> theUnsafe;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>可是你如果在自己代码里使用，可以编译通过，但是运行时候报错。因为里面限制了调用getUnsafe()这个方法的类必须是启动类加载器Bootstrap Loader。所以如果想在自己代码里面调用Unsafe的话（强烈建议不要这样子做），可以用Java的反射来实现：</p>
+<pre><code>    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">UnsafeSupport</span> {
+        <span class="keyword">private</span> <span class="keyword">static</span> Unsafe <span class="keyword">unsafe</span>;
+
+        <span class="keyword">static</span> {
+            Field field;
+            <span class="keyword">try</span> {
+                <span class="comment">// 由反编译Unsafe类获得的信息</span>
+                field = Unsafe.class.getDeclaredField(<span class="string">"theUnsafe"</span>);
+                field.setAccessible(<span class="keyword">true</span>);
+                <span class="comment">// 获取静态属性,Unsafe在启动JVM时随rt.jar装载</span>
+                <span class="keyword">unsafe</span> = (Unsafe) field.<span class="keyword">get</span>(<span class="keyword">null</span>);
+            } <span class="keyword">catch</span> (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Unsafe <span class="title">getInstance</span>(<span class="params"></span>) </span>{
+<span class="comment">//            return Unsafe.getUnsafe();//没有用，只能native获取，否则会抛异常</span>
+            <span class="keyword">return</span> <span class="keyword">unsafe</span>;
+        }
+    }
+</code></pre><p>获取到了Unsafe的实例之后，你照样可以自己实现Atomic类，再说一遍，强烈建议不要这样做！！！</p>
+<h1 id="CAS优点">CAS优点</h1><p>Compare and Set 是一个非阻塞的算法，这是它的优势。因为使用的是CPU支持的指令，提供了比原有的并发机制更好的性能和伸缩性。可以认为一般情况下性能更好，并且也更容易使用（这才是关键啊）。</p>
+<h1 id="CAS缺点">CAS缺点</h1><h2 id="ABA问题">ABA问题</h2><p>CAS操作容易导致ABA问题,也就是在做a++之间，a可能被多个线程修改过了，只不过回到了最初的值，这时CAS会认为a的值没有变。a在外面逛了一圈回来，你能保证它没有做任何坏事，不能！！也许它讨闲，把b的值减了一下，把c的值加了一下等等。解决ABA问题的方法有很多，可以考虑增加一个修改计数（版本号），只有修改计数不变的且a值不变的情况下才做a++，atomic包下有AtomicStampedReference类做这个事情，这和事务原子性处理有点类似！</p>
+<h2 id="循环时间长开销大">循环时间长开销大</h2><ol>
+<li>即使没有任何争用也会做一些无用功</li>
+<li>如果冲突比较严重的话，可能导致多次修改失败，for循环时间很长，可能比同步还慢</li>
+</ol>
+<p>我在自己的电脑上用100个线程去修改一个共享变量，发现用AtomicInteger就比synchronized慢，但是都很快！所以还是那个建议，不要过早优化，不要纠结到底是1ms还是2ms，除非测试之后发现确实是性能瓶颈，然后再仔细看一下，是不是代码的使用有问题，要相信，能写到JDK里的代码，一般都不会有问题。一般不到一天几千万上亿的PV，应该是没啥问题的。而且JVM对synchronized做了很多优化，包括锁去除（Lock Elimination），轻量级锁，偏向锁等，所以写代码的时候首先还是主要考虑代码正确、清晰、可维护。</p>
+<h2 id="只能保证一个共享变量的原子操作">只能保证一个共享变量的原子操作</h2><p>如果并发约束条件涉及到两个变量，就不能用两个原子变量来达到整体的原子性，还是得用同步。当然你也可以用一个变通的方法，定义一个class，里面包含约束条件涉及到的变量，然后用AtomicReference来实现原子性。</p>
+<h1 id="总结">总结</h1><p>atomic包下的类比如AtomicInteger实现原子性的方法主要是依靠现代主流 CPU 都支持的CAS指令，它是通过Unsafe类的native方法调用的。一般而言性能比用锁同步要好，但是都已经很好了，一般而言不会遇到性能问题，关键还是看它的语义是否满足使用要求，以及是否可以让代码更清新。</p>
+<p>Refers</p>
+<ol>
+<li><a href="http://my.oschina.net/lifany/blog/133513" target="_blank" rel="external">http://my.oschina.net/lifany/blog/133513</a></li>
+<li><a href="http://zl198751.iteye.com/blog/1848575" target="_blank" rel="external">http://zl198751.iteye.com/blog/1848575</a></li>
+<li><a href="http://blog.csdn.net/aesop_wubo/article/details/7537960" target="_blank" rel="external">http://blog.csdn.net/aesop_wubo/article/details/7537960</a></li>
+<li><a href="http://my.oschina.net/u/177808/blog/166819" target="_blank" rel="external">http://my.oschina.net/u/177808/blog/166819</a></li>
+<li><a href="http://www.blogjava.net/mstar/archive/2013/04/24/398351.html" target="_blank" rel="external">http://www.blogjava.net/mstar/archive/2013/04/24/398351.html</a></li>
+<li><a href="http://mishadoff.com/blog/java-magic-part-4-sun-dot-misc-dot-unsafe/" target="_blank" rel="external">http://mishadoff.com/blog/java-magic-part-4-sun-dot-misc-dot-unsafe/</a></li>
+<li><a href="http://zeroturnaround.com/rebellabs/dangerous-code-how-to-be-unsafe-with-java-classes-objects-in-memory/" target="_blank" rel="external">http://zeroturnaround.com/rebellabs/dangerous-code-how-to-be-unsafe-with-java-classes-objects-in-memory/</a></li>
+<li><a href="http://www.pwendell.com/2012/08/13/java-lock-free-deepdive.html" target="_blank" rel="external">http://www.pwendell.com/2012/08/13/java-lock-free-deepdive.html</a></li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>java5之后的java.util.concurrent包是世界级并发大师Doug Lea的作品，里面主要实现了</p>
+<ol>
+<li>atomic包里Integer/Long对应的原子类，主要基于CAS；</li>
+<li>一些同步子，包括Lock，CountDownLatch，Semaphore，FutureTask等，这些都是基于AbstractQueuedSynchronizer类；</li>
+<li>关于线程执行的Executors类等；</li>
+<li>一些并发的集合类，比如ConcurrentHashMap，ConcurrentLinkedQueue，CopyOnWriteArrayList等。</li>
+</ol>
+<p>今天我们主要介绍atomic包下相关内容。</p>]]>
+    
+    </summary>
+    
+      <category term="Java" scheme="http://magicly.me/tags/Java/"/>
+    
+      <category term="concurrency" scheme="http://magicly.me/tags/concurrency/"/>
+    
+      <category term="jdk" scheme="http://magicly.me/tags/jdk/"/>
+    
+      <category term="源码阅读" scheme="http://magicly.me/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Java Concurrency（三）——J.U.C AQS源码解读]]></title>
+    <link href="http://magicly.me/2015/01/13/java-concurrrency-3-juc-source-code-read/"/>
+    <id>http://magicly.me/2015/01/13/java-concurrrency-3-juc-source-code-read/</id>
+    <published>2015-01-13T13:34:10.000Z</published>
+    <updated>2015-07-26T04:24:57.000Z</updated>
+    <content type="html"><![CDATA[<p>java5之后的java.util.concurrent包是世界级并发大师Doug Lea的作品，里面主要实现了</p>
 <ol>
 <li>atomic包里Integer/Long对应的原子类，主要基于CAS；</li>
 <li>一些同步子，包括Lock，CountDownLatch，Semaphore，FutureTask等，这些都是基于AbstractQueuedSynchronizer类；</li>
@@ -171,85 +417,27 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
 </blockquote>
-
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>java5之后的java.util.concurrent包是世界级并发大师Doug Lea的作品，里面主要实现了</p>
+<ol>
+<li>atomic包里Integer/Long对应的原子类，主要基于CAS；</li>
+<li>一些同步子，包括Lock，CountDownLatch，Semaphore，FutureTask等，这些都是基于AbstractQueuedSynchronizer类；</li>
+<li>关于线程执行的Executors类等；</li>
+<li>一些并发的集合类，比如ConcurrentHashMap，ConcurrentLinkedQueue，CopyOnWriteArrayList等。</li>
+</ol>
+<p>今天我们主要介绍AbstractQueuedSynchronizer这个可以说是最核心的类，没有之一。整个concurrent包里，基本都直接或间接地用到了这个类。Doug Lea的这篇<a href="http://gee.cs.oswego.edu/dl/papers/aqs.pdf">论文</a>里面讲AQS的实现。</p>]]>
     
-  </div>
-  <footer>
+    </summary>
     
-      
-      
-  <div class="tags">
-    <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/concurrency/">concurrency</a>, <a class="tags-link" href="/tags/jdk/">jdk</a>, <a class="tags-link" href="/tags/源码阅读/">源码阅读</a>
-  </div>
-
+      <category term="Java" scheme="http://magicly.me/tags/Java/"/>
     
-    <div class="clearfix"></div>
-  </footer>
-</article>
-
-
-<section id="comment">
-  <h1 class="title">评论</h1>
-  <div class="ds-thread" data-title="Java Concurrency（三）——J.U.C AQS源码解读">
-  </div>
-</section>
-</div>
-  </div>
-  <footer id="footer"><div class="copyright">
+      <category term="concurrency" scheme="http://magicly.me/tags/concurrency/"/>
+    
+      <category term="jdk" scheme="http://magicly.me/tags/jdk/"/>
+    
+      <category term="源码阅读" scheme="http://magicly.me/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/"/>
+    
+  </entry>
   
-  &copy; 2015 <a href="/">magicly</a>
-  
-</div>
-<div class="theme-copyright">
-  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
-   | 
-  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
-</div>
-<div class="clearfix"></div>
-
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-
-<span id="busuanzi_container_site_pv">
-    本站总访问量<span id="busuanzi_value_site_pv"></span>次
-</span>
-
-<span id="busuanzi_container_site_uv">
-  本站访客数<span id="busuanzi_value_site_uv"></span>人次
-</span>
-
-<span id="busuanzi_container_page_pv">
-  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-</span>
-</footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-<script src="/js/scale.fix.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-
-
-<script type="text/javascript">
-  var duoshuoQuery = { short_name: 'magicly' };
-  (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';
-    ds.async = true;
-    ds.src = 'http://static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
-  })();
-</script>
-
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-  (function($){
-    $('.fancybox').fancybox();
-  })(jQuery);
-</script>
-
-
-</body>
-</html>
+</feed>

@@ -10,22 +10,20 @@
     <meta name="author" content="magicly">
   
   
-    <meta name="description" content="需要在代码里面发邮件是很经常的事情，包括找回密码，通知用户领奖，监控报警等。
-在Java里面实现比较简单，Oracle自己提供了JavaMail， 不过API比较底层，用起来不方便，可以自己封装下，也可以直接使用Apache的开源项目Commons Email。 下面的代码，可以以小马哥的名义给自己发邮件，该功能仅用于测试，请谨慎使用，产生的问题，本人概不负责。 /微笑">
+    <meta name="description" content="this is desc.">
   
-  <meta name="description" content="需要在代码里面发邮件是很经常的事情，包括找回密码，通知用户领奖，监控报警等。
-在Java里面实现比较简单，Oracle自己提供了JavaMail， 不过API比较底层，用起来不方便，可以自己封装下，也可以直接使用Apache的开源项目Commons Email。 下面的代码，可以以小马哥的名义给自己发邮件，该功能仅用于测试，请谨慎使用，产生的问题，本人概不负责。 /微笑">
+  <meta name="description" content="this is desc.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java发送邮件">
 <meta property="og:url" content="http://magicly.me/2015/07/13/java-email/index.html">
 <meta property="og:site_name" content="JustForFun">
-<meta property="og:description" content="需要在代码里面发邮件是很经常的事情，包括找回密码，通知用户领奖，监控报警等。
-在Java里面实现比较简单，Oracle自己提供了JavaMail， 不过API比较底层，用起来不方便，可以自己封装下，也可以直接使用Apache的开源项目Commons Email。 下面的代码，可以以小马哥的名义给自己发邮件，该功能仅用于测试，请谨慎使用，产生的问题，本人概不负责。 /微笑">
-<meta property="og:updated_time" content="2015-07-26T04:30:51.000Z">
+<meta property="og:description" content="this is desc.">
+<meta property="og:image" content="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg">
+<meta property="og:image" content="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg">
+<meta property="og:updated_time" content="2015-08-02T16:07:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java发送邮件">
-<meta name="twitter:description" content="需要在代码里面发邮件是很经常的事情，包括找回密码，通知用户领奖，监控报警等。
-在Java里面实现比较简单，Oracle自己提供了JavaMail， 不过API比较底层，用起来不方便，可以自己封装下，也可以直接使用Apache的开源项目Commons Email。 下面的代码，可以以小马哥的名义给自己发邮件，该功能仅用于测试，请谨慎使用，产生的问题，本人概不负责。 /微笑">
+<meta name="twitter:description" content="this is desc.">
   
     <link rel="alternate" href="/atom.xml" title="JustForFun" type="application/atom+xml">
   
@@ -35,6 +33,19 @@
   <link rel="stylesheet" href="/css/style.css" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
   
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?4de38e2838c5de001401028af3beef7e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
 </head>
 
 <body>
@@ -47,9 +58,11 @@
   <nav class="nav">
     <ul>
       
-        <li><a href="/">Home</a></li>
-      
         <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/reading">Reading</a></li>
+      
+        <li><a href="/about">About</a></li>
       
       
         <li><a href="/atom.xml">RSS</a></li>
@@ -75,6 +88,22 @@
   
 
   </header>
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      
+        <img src="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg">
+      
+        <img src="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg">
+      
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
   
   <div class="entry">
     
@@ -132,7 +161,23 @@
    | 
   Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
 </div>
-<div class="clearfix"></div></footer>
+<div class="clearfix"></div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+<span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+
+<span id="busuanzi_container_page_pv">
+  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>
+</footer>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script src="/js/scale.fix.js"></script>
 <script src="/js/jquery.imagesloaded.min.js"></script>
@@ -160,6 +205,7 @@
     $('.fancybox').fancybox();
   })(jQuery);
 </script>
+
 
 </body>
 </html>
