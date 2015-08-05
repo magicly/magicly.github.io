@@ -39,7 +39,7 @@
 第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。
 
 自己比较懒惰，也就偶尔在OC上写点闲散的笔记，最近觉得还是应该要把自己的知识系统地梳理一下，便决定开一个独立的">
-<meta property="og:updated_time" content="2015-07-26T16:00:24.000Z">
+<meta property="og:updated_time" content="2015-08-03T15:52:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我的第一个hexo Blog">
 <meta name="twitter:description" content="引用阮老师的话，
@@ -79,7 +79,7 @@ var _hmt = _hmt || [];
     <header id="header">
   <div class="title">
     <h1><a href="/">JustForFun</a></h1>
-    <p><a href="/"></a></p>
+    <p><a href="/">工程师，程序猿，Magic，德州扑克</a></p>
   </div>
   <nav class="nav">
     <ul>
@@ -97,7 +97,15 @@ var _hmt = _hmt || [];
     <div class="clearfix"></div>
   </nav>
   <div class="clearfix"></div>
+
+  <div>
+    <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+      <input type="search" name="q" id="search" autocomplete="off" autocorrect="off" autocapitalize="off" maxlength="20" placeholder="Search" />
+      <input type="hidden" name="q" value="site:magicly.me">
+    </form>
+  </div>
 </header>
+
     <div class="content"><article class="post">
   <header>
     
@@ -131,12 +139,12 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>hexo出自台湾大学生<a href="https://twitter.com/tommy351" target="_blank" rel="external">tommy351</a>之手，是一个基于<a href="https://nodejs.org/" target="_blank" rel="external">Node.js</a>的静态博客程序，其编译上百篇文字只需要几秒。hexo生成的静态网页可以直接放到GitHub Pages，BAE，SAE等平台上。先看看tommy是如何吐槽Octopress的 →＿→ <a href="http://zespia.tw/blog/2012/10/11/hexo-debut/" target="_blank" rel="external">Hexo颯爽登場</a>。</p>
 </blockquote>
-<h1 id="安装">安装</h1><p>首先安装Node.js，然后运行<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli&#10;npm install hexo --save</span><br></pre></td></tr></table></figure></p>
-<h1 id="初始化配置">初始化配置</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init&#10;npm install</span><br></pre></td></tr></table></figure>
-<h1 id="写blog">写blog</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n</span><br></pre></td></tr></table></figure>
-<h1 id="生成">生成</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-<h1 id="本地预览">本地预览</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-<h1 id="发布">发布</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<h1 id="安装">安装</h1><p>首先安装Node.js，然后运行<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli&#10;npm install hexo --save</span><br></pre></td></tr></table></figure></p>
+<h1 id="初始化配置">初始化配置</h1><figure class="highlight"><table><tr><td class="code"><pre><span class="line">hexo init&#10;npm install</span><br></pre></td></tr></table></figure>
+<h1 id="写blog">写blog</h1><figure class="highlight"><table><tr><td class="code"><pre><span class="line">hexo n</span><br></pre></td></tr></table></figure>
+<h1 id="生成">生成</h1><figure class="highlight"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+<h1 id="本地预览">本地预览</h1><figure class="highlight"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<h1 id="发布">发布</h1><figure class="highlight"><table><tr><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
 <p>实在觉得没必<a href="https://en.wikipedia.org/wiki/Reinventing_the_wheel" target="_blank" rel="external">重复造轮子</a>，重写已经有很详细资料的东西。强烈推荐<a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="external">这篇</a>。 我觉得基本涵盖了方方面面，如果以后有新东西这里面没有的，我再写吧~</p>
 <p>Refs</p>
 <ol>
@@ -156,6 +164,10 @@ var _hmt = _hmt || [];
   <footer>
     
       
+  <div class="categories">
+    <a class="categories-link" href="/categories/default/">default</a>
+  </div>
+
       
   <div class="tags">
     <a class="tags-link" href="/tags/github/">github</a>, <a class="tags-link" href="/tags/githubPages/">githubPages</a>, <a class="tags-link" href="/tags/hexo/">hexo</a>
@@ -174,6 +186,74 @@ var _hmt = _hmt || [];
 </section>
 </div>
   </div>
+
+
+<div class="widget-wrapper">
+  <aside id="sidebar">
+  
+    
+<div class="widget tag first">
+	<h3 class="title">categories</h3>
+		<ul class="entry">
+		
+			<li><a href="/categories/Java/" title="Java">Java<small>4</small></a></li>
+		
+			<li><a href="/categories/default/" title="default">default<small>1</small></a></li>
+		
+			<li><a href="/categories/java/" title="java">java<small>0</small></a></li>
+		
+			<li><a href="/categories/weixin/" title="weixin">weixin<small>1</small></a></li>
+		
+		</ul>
+</div>
+
+
+  
+    
+  <div class="widget tagcloud">
+    <h3 class="title">tagcloud</h3>
+    <div class="entry">
+       <a href="/tags/Apache-Commons/" style="font-size: 10px;">Apache Commons</a> <a href="/tags/Email/" style="font-size: 10px;">Email</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaMail/" style="font-size: 10px;">JavaMail</a> <a href="/tags/Java反射/" style="font-size: 10px;">Java反射</a> <a href="/tags/concurrency/" style="font-size: 15px;">concurrency</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/githubPages/" style="font-size: 10px;">githubPages</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/jdk/" style="font-size: 15px;">jdk</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/weixin/" style="font-size: 10px;">weixin</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/源码阅读/" style="font-size: 15px;">源码阅读</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget recent-posts">
+    <h3 class="title">Recents</h3>
+    <ul class="entry">
+      
+        <li>
+          <a href="/2015/07/26/ssh-reverse-tunnel-wx-local/">利用SSH反向通道在本地调试微信公共号</a>
+        </li>
+      
+        <li>
+          <a href="/2015/07/26/my-first-hexo-blog/">我的第一个hexo Blog</a>
+        </li>
+      
+        <li>
+          <a href="/2015/07/13/java-email/">Java发送邮件</a>
+        </li>
+      
+        <li>
+          <a href="/2015/06/13/how-big-is-a-java-object/">一个Java对象到底有多大</a>
+        </li>
+      
+        <li>
+          <a href="/2015/01/13/juc-source-code-read-atomic/">J.U.C源码解读之atomic</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+  
+  </aside>
+  <div class="clearfix"></div>
+</div>
+
+
   <footer id="footer"><div class="copyright">
   
   &copy; 2015 <a href="/">magicly</a>
@@ -181,7 +261,7 @@ var _hmt = _hmt || [];
 </div>
 <div class="theme-copyright">
   Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
-   | 
+   |
   Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
 </div>
 <div class="clearfix"></div>

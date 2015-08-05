@@ -33,7 +33,7 @@ atomic包里Integer/Long对应的原子类，主要基于CAS；
 一些同步子，包括Lock，CountDownLatch，Semaphore，FutureTask等，这些都是基于AbstractQueuedSynchronizer类；
 关于线程执行的Executors类等；
 一">
-<meta property="og:updated_time" content="2015-07-26T04:35:06.000Z">
+<meta property="og:updated_time" content="2015-08-03T15:51:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="J.U.C源码解读之atomic">
 <meta name="twitter:description" content="java5之后的java.util.concurrent包是世界级并发大师Doug Lea的作品，里面主要实现了
@@ -71,7 +71,7 @@ var _hmt = _hmt || [];
     <header id="header">
   <div class="title">
     <h1><a href="/">JustForFun</a></h1>
-    <p><a href="/"></a></p>
+    <p><a href="/">工程师，程序猿，Magic，德州扑克</a></p>
   </div>
   <nav class="nav">
     <ul>
@@ -89,7 +89,15 @@ var _hmt = _hmt || [];
     <div class="clearfix"></div>
   </nav>
   <div class="clearfix"></div>
+
+  <div>
+    <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+      <input type="search" name="q" id="search" autocomplete="off" autocorrect="off" autocapitalize="off" maxlength="20" placeholder="Search" />
+      <input type="hidden" name="q" value="site:magicly.me">
+    </form>
+  </div>
 </header>
+
     <div class="content"><article class="post">
   <header>
     
@@ -122,17 +130,17 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>在这里，CAS 指的是现代 CPU 广泛支持的一种对内存中的共享数据进行操作的一种特殊指令。这个指令会对内存中的共享数据做原子的读写操作。简单介绍一下这个指令的操作过程：首先，CPU 会将内存中将要被更改的数据与期望的值做比较。然后，当这两个值相等时，CPU 才会将内存中的数值替换为新的值。否则便不做操作。最后，CPU 会将旧的数值返回。这一系列的操作是原子的。它们虽然看似复杂，但却是 Java 5 并发机制优于原有锁机制的根本。简单来说，CAS 的含义是“我认为原有的值应该是什么，如果是，则将原有的值更新为新值，否则不做修改，并告诉我原来的值是多少”。</p>
 </blockquote>
-<h1 id="AtomicInteger">AtomicInteger</h1><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> <span class="keyword">value</span>;</span><br></pre></td></tr></table></figure>
-<p>AtomicInteger里面只包含一个字段，用来记录当前值，定义为volatile是为了满足<strong>可见性</strong>。<br><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// setup to use Unsafe.compareAndSwapInt for updates</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Unsafe unsafe = Unsafe.getUnsafe();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">long</span> valueOffset;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      valueOffset = unsafe.objectFieldOffset</span><br><span class="line">          (AtomicInteger.<span class="keyword">class</span>.getDeclaredField(<span class="string">"value"</span>));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception ex) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> Error(ex); &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>一开始定义了static变量Unsafe，AtomicInteger里面的方法都是对unsafe里面<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSwapInt</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">int</span> var4, <span class="keyword">int</span> var5)</span></span>;</span><br></pre></td></tr></table></figure></p>
-<p>方法的封装。<br>我们来看原子性的i++，<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> getAndIncrement() &#123;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">int</span> current = get();</span><br><span class="line">        <span class="keyword">int</span> <span class="keyword">next</span> = current + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (compareAndSet(current, <span class="keyword">next</span>))</span><br><span class="line">            <span class="keyword">return</span> current;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在一个无限循环里面，首先获取当前值，用当前值+1，然后调用<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">return</span> unsafe.<span class="title">compareAndSwapInt</span><span class="params">(<span class="keyword">this</span>, valueOffset, expect, update)</span></span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="AtomicInteger">AtomicInteger</h1><figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> <span class="keyword">value</span>;</span><br></pre></td></tr></table></figure>
+<p>AtomicInteger里面只包含一个字段，用来记录当前值，定义为volatile是为了满足<strong>可见性</strong>。<br><figure class="highlight d"><table><tr><td class="code"><pre><span class="line"><span class="comment">// setup to use Unsafe.compareAndSwapInt for updates</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Unsafe unsafe = Unsafe.getUnsafe();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">long</span> valueOffset;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      valueOffset = unsafe.objectFieldOffset</span><br><span class="line">          (AtomicInteger.<span class="keyword">class</span>.getDeclaredField(<span class="string">"value"</span>));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception ex) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> Error(ex); &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>一开始定义了static变量Unsafe，AtomicInteger里面的方法都是对unsafe里面<br><figure class="highlight aspectj"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSwapInt</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">int</span> var4, <span class="keyword">int</span> var5)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>方法的封装。<br>我们来看原子性的i++，<br><figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> getAndIncrement() &#123;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">int</span> current = get();</span><br><span class="line">        <span class="keyword">int</span> <span class="keyword">next</span> = current + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (compareAndSet(current, <span class="keyword">next</span>))</span><br><span class="line">            <span class="keyword">return</span> current;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在一个无限循环里面，首先获取当前值，用当前值+1，然后调用<br><figure class="highlight aspectj"><table><tr><td class="code"><pre><span class="line">  <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">return</span> unsafe.<span class="title">compareAndSwapInt</span><span class="params">(<span class="keyword">this</span>, valueOffset, expect, update)</span></span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
 <p>unsafe.compareAndSwapInt(this, valueOffset, expect, update)的含义是把this对象里面valueOffset（在一开始static代码里面获取）这个位置（即value值）跟expect比较，如果相等，则修改为update，返回true；如果不相等，说明在获取到current之后有其他线程修改过value的值，则重新来一遍，一直到修改成功为止。这里就可以看出，理论上来说，这个方法是有可能永远不能返回的，实际而言，当并发冲突很严重，反复compareAndSet(current, next)失败，有可能也需要花费很多时间。</p>
 <p>AtomicInteger里面的其他方法，基本类似；其他类包括AtomicLong，AtomicReference等也是基本对Unsafe里面compareAndSet的一个封装。</p>
 <h1 id="Unsafe">Unsafe</h1><p>前面可以看到Unsafe类在实现atomic的重要性。为什么有Unsafe这个class呢，基本原因是Java不允许代码直接操作内存，好处是更安全，一般不会出现内存泄露，因为有JVM的GC；坏处是有些底层调用执行不了。我的理解是，Unsafe就是这个java安全围城通向比如c++这个不安全外围的一道门，所以叫Unsafe嘛。Unsafe里面基本都是native，即通过JNI调用c/c++等代码。大部分是直接内存操作，以及后面会讲到的挂起唤醒线程等，包括park和unpark。</p>
-<p>前面到<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSwapInt</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">int</span> var4, <span class="keyword">int</span> var5)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>前面到<br><figure class="highlight aspectj"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSwapInt</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">int</span> var4, <span class="keyword">int</span> var5)</span></span>;</span><br></pre></td></tr></table></figure></p>
 <p>这个方法就不是java代码了，如果想看实现的话，需要下载OpenJDK源码，里面是c++代码调用汇编代码，blabla。我不建议大家再往下继续了，原因有几个，一是我们用java等高级语言的目的就是为了避免纠结复杂的底层细节，站在更高层的角度思考问题，而且java里面还有更多的问题等待你去解决，更多的知识可以学习呢！如果你说你已经把java完全掌握了，包括把jdk源码，tomcat、spring，xxxxx源码都看过了，实在没得看了，那我会说，多陪陪家人吧~除非你是JVM开发工程师，哦，那不好意思，大神，当我啥都没说。。。。为了完整性，我贴几个参考链接<a href="http://www.blogjava.net/mstar/archive/2013/04/24/398351.html" target="_blank" rel="external">http://www.blogjava.net/mstar/archive/2013/04/24/398351.html</a>, <a href="http://zl198751.iteye.com/blog/1848575" target="_blank" rel="external">http://zl198751.iteye.com/blog/1848575</a>.</p>
-<p>那么如果获取Unsafe呢？Unsafe有一个static方法可以获取Unsafe实例，如下<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function">Unsafe <span class="title">getUnsafe</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       Class var0 = Reflection.getCallerClass(<span class="number">2</span>);</span><br><span class="line">       <span class="keyword">if</span>(var0.getClassLoader() != <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">"Unsafe"</span>);</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> theUnsafe;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么如果获取Unsafe呢？Unsafe有一个static方法可以获取Unsafe实例，如下<br><figure class="highlight aspectj"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function">Unsafe <span class="title">getUnsafe</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       Class var0 = Reflection.getCallerClass(<span class="number">2</span>);</span><br><span class="line">       <span class="keyword">if</span>(var0.getClassLoader() != <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">"Unsafe"</span>);</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> theUnsafe;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
 <p>可是你如果在自己代码里使用，可以编译通过，但是运行时候报错。因为里面限制了调用getUnsafe()这个方法的类必须是启动类加载器Bootstrap Loader。所以如果想在自己代码里面调用Unsafe的话（强烈建议不要这样子做），可以用Java的反射来实现：</p>
 <pre><code>    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">UnsafeSupport</span> {
         <span class="keyword">private</span> <span class="keyword">static</span> Unsafe <span class="keyword">unsafe</span>;
@@ -182,6 +190,10 @@ var _hmt = _hmt || [];
   <footer>
     
       
+  <div class="categories">
+    <a class="categories-link" href="/categories/Java/">Java</a>
+  </div>
+
       
   <div class="tags">
     <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/concurrency/">concurrency</a>, <a class="tags-link" href="/tags/jdk/">jdk</a>, <a class="tags-link" href="/tags/源码阅读/">源码阅读</a>
@@ -200,6 +212,74 @@ var _hmt = _hmt || [];
 </section>
 </div>
   </div>
+
+
+<div class="widget-wrapper">
+  <aside id="sidebar">
+  
+    
+<div class="widget tag first">
+	<h3 class="title">categories</h3>
+		<ul class="entry">
+		
+			<li><a href="/categories/Java/" title="Java">Java<small>4</small></a></li>
+		
+			<li><a href="/categories/default/" title="default">default<small>1</small></a></li>
+		
+			<li><a href="/categories/java/" title="java">java<small>0</small></a></li>
+		
+			<li><a href="/categories/weixin/" title="weixin">weixin<small>1</small></a></li>
+		
+		</ul>
+</div>
+
+
+  
+    
+  <div class="widget tagcloud">
+    <h3 class="title">tagcloud</h3>
+    <div class="entry">
+       <a href="/tags/Apache-Commons/" style="font-size: 10px;">Apache Commons</a> <a href="/tags/Email/" style="font-size: 10px;">Email</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaMail/" style="font-size: 10px;">JavaMail</a> <a href="/tags/Java反射/" style="font-size: 10px;">Java反射</a> <a href="/tags/concurrency/" style="font-size: 15px;">concurrency</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/githubPages/" style="font-size: 10px;">githubPages</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/jdk/" style="font-size: 15px;">jdk</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/weixin/" style="font-size: 10px;">weixin</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/源码阅读/" style="font-size: 15px;">源码阅读</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget recent-posts">
+    <h3 class="title">Recents</h3>
+    <ul class="entry">
+      
+        <li>
+          <a href="/2015/07/26/ssh-reverse-tunnel-wx-local/">利用SSH反向通道在本地调试微信公共号</a>
+        </li>
+      
+        <li>
+          <a href="/2015/07/26/my-first-hexo-blog/">我的第一个hexo Blog</a>
+        </li>
+      
+        <li>
+          <a href="/2015/07/13/java-email/">Java发送邮件</a>
+        </li>
+      
+        <li>
+          <a href="/2015/06/13/how-big-is-a-java-object/">一个Java对象到底有多大</a>
+        </li>
+      
+        <li>
+          <a href="/2015/01/13/juc-source-code-read-atomic/">J.U.C源码解读之atomic</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+  
+  </aside>
+  <div class="clearfix"></div>
+</div>
+
+
   <footer id="footer"><div class="copyright">
   
   &copy; 2015 <a href="/">magicly</a>
@@ -207,7 +287,7 @@ var _hmt = _hmt || [];
 </div>
 <div class="theme-copyright">
   Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
-   | 
+   |
   Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
 </div>
 <div class="clearfix"></div>

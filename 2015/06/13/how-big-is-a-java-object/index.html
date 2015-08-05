@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="JustForFun">
 <meta property="og:description" content="经常遇到一个问题，需要在内存里缓存一批数据来提高效率（避免每次都读取DB）。那问题来了，这些对象到底会占用多大内存呢，这直接决定了可以缓存多少条记录，以及上线之后是否会内存不够等问题。
 来看几种解决方法。">
-<meta property="og:updated_time" content="2015-07-26T04:33:31.000Z">
+<meta property="og:updated_time" content="2015-08-03T15:50:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一个Java对象到底有多大">
 <meta name="twitter:description" content="经常遇到一个问题，需要在内存里缓存一批数据来提高效率（避免每次都读取DB）。那问题来了，这些对象到底会占用多大内存呢，这直接决定了可以缓存多少条记录，以及上线之后是否会内存不够等问题。
@@ -55,7 +55,7 @@ var _hmt = _hmt || [];
     <header id="header">
   <div class="title">
     <h1><a href="/">JustForFun</a></h1>
-    <p><a href="/"></a></p>
+    <p><a href="/">工程师，程序猿，Magic，德州扑克</a></p>
   </div>
   <nav class="nav">
     <ul>
@@ -73,7 +73,15 @@ var _hmt = _hmt || [];
     <div class="clearfix"></div>
   </nav>
   <div class="clearfix"></div>
+
+  <div>
+    <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+      <input type="search" name="q" id="search" autocomplete="off" autocorrect="off" autocapitalize="off" maxlength="20" placeholder="Search" />
+      <input type="hidden" name="q" value="site:magicly.me">
+    </form>
+  </div>
 </header>
+
     <div class="content"><article class="post">
   <header>
     
@@ -104,7 +112,7 @@ var _hmt = _hmt || [];
 <li>blabla。。。。</li>
 </ol>
 <p>我们来看看直接从Java程序里能获取到的Runtime。</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by magicalli on 2015/2/3.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> class TestMemory &#123;</span><br><span class="line">    <span class="keyword">static</span> class A &#123;</span><br><span class="line">        <span class="built_in">int</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"--- Memory Usage ---:"</span>);</span><br><span class="line">        Runtime rt = Runtime.getRuntime();</span><br><span class="line">        <span class="comment">//打印总内存大小 //打印空闲内存大小 //打印已用内存大小 单位(字节)</span></span><br><span class="line">        <span class="keyword">long</span> usedMemory = rt.totalMemory() - rt.freeMemory();</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"Total Memory= "</span> + rt.totalMemory() + <span class="string">" Free Memory = "</span> + rt.freeMemory() + <span class="string">" Used　Memory="</span> + usedMemory);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 把你要测试的占用内存的代码放在这里------start--------------</span></span><br><span class="line">        <span class="keyword">final</span> <span class="built_in">int</span> N = <span class="number">100000</span>;</span><br><span class="line">        <span class="built_in">int</span>[] arr = <span class="keyword">new</span> <span class="built_in">int</span>[N];</span><br><span class="line">        Integer[] arr2 = <span class="keyword">new</span> Integer[N];</span><br><span class="line">        A[] arrA = <span class="keyword">new</span> A[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            arr[i] = i;</span><br><span class="line"><span class="comment">//            arr2[i] = i;</span></span><br><span class="line"><span class="comment">//            arrA[i] = new A();</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();</span></span><br><span class="line">        Map&lt;Integer, <span class="keyword">String</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;Integer, <span class="keyword">String</span>&gt;();</span><br><span class="line"><span class="comment">//        for (int i = 0; i &lt; N; i++) &#123;</span></span><br><span class="line"><span class="comment">//            list.add(i);</span></span><br><span class="line"><span class="comment">//            map.put(i, UUID.randomUUID().toString());</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        System.out.println(map.size());</span></span><br><span class="line">        <span class="comment">// 把你要测试的占用内存的代码放在这里------end--------------</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> usedMemory2 = rt.totalMemory() - rt.freeMemory();</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"Total Memory= "</span> + rt.totalMemory() + <span class="string">" Free Memory = "</span> + rt.freeMemory() + <span class="string">" Used　Memory="</span> + usedMemory2);</span><br><span class="line">        <span class="keyword">long</span> objMemory = usedMemory2 - usedMemory;</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"object use memory: "</span> + objMemory / <span class="number">1024</span> + <span class="string">"k"</span> + <span class="string">" each is: "</span> + objMemory / N);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight processing"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by magicalli on 2015/2/3.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> class TestMemory &#123;</span><br><span class="line">    <span class="keyword">static</span> class A &#123;</span><br><span class="line">        <span class="built_in">int</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"--- Memory Usage ---:"</span>);</span><br><span class="line">        Runtime rt = Runtime.getRuntime();</span><br><span class="line">        <span class="comment">//打印总内存大小 //打印空闲内存大小 //打印已用内存大小 单位(字节)</span></span><br><span class="line">        <span class="keyword">long</span> usedMemory = rt.totalMemory() - rt.freeMemory();</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"Total Memory= "</span> + rt.totalMemory() + <span class="string">" Free Memory = "</span> + rt.freeMemory() + <span class="string">" Used　Memory="</span> + usedMemory);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 把你要测试的占用内存的代码放在这里------start--------------</span></span><br><span class="line">        <span class="keyword">final</span> <span class="built_in">int</span> N = <span class="number">100000</span>;</span><br><span class="line">        <span class="built_in">int</span>[] arr = <span class="keyword">new</span> <span class="built_in">int</span>[N];</span><br><span class="line">        Integer[] arr2 = <span class="keyword">new</span> Integer[N];</span><br><span class="line">        A[] arrA = <span class="keyword">new</span> A[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            arr[i] = i;</span><br><span class="line"><span class="comment">//            arr2[i] = i;</span></span><br><span class="line"><span class="comment">//            arrA[i] = new A();</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();</span></span><br><span class="line">        Map&lt;Integer, <span class="keyword">String</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;Integer, <span class="keyword">String</span>&gt;();</span><br><span class="line"><span class="comment">//        for (int i = 0; i &lt; N; i++) &#123;</span></span><br><span class="line"><span class="comment">//            list.add(i);</span></span><br><span class="line"><span class="comment">//            map.put(i, UUID.randomUUID().toString());</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        System.out.println(map.size());</span></span><br><span class="line">        <span class="comment">// 把你要测试的占用内存的代码放在这里------end--------------</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> usedMemory2 = rt.totalMemory() - rt.freeMemory();</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"Total Memory= "</span> + rt.totalMemory() + <span class="string">" Free Memory = "</span> + rt.freeMemory() + <span class="string">" Used　Memory="</span> + usedMemory2);</span><br><span class="line">        <span class="keyword">long</span> objMemory = usedMemory2 - usedMemory;</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"object use memory: "</span> + objMemory / <span class="number">1024</span> + <span class="string">"k"</span> + <span class="string">" each is: "</span> + objMemory / N);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上面方法的最大好处就是可以直接获得实际占用内存大小，是比较简单有效的方法。不好的地方就是如果数据量比较小，可能偏差比较大，而且你也不能解释为什么Integer[]比int[]占用内存大很多，关键是专家说：这种内存占用应该是心里算出来的，你还要去run一下程序，明显就low了，还想晋级？再练练吧！所以我们来看看怎么掐指一算！</p>
 <h1 id="计算">计算</h1><p>这个需要了解JVM里的内存分布，知道每个对象都有object header，blabal。这里推荐一篇好文<a href="http://www.cnblogs.com/magialmoon/p/3757767.html" target="_blank" rel="external">一个Java对象到底占用多大内存？</a>，我就不重复了。</p>
 <p>还看到另一种计算方式，用的Unsafe，不过感觉没有前面用Instrumentation的好。参考这里<a href="http://blog.csdn.net/bobpauline/article/details/20699233" target="_blank" rel="external">Java计算一个对象占用内存的大小</a></p>
@@ -131,6 +139,10 @@ var _hmt = _hmt || [];
   <footer>
     
       
+  <div class="categories">
+    <a class="categories-link" href="/categories/Java/">Java</a>
+  </div>
+
       
   <div class="tags">
     <a class="tags-link" href="/tags/JVM/">JVM</a>, <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/Java反射/">Java反射</a>
@@ -149,6 +161,74 @@ var _hmt = _hmt || [];
 </section>
 </div>
   </div>
+
+
+<div class="widget-wrapper">
+  <aside id="sidebar">
+  
+    
+<div class="widget tag first">
+	<h3 class="title">categories</h3>
+		<ul class="entry">
+		
+			<li><a href="/categories/Java/" title="Java">Java<small>4</small></a></li>
+		
+			<li><a href="/categories/default/" title="default">default<small>1</small></a></li>
+		
+			<li><a href="/categories/java/" title="java">java<small>0</small></a></li>
+		
+			<li><a href="/categories/weixin/" title="weixin">weixin<small>1</small></a></li>
+		
+		</ul>
+</div>
+
+
+  
+    
+  <div class="widget tagcloud">
+    <h3 class="title">tagcloud</h3>
+    <div class="entry">
+       <a href="/tags/Apache-Commons/" style="font-size: 10px;">Apache Commons</a> <a href="/tags/Email/" style="font-size: 10px;">Email</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaMail/" style="font-size: 10px;">JavaMail</a> <a href="/tags/Java反射/" style="font-size: 10px;">Java反射</a> <a href="/tags/concurrency/" style="font-size: 15px;">concurrency</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/githubPages/" style="font-size: 10px;">githubPages</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/jdk/" style="font-size: 15px;">jdk</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/weixin/" style="font-size: 10px;">weixin</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/源码阅读/" style="font-size: 15px;">源码阅读</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget recent-posts">
+    <h3 class="title">Recents</h3>
+    <ul class="entry">
+      
+        <li>
+          <a href="/2015/07/26/ssh-reverse-tunnel-wx-local/">利用SSH反向通道在本地调试微信公共号</a>
+        </li>
+      
+        <li>
+          <a href="/2015/07/26/my-first-hexo-blog/">我的第一个hexo Blog</a>
+        </li>
+      
+        <li>
+          <a href="/2015/07/13/java-email/">Java发送邮件</a>
+        </li>
+      
+        <li>
+          <a href="/2015/06/13/how-big-is-a-java-object/">一个Java对象到底有多大</a>
+        </li>
+      
+        <li>
+          <a href="/2015/01/13/juc-source-code-read-atomic/">J.U.C源码解读之atomic</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+  
+  </aside>
+  <div class="clearfix"></div>
+</div>
+
+
   <footer id="footer"><div class="copyright">
   
   &copy; 2015 <a href="/">magicly</a>
@@ -156,7 +236,7 @@ var _hmt = _hmt || [];
 </div>
 <div class="theme-copyright">
   Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
-   | 
+   |
   Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
 </div>
 <div class="clearfix"></div>
