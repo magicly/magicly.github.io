@@ -1,0 +1,27 @@
+menu:
+#  Home: /
+  Archives: /archives
+  Reading: /reading
+  About: /about
+
+rss: /atom.xml
+
+archive_date_format: MMM DD
+fancybox: true
+
+widgets: #配置页脚显示哪些小挂件
+  - category
+  - tagcloud
+  - recent_posts
+
+blogrolls: #友情链接
+  - bruce sha's duapp wordpress: http://ibruce.duapp.com
+  - bruce sha's javaeye: http://buru.iteye.com
+  - bruce sha's oschina blog: http://my.oschina.net/buru
+  - bruce sha's baidu space: http://hi.baidu.com/iburu
+
+duoshuo_shortname: magicly
+
+google_analytics:
+baidu_tongji: true
+favicon: /favicon.ico
