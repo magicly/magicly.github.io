@@ -1,10 +1,10 @@
-#!/bin/bash
+ #!/bin/bash
 
 cd ~/magicly.github.io
 
 git pull
 
-#rm public/README.html
+rm public/README.html
 
 cp source/README.md public/
 
