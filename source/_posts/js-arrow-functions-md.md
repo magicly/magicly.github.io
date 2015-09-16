@@ -9,3 +9,4 @@ javascript es6 arrow function.
 <!-- more -->
 
 开始学习ES6.
+https://hacks.mozilla.org/category/es6-in-depth/
