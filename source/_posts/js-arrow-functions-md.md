@@ -1,4 +1,4 @@
-title: js-arrow-functions.md
+title: javascript箭头函数
 tags: [js, javascript, es6]
 category: JS
 date: 2015-09-07 20:48:42
