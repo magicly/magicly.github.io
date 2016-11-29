@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>一个Java对象到底有多大 | JustForFun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="magicly">
+  
+  
+    <meta name="description" content="经常遇到一个问题，需要在内存里缓存一批数据来提高效率（避免每次都读取DB）。那问题来了，这些对象到底会占用多大内存呢，这直接决定了可以缓存多少条记录，以及上线之后是否会内存不够等问题。
+来看几种解决方法。">
+  
+  <meta name="description" content="经常遇到一个问题，需要在内存里缓存一批数据来提高效率（避免每次都读取DB）。那问题来了，这些对象到底会占用多大内存呢，这直接决定了可以缓存多少条记录，以及上线之后是否会内存不够等问题。
+来看几种解决方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个Java对象到底有多大">
+<meta property="og:url" content="http://magicly.me/2015/06/13/how-big-is-a-java-object/index.html">
+<meta property="og:site_name" content="JustForFun">
+<meta property="og:description" content="经常遇到一个问题，需要在内存里缓存一批数据来提高效率（避免每次都读取DB）。那问题来了，这些对象到底会占用多大内存呢，这直接决定了可以缓存多少条记录，以及上线之后是否会内存不够等问题。
+来看几种解决方法。">
+<meta property="og:updated_time" content="2016-11-29T02:57:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一个Java对象到底有多大">
+<meta name="twitter:description" content="经常遇到一个问题，需要在内存里缓存一批数据来提高效率（避免每次都读取DB）。那问题来了，这些对象到底会占用多大内存呢，这直接决定了可以缓存多少条记录，以及上线之后是否会内存不够等问题。
+来看几种解决方法。">
+  
+    <link rel="alternate" href="/atom.xml" title="JustForFun" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?4de38e2838c5de001401028af3beef7e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">JustForFun</a></h1>
+    <p><a href="/">工程师，程序猿，Magic，德州扑克</a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/reading">Reading</a></li>
+      
+        <li><a href="/about">About</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+
+  <div>
+    <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+      <input type="search" name="q" id="search" autocomplete="off" autocorrect="off" autocapitalize="off" maxlength="20" placeholder="Search" />
+      <input type="hidden" name="q" value="site:magicly.me">
+    </form>
+  </div>
+</header>
+
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/06/13/how-big-is-a-java-object/">
+  <time datetime="2015-06-13T13:34:10.000Z">
+    2015-06-13
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">一个Java对象到底有多大</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>经常遇到一个问题，需要在内存里缓存一批数据来提高效率（避免每次都读取DB）。那问题来了，这些对象到底会占用多大内存呢，这直接决定了可以缓存多少条记录，以及上线之后是否会内存不够等问题。</p>
+<p>来看几种解决方法。</p>
+<a id="more"></a>
+<p>#测试</p>
+<p>实践是检验真理的唯一标准！比如你要想cache10w条记录，那你就把10w条记录加载到内存，然后看看到底用了多少内存。至于怎么看内存花了多少，你可以</p>
+<ol>
+<li>任务管理器</li>
+<li>top</li>
+<li>Java Runtime类</li>
+<li>blabla。。。。</li>
+</ol>
+<p>我们来看看直接从Java程序里能获取到的Runtime。</p>
+<figure class="highlight processing"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.*;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by magicalli on 2015/2/3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> class TestMemory &#123;</div><div class="line">    <span class="keyword">static</span> class A &#123;</div><div class="line">        <span class="built_in">int</span> a;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> InterruptedException &#123;</div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"--- Memory Usage ---:"</span>);</div><div class="line">        Runtime rt = Runtime.getRuntime();</div><div class="line">        <span class="comment">//打印总内存大小 //打印空闲内存大小 //打印已用内存大小 单位(字节)</span></div><div class="line">        <span class="keyword">long</span> usedMemory = rt.totalMemory() - rt.freeMemory();</div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"Total Memory= "</span> + rt.totalMemory() + <span class="string">" Free Memory = "</span> + rt.freeMemory() + <span class="string">" Used　Memory="</span> + usedMemory);</div><div class="line"></div><div class="line">        <span class="comment">// 把你要测试的占用内存的代码放在这里------start--------------</span></div><div class="line">        <span class="keyword">final</span> <span class="built_in">int</span> N = <span class="number">100000</span>;</div><div class="line">        <span class="built_in">int</span>[] arr = <span class="keyword">new</span> <span class="built_in">int</span>[N];</div><div class="line">        Integer[] arr2 = <span class="keyword">new</span> Integer[N];</div><div class="line">        A[] arrA = <span class="keyword">new</span> A[N];</div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">            arr[i] = i;</div><div class="line"><span class="comment">//            arr2[i] = i;</span></div><div class="line"><span class="comment">//            arrA[i] = new A();</span></div><div class="line">        &#125;</div><div class="line"><span class="comment">//        List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();</span></div><div class="line">        Map&lt;Integer, <span class="keyword">String</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;Integer, <span class="keyword">String</span>&gt;();</div><div class="line"><span class="comment">//        for (int i = 0; i &lt; N; i++) &#123;</span></div><div class="line"><span class="comment">//            list.add(i);</span></div><div class="line"><span class="comment">//            map.put(i, UUID.randomUUID().toString());</span></div><div class="line"><span class="comment">//        &#125;</span></div><div class="line"><span class="comment">//        System.out.println(map.size());</span></div><div class="line">        <span class="comment">// 把你要测试的占用内存的代码放在这里------end--------------</span></div><div class="line"></div><div class="line">        <span class="keyword">long</span> usedMemory2 = rt.totalMemory() - rt.freeMemory();</div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"Total Memory= "</span> + rt.totalMemory() + <span class="string">" Free Memory = "</span> + rt.freeMemory() + <span class="string">" Used　Memory="</span> + usedMemory2);</div><div class="line">        <span class="keyword">long</span> objMemory = usedMemory2 - usedMemory;</div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"object use memory: "</span> + objMemory / <span class="number">1024</span> + <span class="string">"k"</span> + <span class="string">" each is: "</span> + objMemory / N);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面方法的最大好处就是可以直接获得实际占用内存大小，是比较简单有效的方法。不好的地方就是如果数据量比较小，可能偏差比较大，而且你也不能解释为什么Integer[]比int[]占用内存大很多，关键是专家说：这种内存占用应该是心里算出来的，你还要去run一下程序，明显就low了，还想晋级？再练练吧！所以我们来看看怎么掐指一算！</p>
+<p>#计算</p>
+<p>这个需要了解JVM里的内存分布，知道每个对象都有object header，blabal。这里推荐一篇好文<a href="http://www.cnblogs.com/magialmoon/p/3757767.html" target="_blank" rel="external">一个Java对象到底占用多大内存？</a>，我就不重复了。</p>
+<p>还看到另一种计算方式，用的Unsafe，不过感觉没有前面用Instrumentation的好。参考这里<a href="http://blog.csdn.net/bobpauline/article/details/20699233" target="_blank" rel="external">Java计算一个对象占用内存的大小</a></p>
+<p>#线上查看</p>
+<p>如果是要查看线上程序哪个对象占用了大量内存（比如分析内存泄露），那么可以使用jmap。</p>
+<p>#相关知识<br>你可能需要了解jps，jinfo，打包jar，manifest，查看jvm运行参数等。</p>
+<p>#refers</p>
+<ol>
+<li><a href="http://www.importnew.com/14948.html" target="_blank" rel="external">http://www.importnew.com/14948.html</a></li>
+<li><a href="http://www.cnblogs.com/magialmoon/p/3757767.html" target="_blank" rel="external">http://www.cnblogs.com/magialmoon/p/3757767.html</a></li>
+<li><a href="http://www.oschina.net/question/1_4486" target="_blank" rel="external">http://www.oschina.net/question/1_4486</a></li>
+<li><a href="http://blog.csdn.net/bobpauline/article/details/20699233" target="_blank" rel="external">http://blog.csdn.net/bobpauline/article/details/20699233</a></li>
+<li><a href="http://happyqing.iteye.com/blog/2013639" target="_blank" rel="external">http://happyqing.iteye.com/blog/2013639</a></li>
+<li><a href="http://sunqi.iteye.com/blog/1917802" target="_blank" rel="external">http://sunqi.iteye.com/blog/1917802</a></li>
+<li><a href="http://www.blogjava.net/stone2083/archive/2013/06/08/400410.html" target="_blank" rel="external">http://www.blogjava.net/stone2083/archive/2013/06/08/400410.html</a></li>
+<li><a href="http://yueyemaitian.iteye.com/blog/2033046" target="_blank" rel="external">http://yueyemaitian.iteye.com/blog/2033046</a></li>
+<li><a href="http://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html" target="_blank" rel="external">http://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html</a></li>
+<li><a href="http://www.ibm.com/developerworks/cn/java/j-lo-instrumentation/" target="_blank" rel="external">http://www.ibm.com/developerworks/cn/java/j-lo-instrumentation/</a></li>
+</ol>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+
+    
+  </div>
+  <footer>
+    
+      
+  <div class="categories">
+    <a class="categories-link" href="/categories/Java/">Java</a>
+  </div>
+
+      
+  <div class="tags">
+    <a class="tags-link" href="/tags/JVM/">JVM</a>, <a class="tags-link" href="/tags/Java/">Java</a>, <a class="tags-link" href="/tags/Java反射/">Java反射</a>
+  </div>
+
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">评论</h1>
+  <div class="ds-thread" data-title="一个Java对象到底有多大">
+  </div>
+</section>
+</div>
+  </div>
+
+
+<div class="widget-wrapper">
+  <aside id="sidebar">
+  
+    
+<div class="widget tag first">
+	<h3 class="title">categories</h3>
+		<ul class="entry">
+		
+			<li><a href="/categories/FE/" title="FE">FE<small>1</small></a></li>
+		
+			<li><a href="/categories/JS/" title="JS">JS<small>1</small></a></li>
+		
+			<li><a href="/categories/Java/" title="Java">Java<small>4</small></a></li>
+		
+			<li><a href="/categories/default/" title="default">default<small>2</small></a></li>
+		
+			<li><a href="/categories/weixin/" title="weixin">weixin<small>1</small></a></li>
+		
+		</ul>
+</div>
+
+
+  
+    
+  <div class="widget tagcloud">
+    <h3 class="title">tagcloud</h3>
+    <div class="entry">
+       <a href="/tags/Apache-Commons/" style="font-size: 10px;">Apache Commons</a> <a href="/tags/Email/" style="font-size: 10px;">Email</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaMail/" style="font-size: 10px;">JavaMail</a> <a href="/tags/Java反射/" style="font-size: 10px;">Java反射</a> <a href="/tags/animation/" style="font-size: 10px;">animation</a> <a href="/tags/beizer-curve/" style="font-size: 10px;">beizer curve</a> <a href="/tags/concurrency/" style="font-size: 15px;">concurrency</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/githubPages/" style="font-size: 10px;">githubPages</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jdk/" style="font-size: 15px;">jdk</a> <a href="/tags/js/" style="font-size: 15px;">js</a> <a href="/tags/ssh/" style="font-size: 15px;">ssh</a> <a href="/tags/webhook/" style="font-size: 10px;">webhook</a> <a href="/tags/weixin/" style="font-size: 10px;">weixin</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/源码阅读/" style="font-size: 15px;">源码阅读</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget recent-posts">
+    <h3 class="title">Recents</h3>
+    <ul class="entry">
+      
+        <li>
+          <a href="/2016/11/29/bezier-curve/">bezier-curve</a>
+        </li>
+      
+        <li>
+          <a href="/2015/09/16/auto-deploy-githubPages-by-webhook-md/">利用webhook实现github pages的自动部署</a>
+        </li>
+      
+        <li>
+          <a href="/2015/09/07/js-arrow-functions-md/">javascript箭头函数</a>
+        </li>
+      
+        <li>
+          <a href="/2015/07/26/ssh-reverse-tunnel-wx-local/">利用SSH反向通道在本地调试微信公共号</a>
+        </li>
+      
+        <li>
+          <a href="/2015/07/26/my-first-hexo-blog/">我的第一个hexo Blog</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+  
+  </aside>
+  <div class="clearfix"></div>
+</div>
+
+
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">magicly</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   |
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<script>document.write(unescape('%3Cdiv id="hm_t_73364"%3E%3C/div%3E%3Cscript charset="utf-8" src="http://crs.baidu.com/t.js?siteId=4de38e2838c5de001401028af3beef7e&planId=73364&async=0&referer=') + encodeURIComponent(document.referrer) + '&title=' + encodeURIComponent(document.title) + '&rnd=' + (+new Date) + unescape('"%3E%3C/script%3E'));</script>
+
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+<span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+
+<span id="busuanzi_container_page_pv">
+  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'magicly' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+
+</body>
+</html>

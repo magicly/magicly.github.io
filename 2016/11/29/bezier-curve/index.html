@@ -1,0 +1,308 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>bezier-curve | JustForFun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="magicly">
+  
+  
+    <meta name="description" content="什么是贝塞尔曲线最近做一个动画效果时需要将物体做曲线移动， 本来记得css3里的动画是可以指定beizer curve的， 结果用的时候发现css3的beizer curve只用来做easing timing function。简单来说就是拿来控制动画“非线性”移动，比如越来越快（ease-in）， 越来越慢（ease-out），先慢后快再慢（ease-in-out）等， 让动画效果更“灵动”，">
+  
+  <meta name="description" content="什么是贝塞尔曲线最近做一个动画效果时需要将物体做曲线移动， 本来记得css3里的动画是可以指定beizer curve的， 结果用的时候发现css3的beizer curve只用来做easing timing function。简单来说就是拿来控制动画“非线性”移动，比如越来越快（ease-in）， 越来越慢（ease-out），先慢后快再慢（ease-in-out）等， 让动画效果更“灵动”，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bezier-curve">
+<meta property="og:url" content="http://magicly.me/2016/11/29/bezier-curve/index.html">
+<meta property="og:site_name" content="JustForFun">
+<meta property="og:description" content="什么是贝塞尔曲线最近做一个动画效果时需要将物体做曲线移动， 本来记得css3里的动画是可以指定beizer curve的， 结果用的时候发现css3的beizer curve只用来做easing timing function。简单来说就是拿来控制动画“非线性”移动，比如越来越快（ease-in）， 越来越慢（ease-out），先慢后快再慢（ease-in-out）等， 让动画效果更“灵动”，">
+<meta property="og:updated_time" content="2016-11-29T09:49:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="bezier-curve">
+<meta name="twitter:description" content="什么是贝塞尔曲线最近做一个动画效果时需要将物体做曲线移动， 本来记得css3里的动画是可以指定beizer curve的， 结果用的时候发现css3的beizer curve只用来做easing timing function。简单来说就是拿来控制动画“非线性”移动，比如越来越快（ease-in）， 越来越慢（ease-out），先慢后快再慢（ease-in-out）等， 让动画效果更“灵动”，">
+  
+    <link rel="alternate" href="/atom.xml" title="JustForFun" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?4de38e2838c5de001401028af3beef7e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">JustForFun</a></h1>
+    <p><a href="/">工程师，程序猿，Magic，德州扑克</a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/reading">Reading</a></li>
+      
+        <li><a href="/about">About</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+
+  <div>
+    <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+      <input type="search" name="q" id="search" autocomplete="off" autocorrect="off" autocapitalize="off" maxlength="20" placeholder="Search" />
+      <input type="hidden" name="q" value="site:magicly.me">
+    </form>
+  </div>
+</header>
+
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2016/11/29/bezier-curve/">
+  <time datetime="2016-11-29T03:09:52.000Z">
+    2016-11-29
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">bezier-curve</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <h1 id="什么是贝塞尔曲线"><a href="#什么是贝塞尔曲线" class="headerlink" title="什么是贝塞尔曲线"></a>什么是贝塞尔曲线</h1><p>最近做一个动画效果时需要将物体做曲线移动， 本来记得css3里的动画是可以指定beizer curve的， 结果用的时候发现css3的beizer curve只用来做easing timing function。简单来说就是拿来控制动画“非线性”移动，比如越来越快（ease-in）， 越来越慢（ease-out），先慢后快再慢（ease-in-out）等， 让动画效果更“灵动”， 避免线性（linear）的死板。</p>
+<p>可以看看这两个页面， 有一个直观的感受。</p>
+<a id="more"></a>
+<ul>
+<li><a href="http://cubic-bezier.com/" target="_blank" rel="external">http://cubic-bezier.com/</a></li>
+<li><a href="http://easings.net/zh-cn" target="_blank" rel="external">http://easings.net/zh-cn</a></li>
+</ul>
+<p>beizer curve在css3中的使用， 可以自己google一下， 或者看下：</p>
+<ul>
+<li><a href="http://www.w3school.com.cn/css3/css3_transition.asp" target="_blank" rel="external">http://www.w3school.com.cn/css3/css3_transition.asp</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2014/02/css_transition_and_animation.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2014/02/css_transition_and_animation.html</a></li>
+</ul>
+<p>引用wiki上的介绍：<br><figure class="highlight armasm"><table><tr><td class="code"><pre><div class="line">在数学的数值分析领域中，贝塞尔曲线（英语：<span class="keyword">Bézier </span>curve）是计算机图形学中相当重要的参数曲线。更高维度的广泛化贝塞尔曲线就称作贝塞尔曲面，其中贝塞尔三角是一种特殊的实例。</div><div class="line">贝塞尔曲线于<span class="number">1962</span>年，由法国工程师皮埃尔·贝塞尔（Pierre <span class="keyword">Bézier）所广泛发表，他运用贝塞尔曲线来为汽车的主体进行设计。贝塞尔曲线最初由Paul </span>de Casteljau于<span class="number">1959</span>年运用de Casteljau算法开发，以稳定数值的方法求出贝塞尔曲线。</div></pre></td></tr></table></figure></p>
+<p>有数学功底或者有兴趣的可以参考下面几篇文章， 我就不赘述了（最讨厌那种什么都要copy过来，弄得好像跟是自己写的样， 别人已经写得很清楚了， 干嘛再重复劳动一遍呢， 又没有自己的新的见解，赠人链接， 手留余香。 😁哈）。</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/B%C3%A9zier_curve" target="_blank" rel="external">https://en.wikipedia.org/wiki/B%C3%A9zier_curve</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E8%B2%9D%E8%8C%B2%E6%9B%B2%E7%B7%9A" target="_blank" rel="external">https://zh.wikipedia.org/wiki/%E8%B2%9D%E8%8C%B2%E6%9B%B2%E7%B7%9A</a></li>
+<li><a href="http://www.html-js.com/article/1628" target="_blank" rel="external">http://www.html-js.com/article/1628</a></li>
+<li><a href="http://www.cnblogs.com/hnfxs/p/3148483.html" target="_blank" rel="external">http://www.cnblogs.com/hnfxs/p/3148483.html</a></li>
+<li></li>
+</ul>
+<h1 id="在线工具"><a href="#在线工具" class="headerlink" title="在线工具"></a>在线工具</h1><p>下面是几个比较有用的工具， 方便大家。</p>
+<ul>
+<li><a href="http://blogs.sitepointstatic.com/examples/tech/canvas-curves/quadratic-curve.html" target="_blank" rel="external">http://blogs.sitepointstatic.com/examples/tech/canvas-curves/quadratic-curve.html</a></li>
+<li><a href="http://myst729.github.io/bezier-curve/" target="_blank" rel="external">http://myst729.github.io/bezier-curve/</a></li>
+<li><a href="http://xuanfengge.com/easeing/ceaser/" target="_blank" rel="external">http://xuanfengge.com/easeing/ceaser/</a></li>
+<li><a href="http://yisibl.github.io/cubic-bezier/#.17,.67,.83,.67" target="_blank" rel="external">http://yisibl.github.io/cubic-bezier/#.17,.67,.83,.67</a></li>
+<li><a href="http://cubic-bezier.com/#.17,.67,.83,.67" target="_blank" rel="external">http://cubic-bezier.com/#.17,.67,.83,.67</a></li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>前面资料都是把bezier curve拿来当timing function的， 而我的需求是要让物体（某个dom节点）沿着某条beizer curve移动，于是继续google， 找到了几个。</p>
+<ul>
+<li>Android实现: <a href="https://github.com/Yasic/QQBubbleView" target="_blank" rel="external">https://github.com/Yasic/QQBubbleView</a></li>
+</ul>
+<p>Android的我用不到， 放这里主要是里面的gif图很直观，哈哈。</p>
+<ul>
+<li>CSS实现：<a href="http://jinlong.github.io/2016/01/14/moving-along-a-curved-path-in-css-with-layered-animation/，" target="_blank" rel="external">http://jinlong.github.io/2016/01/14/moving-along-a-curved-path-in-css-with-layered-animation/，</a> 原文：<a href="http://tobiasahlin.com/blog/curved-path-animations-in-css/" target="_blank" rel="external">http://tobiasahlin.com/blog/curved-path-animations-in-css/</a></li>
+</ul>
+<p>CSS的实现真是相当tricky， 我解释一下。CSS里面的animation translate是直接按照直线移动到目的地的， 这是因为沿X轴和Y轴都是匀速运动（linear），所以合成之后的速度必然是斜角45°移动过去的。我们可以把X轴看成时间轴， 这时如果Y轴的移动函数是某个beizer curve，那合成之后的移动曲线就是beizer curve了。具体实现的时候还用到了:after伪元素了。</p>
+<p>复杂一点的我觉得还是需要用js去控制， 于是自然想到了用js代码去按照beizer curve公式实现。</p>
+<ul>
+<li>JS实现： <a href="http://blog.csdn.net/cuixiping/article/details/6872095" target="_blank" rel="external">http://blog.csdn.net/cuixiping/article/details/6872095</a></li>
+</ul>
+<p>这个用的公式不直观，应该是进行了变换之后的， 我直接照着公式写了一个。<br><figure class="highlight cpp"><table><tr><td class="code"><pre><div class="line"><span class="function">function <span class="title">PointOnCubicBezier2</span><span class="params">(cp, t)</span>  </span>&#123;</div><div class="line">   <span class="comment">// B(t) = P0 * (1-t)^3 + 3 * P1 * t * (1-t)^2 + 3 * P2 * t^2 * (1-t) + P3 * t^3</span></div><div class="line">        <span class="keyword">const</span> <span class="keyword">one_t</span> = <span class="number">1.0</span> - t;</div><div class="line">        <span class="keyword">const</span> P0 = cp[<span class="number">0</span>];</div><div class="line">        <span class="keyword">const</span> P1 = cp[<span class="number">1</span>];</div><div class="line">        <span class="keyword">const</span> P2 = cp[<span class="number">2</span>];</div><div class="line">        <span class="keyword">const</span> P3 = cp[<span class="number">3</span>];</div><div class="line">        <span class="keyword">const</span> x =  (P0.x * Math.<span class="built_in">pow</span>(<span class="keyword">one_t</span>, <span class="number">3</span>) + <span class="number">3</span> * P1.x * t * Math.<span class="built_in">pow</span>(<span class="keyword">one_t</span>, <span class="number">2</span>) + <span class="number">3</span> * P2.x * Math.<span class="built_in">pow</span>(t, <span class="number">2</span>) * <span class="keyword">one_t</span> + P3.x * Math.<span class="built_in">pow</span>(t, <span class="number">3</span>));</div><div class="line">        <span class="keyword">const</span> y =  (P0.y * Math.<span class="built_in">pow</span>(<span class="keyword">one_t</span>, <span class="number">3</span>) + <span class="number">3</span> * P1.y * t * Math.<span class="built_in">pow</span>(<span class="keyword">one_t</span>, <span class="number">2</span>) + <span class="number">3</span> * P2.y * Math.<span class="built_in">pow</span>(t, <span class="number">2</span>) * <span class="keyword">one_t</span> + P3.y * Math.<span class="built_in">pow</span>(t, <span class="number">3</span>));</div><div class="line">        <span class="keyword">const</span> pointF = <span class="keyword">new</span> Point2D(x, y);</div><div class="line">        <span class="keyword">return</span> pointF;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对比了一下两个函数的输出值， 完全是一样的， 应该就是数学变换而已， 我懒得去做推倒了。</p>
+<p>后来找到一个三阶beizer curve的实现，看这里<br><a href="https://github.com/gre/bezier-easing，" target="_blank" rel="external">https://github.com/gre/bezier-easing，</a> 这个实现可能有点NB，以至于<a href="https://facebook.github.io/react-native/" target="_blank" rel="external">React Native</a>、<a href="http://velocityjs.org/" target="_blank" rel="external">Velocity</a>等项目都使用了，屌屌的。</p>
+<p>用<a href="https://github.com/bestiejs/benchmark.js" target="_blank" rel="external">benchmark</a>跑一下分：<a href="https://jsperf.com/beizer-curve5" target="_blank" rel="external">看这里</a>， chrome下我写的方法居然慢了94%！看样子代码可读性是要付出代价的哈。我还是老老实实用<a href="https://github.com/gre/bezier-easing吧。" target="_blank" rel="external">https://github.com/gre/bezier-easing吧。</a></p>
+<p>刚刚又搜到一篇文章， 讲解地更细致深入， 害得我不想继续写了。 直接看这里吧。<a href="http://www.jianshu.com/p/55c721887568" target="_blank" rel="external">http://www.jianshu.com/p/55c721887568</a></p>
+<h1 id="如何将多个点用贝塞尔曲线连起来"><a href="#如何将多个点用贝塞尔曲线连起来" class="headerlink" title="如何将多个点用贝塞尔曲线连起来"></a>如何将多个点用贝塞尔曲线连起来</h1><ul>
+<li><a href="http://www.zheng-hang.com/?id=43" target="_blank" rel="external">http://www.zheng-hang.com/?id=43</a></li>
+<li><a href="http://www.cnblogs.com/hnfxs/p/3148743.html" target="_blank" rel="external">http://www.cnblogs.com/hnfxs/p/3148743.html</a></li>
+<li></li>
+</ul>
+
+    
+  </div>
+  <footer>
+    
+      
+  <div class="categories">
+    <a class="categories-link" href="/categories/FE/">FE</a>
+  </div>
+
+      
+  <div class="tags">
+    <a class="tags-link" href="/tags/animation/">animation</a>, <a class="tags-link" href="/tags/beizer-curve/">beizer curve</a>, <a class="tags-link" href="/tags/css/">css</a>, <a class="tags-link" href="/tags/js/">js</a>
+  </div>
+
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">评论</h1>
+  <div class="ds-thread" data-title="bezier-curve">
+  </div>
+</section>
+</div>
+  </div>
+
+
+<div class="widget-wrapper">
+  <aside id="sidebar">
+  
+    
+<div class="widget tag first">
+	<h3 class="title">categories</h3>
+		<ul class="entry">
+		
+			<li><a href="/categories/FE/" title="FE">FE<small>1</small></a></li>
+		
+			<li><a href="/categories/JS/" title="JS">JS<small>1</small></a></li>
+		
+			<li><a href="/categories/Java/" title="Java">Java<small>4</small></a></li>
+		
+			<li><a href="/categories/default/" title="default">default<small>2</small></a></li>
+		
+			<li><a href="/categories/weixin/" title="weixin">weixin<small>1</small></a></li>
+		
+		</ul>
+</div>
+
+
+  
+    
+  <div class="widget tagcloud">
+    <h3 class="title">tagcloud</h3>
+    <div class="entry">
+       <a href="/tags/Apache-Commons/" style="font-size: 10px;">Apache Commons</a> <a href="/tags/Email/" style="font-size: 10px;">Email</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaMail/" style="font-size: 10px;">JavaMail</a> <a href="/tags/Java反射/" style="font-size: 10px;">Java反射</a> <a href="/tags/animation/" style="font-size: 10px;">animation</a> <a href="/tags/beizer-curve/" style="font-size: 10px;">beizer curve</a> <a href="/tags/concurrency/" style="font-size: 15px;">concurrency</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/githubPages/" style="font-size: 10px;">githubPages</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jdk/" style="font-size: 15px;">jdk</a> <a href="/tags/js/" style="font-size: 15px;">js</a> <a href="/tags/ssh/" style="font-size: 15px;">ssh</a> <a href="/tags/webhook/" style="font-size: 10px;">webhook</a> <a href="/tags/weixin/" style="font-size: 10px;">weixin</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/源码阅读/" style="font-size: 15px;">源码阅读</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget recent-posts">
+    <h3 class="title">Recents</h3>
+    <ul class="entry">
+      
+        <li>
+          <a href="/2016/11/29/bezier-curve/">bezier-curve</a>
+        </li>
+      
+        <li>
+          <a href="/2015/09/16/auto-deploy-githubPages-by-webhook-md/">利用webhook实现github pages的自动部署</a>
+        </li>
+      
+        <li>
+          <a href="/2015/09/07/js-arrow-functions-md/">javascript箭头函数</a>
+        </li>
+      
+        <li>
+          <a href="/2015/07/26/ssh-reverse-tunnel-wx-local/">利用SSH反向通道在本地调试微信公共号</a>
+        </li>
+      
+        <li>
+          <a href="/2015/07/26/my-first-hexo-blog/">我的第一个hexo Blog</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+  
+  </aside>
+  <div class="clearfix"></div>
+</div>
+
+
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">magicly</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   |
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<script>document.write(unescape('%3Cdiv id="hm_t_73364"%3E%3C/div%3E%3Cscript charset="utf-8" src="http://crs.baidu.com/t.js?siteId=4de38e2838c5de001401028af3beef7e&planId=73364&async=0&referer=') + encodeURIComponent(document.referrer) + '&title=' + encodeURIComponent(document.title) + '&rnd=' + (+new Date) + unescape('"%3E%3C/script%3E'));</script>
+
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+<span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+
+<span id="busuanzi_container_page_pv">
+  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'magicly' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+
+</body>
+</html>
