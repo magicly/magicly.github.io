@@ -9,14 +9,18 @@ category: ML
 
 <!-- more -->
 *. Andrew NG https://www.coursera.org/learn/machine-learning（已完成）
-*. Andrew NG Unsupervised Feature Learning and Deep Learning http://deeplearning.stanford.edu/tutorial/
+*. Andrew NG Unsupervised Feature Learning and Deep Learning http://deeplearning.stanford.edu/tutorial/（学习ing）
+*. http://neuralnetworksanddeeplearning.com/ （已完成）
 *. Andrew NG, standford的机器学习课程之一， http://cs229.stanford.edu/
 *. Neural Networks for Machine Learning https://www.coursera.org/learn/neural-networks by Geoffrey Hinton, Professor(深度学习创始人) （学习中）
-*. http://neuralnetworksanddeeplearning.com/ （学习中）
-*. http://www.deeplearningbook.org/, by Ian Goodfellow and Yoshua Bengio（深度学习四大金刚之一） and Aaron Courville
 *. 李飞飞课程http://cs231n.github.io/
-*. http://deeplearning.net/
+*. 斯坦福自然语言处理 http://web.stanford.edu/class/cs224n/
+*. Tensorflow for Deep Learning Research http://web.stanford.edu/class/cs20si/
+*. 伯克利人工智能课程 http://www-inst.eecs.berkeley.edu/~cs188/archives.html
+*. http://www.deeplearningbook.org/, by Ian Goodfellow and Yoshua Bengio（深度学习四大金刚之一） and Aaron Courville
 *. udacity深度学习课程tensorflow https://classroom.udacity.com/courses/ud730/（学习中）
 *. https://keras.io
 *. https://scikit-learn.org
 *. https://www.tensorflow.org
+*. http://deeplearning.net/
+*. https://www.kaggle.com
