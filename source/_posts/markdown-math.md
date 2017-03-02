@@ -103,3 +103,8 @@ J_\text{NEG} = \log Q_\theta(D=1 |w_t, h) +
 {% endmath %}
 
 经过简单的配置， 我们的web页面已经可以支持很方便的书写数学公式了，而且由于不用特殊转义， 这里写的LaTex可以在其他markdown环境下使用， 比如[有道云笔记](http://mp.weixin.qq.com/s?__biz=MjM5NjAyNjkwMA==&mid=2723942529&idx=1&sn=3b417dd77b4d5b92231ed59649844eb9&chksm=81473ffab630b6ec843d77432c487e3e3a272ec26a5b9e0ae4007f5fce3dd826825a7b64a249&mpshare=1&scene=1&srcid=0301zj3JKl85H692JGwUHZzM#rd)。
+
+
+============update===========
+
+刚发现由于引用了MathJax.js， 本身又会引用其他一些js、css以及font， 会多增加差不多100k资源， 并且由于都是国外的cdn， 速度受限制（貌似还要翻墙），所以比较影响阅读体验。后续再想办法优化吧。
