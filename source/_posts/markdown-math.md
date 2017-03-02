@@ -109,6 +109,35 @@ J_\text{NEG} = \log Q_\theta(D=1 |w_t, h) +
 
 刚发现由于引用了MathJax.js， 本身又会引用其他一些js、css以及font， 会多增加差不多100k资源， 并且由于都是国外的cdn， 速度受限制（貌似还要翻墙），所以比较影响阅读体验。后续再想办法优化吧。
 
+============update===========
+发现next主题好看一些， 换成了next。 看到next直接[支持MathJax](http://theme-next.iissnan.com/third-party-services.html#others)的，换成了qiniu的cdn。但是next自带的math，不能支持{&#37; math %}，发现还是需要hexo-math， 而且很奇怪的是， 发现不用在_config.yml里面写
+```
+plugins:
+  hexo-math
+ ```
+居然也可以， 只要package.json里面有hexo-math就可以了。于是参考[hexo-math官网](https://github.com/akfish/hexo-math)，换成了qiniu的cdn。
+```
+math:
+  engine: 'mathjax' # or 'katex'
+  mathjax:
+  src: //cdn.staticfile.org/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+```
+奇怪的是，还是有一个网络请求，不知道从哪里来的。
+```
+https://cdn.mathjax.org/mathjax/contrib/a11y/accessibility-menu.js?V=2.7.0
+```
+而且说的
+```
+Your config will be merged into default config:
+```
+似乎也没有。生成的代码为
+```
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+```
+配置目没有了？！！好在似乎没有影响使用，那就先暂时这样用着吧~~
+
 [Refs]
 * http://jzqt.github.io/2015/06/30/Markdown%E4%B8%AD%E5%86%99%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/
 * https://www.zybuluo.com/codeep/note/163962

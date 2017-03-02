@@ -64,8 +64,6 @@ pagination_dir: page
 
 # Extensions
 ## Plugins: http://hexo.io/plugins/
-plugins:
-  hexo-math
 ## Themes: http://hexo.io/themes/
 theme: next
 
@@ -76,3 +74,8 @@ deploy:
   repo: git@github.com:magicly/magicly.github.io.git
 
 baidu_analytics: 4de38e2838c5de001401028af3beef7e
+
+math:
+  engine: 'mathjax' # or 'katex'
+  mathjax:
+    src: //cdn.staticfile.org/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
