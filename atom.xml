@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://magicly.me/"/>
-  <updated>2017-03-02T09:01:43.000Z</updated>
+  <updated>2017-03-02T15:58:59.000Z</updated>
   <id>http://magicly.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://magicly.me/2017/03/02/markdown-math/"/>
     <id>http://magicly.me/2017/03/02/markdown-math/</id>
     <published>2017-03-02T03:16:16.000Z</published>
-    <updated>2017-03-02T09:01:43.000Z</updated>
+    <updated>2017-03-02T15:58:59.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近准备写一下机器学习的一些学习笔记， 由于涉及到大量数学公式， 发现不把如何在markdown里写数学公式这个问题解决了会严重影响工作效率。大概而言， 主要有两种方式：</p>
 <a id="more"></a>
@@ -57,6 +57,12 @@ evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i}
 <p>经过简单的配置， 我们的web页面已经可以支持很方便的书写数学公式了，而且由于不用特殊转义， 这里写的LaTex可以在其他markdown环境下使用， 比如<a href="http://mp.weixin.qq.com/s?__biz=MjM5NjAyNjkwMA==&amp;mid=2723942529&amp;idx=1&amp;sn=3b417dd77b4d5b92231ed59649844eb9&amp;chksm=81473ffab630b6ec843d77432c487e3e3a272ec26a5b9e0ae4007f5fce3dd826825a7b64a249&amp;mpshare=1&amp;scene=1&amp;srcid=0301zj3JKl85H692JGwUHZzM#rd" target="_blank" rel="external">有道云笔记</a>。</p>
 <p>============update===========</p>
 <p>刚发现由于引用了MathJax.js， 本身又会引用其他一些js、css以及font， 会多增加差不多100k资源， 并且由于都是国外的cdn， 速度受限制（貌似还要翻墙），所以比较影响阅读体验。后续再想办法优化吧。</p>
+<p>============update===========<br>发现next主题好看一些， 换成了next。 看到next直接<a href="http://theme-next.iissnan.com/third-party-services.html#others" target="_blank" rel="external">支持MathJax</a>的，换成了qiniu的cdn。但是next自带的math，不能支持{&#37; math %}，发现还是需要hexo-math， 而且很奇怪的是， 发现不用在_config.yml里面写<br><figure class="highlight avrasm"><table><tr><td class="code"><pre><div class="line"><span class="symbol">plugins:</span></div><div class="line">  hexo-math</div></pre></td></tr></table></figure></p>
+<p>居然也可以， 只要package.json里面有hexo-math就可以了。于是参考<a href="https://github.com/akfish/hexo-math" target="_blank" rel="external">hexo-math官网</a>，换成了qiniu的cdn。<br><figure class="highlight less"><table><tr><td class="code"><pre><div class="line"><span class="attribute">math</span>:</div><div class="line">  <span class="attribute">engine</span>: <span class="string">'mathjax'</span> # or <span class="string">'katex'</span></div><div class="line">  <span class="attribute">mathjax</span>:</div><div class="line">  <span class="attribute">src</span>: <span class="comment">//cdn.staticfile.org/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML</span></div></pre></td></tr></table></figure></p>
+<p>奇怪的是，还是有一个网络请求，不知道从哪里来的。<br><figure class="highlight awk"><table><tr><td class="code"><pre><div class="line">https:<span class="regexp">//</span>cdn.mathjax.org<span class="regexp">/mathjax/</span>contrib<span class="regexp">/a11y/</span>accessibility-menu.js?V=<span class="number">2.7</span>.<span class="number">0</span></div></pre></td></tr></table></figure></p>
+<p>而且说的<br><figure class="highlight arduino"><table><tr><td class="code"><pre><div class="line">Your <span class="built_in">config</span> will be merged into <span class="built_in">default</span> <span class="built_in">config</span>:</div></pre></td></tr></table></figure></p>
+<p>似乎也没有。生成的代码为<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-mathjax-config"</span>&gt;</span><span class="actionscript"></span></div><div class="line">  MathJax.Hub.Config(<span class="string">""</span>);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>配置目没有了？！！好在似乎没有影响使用，那就先暂时这样用着吧~~</p>
 <p>[Refs]</p>
 <ul>
 <li><a href="http://jzqt.github.io/2015/06/30/Markdown%E4%B8%AD%E5%86%99%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/" target="_blank" rel="external">http://jzqt.github.io/2015/06/30/Markdown%E4%B8%AD%E5%86%99%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</a></li>
