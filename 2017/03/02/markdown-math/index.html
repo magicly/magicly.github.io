@@ -1,0 +1,310 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>在markdown里如何写数学公式 | JustForFun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="magicly">
+  
+  
+    <meta name="description" content="最近准备写一下机器学习的一些学习笔记， 由于涉及到大量数学公式， 发现不把如何在markdown里写数学公式这个问题解决了会严重影响工作效率。大概而言， 主要有两种方式：">
+  
+  <meta name="description" content="最近准备写一下机器学习的一些学习笔记， 由于涉及到大量数学公式， 发现不把如何在markdown里写数学公式这个问题解决了会严重影响工作效率。大概而言， 主要有两种方式：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在markdown里如何写数学公式">
+<meta property="og:url" content="http://magicly.me/2017/03/02/markdown-math/index.html">
+<meta property="og:site_name" content="JustForFun">
+<meta property="og:description" content="最近准备写一下机器学习的一些学习笔记， 由于涉及到大量数学公式， 发现不把如何在markdown里写数学公式这个问题解决了会严重影响工作效率。大概而言， 主要有两种方式：">
+<meta property="og:updated_time" content="2017-03-02T08:21:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在markdown里如何写数学公式">
+<meta name="twitter:description" content="最近准备写一下机器学习的一些学习笔记， 由于涉及到大量数学公式， 发现不把如何在markdown里写数学公式这个问题解决了会严重影响工作效率。大概而言， 主要有两种方式：">
+  
+    <link rel="alternate" href="/atom.xml" title="JustForFun" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?4de38e2838c5de001401028af3beef7e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">JustForFun</a></h1>
+    <p><a href="/">工程师，程序猿，Magic，德州扑克</a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/reading">Reading</a></li>
+      
+        <li><a href="/about">About</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+
+  <div>
+    <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+      <input type="search" name="q" id="search" autocomplete="off" autocorrect="off" autocapitalize="off" maxlength="20" placeholder="Search" />
+      <input type="hidden" name="q" value="site:magicly.me">
+    </form>
+  </div>
+</header>
+
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2017/03/02/markdown-math/">
+  <time datetime="2017-03-02T03:16:16.000Z">
+    2017-03-02
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">在markdown里如何写数学公式</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>最近准备写一下机器学习的一些学习笔记， 由于涉及到大量数学公式， 发现不把如何在markdown里写数学公式这个问题解决了会严重影响工作效率。大概而言， 主要有两种方式：</p>
+<a id="more"></a>
+<ol>
+<li>用图片！<br>也就是编辑好公式，上传，然后在markdown里面引用图片链接的方式。这种方式方便直接，但是显得比较low一点。 有兴趣的可以参考这几篇文章。</li>
+</ol>
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2011/07/formula_online_generator.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2011/07/formula_online_generator.html</a><br>当然， 在某些情况下， 必须使用这种思路。 比如， 微信公众号里。 可以参考<a href="http://www.52nlp.cn/%E5%9C%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E9%87%8C%E4%BD%BF%E7%94%A8latex%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F" target="_blank" rel="external">这里</a></li>
+</ul>
+<ol>
+<li>用Mathjax插件来写LaTex公式。<br>哪怕你是用图片， 那也得写出LaTex公式啊。所以我们今天主要讲第二种方式。推荐<a href="https://webdemo.myscript.com/views/math.html" target="_blank" rel="external">这个工具</a>，可以直接在浏览器里手写公式，它会帮你转为LaTex！很好很强大。</li>
+</ol>
+<h1 id="MathJax插件"><a href="#MathJax插件" class="headerlink" title="MathJax插件"></a>MathJax插件</h1><p>著名的Stackoverflow网站上的漂亮公式，就是使用了MathJax插件的效果。添加MathJax插件也非常简单，只需要在markdown文件中，添加MathJax CDN，如下：<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span></span></div><div class="line">   <span class="attr">src</span>=<span class="string">"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"</span>&gt;<span class="undefined"></span></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>就可以在md文件中插入Tex格式的公式了。</p>
+<p>行间公式的形式为<br><figure class="highlight gams"><table><tr><td class="code"><pre><div class="line"><span class="symbol">$</span><span class="symbol">$</span> 此处插入公式 <span class="symbol">$</span><span class="symbol">$</span></div></pre></td></tr></table></figure></p>
+<p>而行内公式的形式为<br><figure class="highlight livescript"><table><tr><td class="code"><pre><div class="line"><span class="string">\\(</span> 此处插入公式 <span class="string">\\)</span></div></pre></td></tr></table></figure></p>
+<h1 id="Hexo中显示数学公式"><a href="#Hexo中显示数学公式" class="headerlink" title="Hexo中显示数学公式"></a>Hexo中显示数学公式</h1><p>Hexo原生不支持数学公式， 因此需要我们做一些修改。安装<a href="https://github.com/akfish/hexo-math" target="_blank" rel="external">hexo-math</a>插件：</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><div class="line">npm install hexo-<span class="built_in">math</span> <span class="comment">--save</span></div></pre></td></tr></table></figure>
+<p>在_config.yml中增加<br><figure class="highlight avrasm"><table><tr><td class="code"><pre><div class="line"><span class="symbol">plugins:</span></div><div class="line">  hexo-math</div></pre></td></tr></table></figure></p>
+<p>完事大吉， 你现在可以写LaTex公式了， 我们来写几个看看。</p>
+<p>这是行内公式根号2这样写: \(\sqrt{2}\)<br><figure class="highlight taggerscript"><table><tr><td class="code"><pre><div class="line"><span class="symbol">\\</span>(<span class="symbol">\\</span>sqrt&#123;2&#125;<span class="symbol">\\</span>)</div></pre></td></tr></table></figure></p>
+<p>这是单独一行的公式:<br><figure class="highlight gams"><table><tr><td class="code"><pre><div class="line"><span class="symbol">$</span><span class="symbol">$</span> a ^ <span class="number">2</span> + b ^ <span class="number">2</span> = c ^ <span class="number">2</span> <span class="symbol">$</span><span class="symbol">$</span></div><div class="line"><span class="symbol">$</span><span class="symbol">$</span> \<span class="built-in">sqrt</span>&#123;<span class="number">2</span>&#125; <span class="symbol">$</span><span class="symbol">$</span></div><div class="line"><span class="symbol">$</span><span class="symbol">$</span> evidence\_&#123;i&#125;=\<span class="keyword">sum</span> \_&#123;j&#125;W\_&#123;ij&#125;x\_&#123;j&#125;+b\_&#123;i&#125; <span class="symbol">$</span><span class="symbol">$</span></div></pre></td></tr></table></figure></p>
+<p>$$ a ^ 2 + b ^ 2 = c ^ 2 $$<br>$$ \sqrt{2} $$<br>$$ evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i} $$<br>细心的同学会发现， 里面有很多<strong>\\</strong>, <strong>\_</strong>之类， 原因是<strong>\</strong>本身在markdown和LaTex里都有含义， 因此需要转义。但是LaTex里面， <strong>\</strong>太常用了， 所以每次遇到都转义的话就很痛苦， 而且在hexo里面写的公式，复制到其他地方去就不支持了。</p>
+<p>网上有改hexo渲染的源码的， 有换用pandoc的， 其实最简单的方式是用hexo-math里的tag。网上搜索到的很多资料都是用的{&#37; math_block %}，我试了发现总是不对， 后来看<a href="https://github.com/akfish/hexo-math" target="_blank" rel="external">官网</a>，发现这个方法已经deprecated了， 最新的用{&#37; math %}，如下：</p>
+<figure class="highlight django"><table><tr><td class="code"><pre><div class="line"><span class="xml">这是行内公式：</span><span class="template-tag">&#123;% <span class="name">math</span> %&#125;</span><span class="xml">\sqrt&#123;2 + 3&#125;</span><span class="template-tag">&#123;% <span class="name">endmath</span> %&#125;</span><span class="xml"></span></div></pre></td></tr></table></figure>
+<p>显示为：这是行内公式：<span>$\sqrt{2 + 3}$</span><!-- Has MathJax --><br>一行公式：<br><figure class="highlight tex"><table><tr><td class="code"><pre><div class="line"><span class="formula">$$ evidence<span class="tag">\<span class="name">_</span><span class="string">&#123;i&#125;</span>=</span><span class="tag">\<span class="name">sum</span></span> <span class="tag">\<span class="name">_</span><span class="string">&#123;j&#125;</span></span>W<span class="tag">\<span class="name">_</span><span class="string">&#123;ij&#125;</span></span>x<span class="tag">\<span class="name">_</span><span class="string">&#123;j&#125;</span></span>+b<span class="tag">\<span class="name">_</span><span class="string">&#123;i&#125;</span></span> $$</span></div><div class="line"></div><div class="line">&#123;<span class="comment">% math %&#125;</span></div><div class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;aligned&#125;</span></span></div><div class="line">evidence_&#123;i&#125;=<span class="tag">\<span class="name">sum</span></span> _&#123;j&#125;W_&#123;ij&#125;x_&#123;j&#125;+b_&#123;i&#125;</div><div class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;aligned&#125;</span></span></div><div class="line">&#123;<span class="comment">% endmath %&#125;</span></div></pre></td></tr></table></figure></p>
+<p>$$ evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i} $$<br><span>$$\begin{aligned}
+evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i}
+\end{aligned}$$</span><!-- Has MathJax --><br>可以看出， 如果有需要转义的字符， 用{&#37; math %}tag这种方式要好很多。</p>
+<p>再来一个复杂点的公式， 这是<a href="https://www.tensorflow.org/tutorials/word2vec" target="_blank" rel="external">word2vec</a>的损失函数公式（选中公式， 右键可以查看LaTex源码）：<br><figure class="highlight taggerscript"><table><tr><td class="code"><pre><div class="line">&#123;<span class="variable">% math %</span>&#125;</div><div class="line">J_<span class="symbol">\t</span>ext&#123;NEG&#125; = <span class="symbol">\l</span>og Q_<span class="symbol">\t</span>heta(D=1 |w_t, h) +</div><div class="line">  k <span class="symbol">\m</span>athop&#123;<span class="symbol">\m</span>athbb&#123;E&#125;&#125;_&#123;<span class="symbol">\t</span>ilde w <span class="symbol">\s</span>im P_<span class="symbol">\t</span>ext&#123;noise&#125;&#125;</div><div class="line">     <span class="symbol">\l</span>eft[ <span class="symbol">\l</span>og Q_<span class="symbol">\t</span>heta(D = 0 |<span class="symbol">\t</span>ilde w, h) <span class="symbol">\r</span>ight]</div><div class="line">&#123;<span class="variable">% endmath %</span>&#125;</div></pre></td></tr></table></figure></p>
+<span>$$J_\text{NEG} = \log Q_\theta(D=1 |w_t, h) +
+  k \mathop{\mathbb{E}}_{\tilde w \sim P_\text{noise}}
+     \left[ \log Q_\theta(D = 0 |\tilde w, h) \right]$$</span><!-- Has MathJax -->
+<p>经过简单的配置， 我们的web页面已经可以支持很方便的书写数学公式了，而且由于不用特殊转义， 这里写的LaTex可以在其他markdown环境下使用， 比如<a href="http://mp.weixin.qq.com/s?__biz=MjM5NjAyNjkwMA==&amp;mid=2723942529&amp;idx=1&amp;sn=3b417dd77b4d5b92231ed59649844eb9&amp;chksm=81473ffab630b6ec843d77432c487e3e3a272ec26a5b9e0ae4007f5fce3dd826825a7b64a249&amp;mpshare=1&amp;scene=1&amp;srcid=0301zj3JKl85H692JGwUHZzM#rd" target="_blank" rel="external">有道云笔记</a>。</p>
+
+    
+  </div>
+  <footer>
+    
+      
+  <div class="categories">
+    <a class="categories-link" href="/categories/ML/">ML</a>
+  </div>
+
+      
+  <div class="tags">
+    <a class="tags-link" href="/tags/math/">math</a>
+  </div>
+
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">评论</h1>
+  <div class="ds-thread" data-title="在markdown里如何写数学公式">
+  </div>
+</section>
+</div>
+  </div>
+
+
+<div class="widget-wrapper">
+  <aside id="sidebar">
+  
+    
+<div class="widget tag first">
+	<h3 class="title">categories</h3>
+		<ul class="entry">
+		
+			<li><a href="/categories/FE/" title="FE">FE<small>1</small></a></li>
+		
+			<li><a href="/categories/JS/" title="JS">JS<small>1</small></a></li>
+		
+			<li><a href="/categories/Java/" title="Java">Java<small>4</small></a></li>
+		
+			<li><a href="/categories/ML/" title="ML">ML<small>2</small></a></li>
+		
+			<li><a href="/categories/Math/" title="Math">Math<small>0</small></a></li>
+		
+			<li><a href="/categories/default/" title="default">default<small>2</small></a></li>
+		
+			<li><a href="/categories/weixin/" title="weixin">weixin<small>1</small></a></li>
+		
+		</ul>
+</div>
+
+
+  
+    
+  <div class="widget tagcloud">
+    <h3 class="title">tagcloud</h3>
+    <div class="entry">
+       <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Apache-Commons/" style="font-size: 10px;">Apache Commons</a> <a href="/tags/Email/" style="font-size: 10px;">Email</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaMail/" style="font-size: 10px;">JavaMail</a> <a href="/tags/Java反射/" style="font-size: 10px;">Java反射</a> <a href="/tags/ML/" style="font-size: 10px;">ML</a> <a href="/tags/animation/" style="font-size: 10px;">animation</a> <a href="/tags/beizer-curve/" style="font-size: 10px;">beizer curve</a> <a href="/tags/concurrency/" style="font-size: 15px;">concurrency</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/deep-learning/" style="font-size: 10px;">deep learning</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/githubPages/" style="font-size: 10px;">githubPages</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jdk/" style="font-size: 15px;">jdk</a> <a href="/tags/js/" style="font-size: 15px;">js</a> <a href="/tags/machine-learning/" style="font-size: 10px;">machine learning</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/ssh/" style="font-size: 15px;">ssh</a> <a href="/tags/webhook/" style="font-size: 10px;">webhook</a> <a href="/tags/weixin/" style="font-size: 10px;">weixin</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/深度学习/" style="font-size: 10px;">深度学习</a> <a href="/tags/源码阅读/" style="font-size: 15px;">源码阅读</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget recent-posts">
+    <h3 class="title">Recents</h3>
+    <ul class="entry">
+      
+        <li>
+          <a href="/2017/03/02/markdown-math/">在markdown里如何写数学公式</a>
+        </li>
+      
+        <li>
+          <a href="/2017/02/12/ml-content/">机器学习计划</a>
+        </li>
+      
+        <li>
+          <a href="/2016/11/29/bezier-curve/">bezier-curve</a>
+        </li>
+      
+        <li>
+          <a href="/2015/09/16/auto-deploy-githubPages-by-webhook-md/">利用webhook实现github pages的自动部署</a>
+        </li>
+      
+        <li>
+          <a href="/2015/09/07/js-arrow-functions-md/">javascript箭头函数</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+  
+  </aside>
+  <div class="clearfix"></div>
+</div>
+
+
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2017 <a href="/">magicly</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   |
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<script>document.write(unescape('%3Cdiv id="hm_t_73364"%3E%3C/div%3E%3Cscript charset="utf-8" src="http://crs.baidu.com/t.js?siteId=4de38e2838c5de001401028af3beef7e&planId=73364&async=0&referer=') + encodeURIComponent(document.referrer) + '&title=' + encodeURIComponent(document.title) + '&rnd=' + (+new Date) + unescape('"%3E%3C/script%3E'));</script>
+
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+<span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+
+<span id="busuanzi_container_page_pv">
+  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'magicly' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+</body>
+</html>

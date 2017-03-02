@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   
   <title>JustForFun</title>
@@ -10,18 +10,15 @@
     <meta name="author" content="magicly">
   
   
-    <meta name="description" content="magicly’s blog…">
-  
-  <meta name="description" content="magicly’s blog…">
+  <meta name="description" content="magicly记录各种好玩的事务的地方。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="JustForFun">
-<meta property="og:url" content="http://magicly.me/README.html">
+<meta property="og:url" content="http://magicly.me/page/2/index.html">
 <meta property="og:site_name" content="JustForFun">
-<meta property="og:description" content="magicly’s blog…">
-<meta property="og:updated_time" content="2016-11-29T02:57:46.000Z">
+<meta property="og:description" content="magicly记录各种好玩的事务的地方。">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JustForFun">
-<meta name="twitter:description" content="magicly’s blog…">
+<meta name="twitter:description" content="magicly记录各种好玩的事务的地方。">
   
     <link rel="alternate" href="/atom.xml" title="JustForFun" type="application/atom+xml">
   
@@ -41,13 +38,13 @@ var _hmt = _hmt || [];
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
 })();
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 </head>
 
 <body>
-  <div class="wrapper">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="wrapper">
     <header id="header">
   <div class="title">
     <h1><a href="/">JustForFun</a></h1>
@@ -78,24 +75,47 @@ var _hmt = _hmt || [];
   </div>
 </header>
 
-    <div class="content"><article class="page">
+    <div class="content">
+
+
+
+
+  
+    <article class="post">
   <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/13/java-concurrrency-3-juc-source-code-read/">
+  <time datetime="2015-01-13T13:34:10.000Z">
+    2015-01-13
+  </time>
+</a>
     
     
   
-    <h1 class="title"></h1>
+    <h1 class="title"><a href="/2015/01/13/java-concurrrency-3-juc-source-code-read/">Java Concurrency（三）——J.U.C AQS源码解读</a></h1>
   
 
   </header>
   
   <div class="entry">
     
-      <p>magicly’s blog…</p>
-
+      <p>java5之后的java.util.concurrent包是世界级并发大师Doug Lea的作品，里面主要实现了</p>
+<ol>
+<li>atomic包里Integer/Long对应的原子类，主要基于CAS；</li>
+<li>一些同步子，包括Lock，CountDownLatch，Semaphore，FutureTask等，这些都是基于AbstractQueuedSynchronizer类；</li>
+<li>关于线程执行的Executors类等；</li>
+<li>一些并发的集合类，比如ConcurrentHashMap，ConcurrentLinkedQueue，CopyOnWriteArrayList等。</li>
+</ol>
+<p>今天我们主要介绍AbstractQueuedSynchronizer这个可以说是最核心的类，没有之一。整个concurrent包里，基本都直接或间接地用到了这个类。Doug Lea的这篇<a href="http://gee.cs.oswego.edu/dl/papers/aqs.pdf">论文</a>里面讲AQS的实现。</p>
     
   </div>
-  <footer>
+  <footer class="end-sep">
     
+      
+        <div class="alignleft">
+          <a href="/2015/01/13/java-concurrrency-3-juc-source-code-read/#more" class="more-link">阅读全文</a>
+        </div>
       
       
     
@@ -104,11 +124,16 @@ var _hmt = _hmt || [];
 </article>
 
 
-<section id="comment">
-  <h1 class="title">评论</h1>
-  <div class="ds-thread" data-title="">
-  </div>
-</section>
+  
+
+  <nav id="pagination">
+  
+    <a href="/" class="prev">上一页</a>
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
 </div>
   </div>
 
@@ -127,7 +152,9 @@ var _hmt = _hmt || [];
 		
 			<li><a href="/categories/Java/" title="Java">Java<small>4</small></a></li>
 		
-			<li><a href="/categories/ML/" title="ML">ML<small>1</small></a></li>
+			<li><a href="/categories/ML/" title="ML">ML<small>2</small></a></li>
+		
+			<li><a href="/categories/Math/" title="Math">Math<small>0</small></a></li>
 		
 			<li><a href="/categories/default/" title="default">default<small>2</small></a></li>
 		
@@ -142,7 +169,7 @@ var _hmt = _hmt || [];
   <div class="widget tagcloud">
     <h3 class="title">tagcloud</h3>
     <div class="entry">
-       <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Apache-Commons/" style="font-size: 10px;">Apache Commons</a> <a href="/tags/Email/" style="font-size: 10px;">Email</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaMail/" style="font-size: 10px;">JavaMail</a> <a href="/tags/Java反射/" style="font-size: 10px;">Java反射</a> <a href="/tags/ML/" style="font-size: 10px;">ML</a> <a href="/tags/animation/" style="font-size: 10px;">animation</a> <a href="/tags/beizer-curve/" style="font-size: 10px;">beizer curve</a> <a href="/tags/concurrency/" style="font-size: 15px;">concurrency</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/deep-learning/" style="font-size: 10px;">deep learning</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/githubPages/" style="font-size: 10px;">githubPages</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jdk/" style="font-size: 15px;">jdk</a> <a href="/tags/js/" style="font-size: 15px;">js</a> <a href="/tags/machine-learning/" style="font-size: 10px;">machine learning</a> <a href="/tags/ssh/" style="font-size: 15px;">ssh</a> <a href="/tags/webhook/" style="font-size: 10px;">webhook</a> <a href="/tags/weixin/" style="font-size: 10px;">weixin</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/深度学习/" style="font-size: 10px;">深度学习</a> <a href="/tags/源码阅读/" style="font-size: 15px;">源码阅读</a>
+       <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Apache-Commons/" style="font-size: 10px;">Apache Commons</a> <a href="/tags/Email/" style="font-size: 10px;">Email</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaMail/" style="font-size: 10px;">JavaMail</a> <a href="/tags/Java反射/" style="font-size: 10px;">Java反射</a> <a href="/tags/ML/" style="font-size: 10px;">ML</a> <a href="/tags/animation/" style="font-size: 10px;">animation</a> <a href="/tags/beizer-curve/" style="font-size: 10px;">beizer curve</a> <a href="/tags/concurrency/" style="font-size: 15px;">concurrency</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/deep-learning/" style="font-size: 10px;">deep learning</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/githubPages/" style="font-size: 10px;">githubPages</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jdk/" style="font-size: 15px;">jdk</a> <a href="/tags/js/" style="font-size: 15px;">js</a> <a href="/tags/machine-learning/" style="font-size: 10px;">machine learning</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/ssh/" style="font-size: 15px;">ssh</a> <a href="/tags/webhook/" style="font-size: 10px;">webhook</a> <a href="/tags/weixin/" style="font-size: 10px;">weixin</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/深度学习/" style="font-size: 10px;">深度学习</a> <a href="/tags/源码阅读/" style="font-size: 15px;">源码阅读</a>
     </div>
   </div>
 
@@ -152,6 +179,10 @@ var _hmt = _hmt || [];
   <div class="widget recent-posts">
     <h3 class="title">Recents</h3>
     <ul class="entry">
+      
+        <li>
+          <a href="/2017/03/02/markdown-math/">在markdown里如何写数学公式</a>
+        </li>
       
         <li>
           <a href="/2017/02/12/ml-content/">机器学习计划</a>
@@ -167,10 +198,6 @@ var _hmt = _hmt || [];
       
         <li>
           <a href="/2015/09/07/js-arrow-functions-md/">javascript箭头函数</a>
-        </li>
-      
-        <li>
-          <a href="/2015/07/26/ssh-reverse-tunnel-wx-local/">利用SSH反向通道在本地调试微信公共号</a>
         </li>
       
     </ul>
@@ -237,7 +264,24 @@ var _hmt = _hmt || [];
   (function($){
     $('.fancybox').fancybox();
   })(jQuery);
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 </body>
