@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://magicly.me/2017/03/02/markdown-math/index.html">
 <meta property="og:site_name" content="JustForFun">
 <meta property="og:description" content="最近准备写一下机器学习的一些学习笔记， 由于涉及到大量数学公式， 发现不把如何在markdown里写数学公式这个问题解决了会严重影响工作效率。大概而言， 主要有两种方式：">
-<meta property="og:updated_time" content="2017-03-02T08:21:26.000Z">
+<meta property="og:updated_time" content="2017-03-02T08:55:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在markdown里如何写数学公式">
 <meta name="twitter:description" content="最近准备写一下机器学习的一些学习笔记， 由于涉及到大量数学公式， 发现不把如何在markdown里写数学公式这个问题解决了会严重影响工作效率。大概而言， 主要有两种方式：">
@@ -130,6 +130,8 @@ evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i}
   k \mathop{\mathbb{E}}_{\tilde w \sim P_\text{noise}}
      \left[ \log Q_\theta(D = 0 |\tilde w, h) \right]$$</span><!-- Has MathJax -->
 <p>经过简单的配置， 我们的web页面已经可以支持很方便的书写数学公式了，而且由于不用特殊转义， 这里写的LaTex可以在其他markdown环境下使用， 比如<a href="http://mp.weixin.qq.com/s?__biz=MjM5NjAyNjkwMA==&amp;mid=2723942529&amp;idx=1&amp;sn=3b417dd77b4d5b92231ed59649844eb9&amp;chksm=81473ffab630b6ec843d77432c487e3e3a272ec26a5b9e0ae4007f5fce3dd826825a7b64a249&amp;mpshare=1&amp;scene=1&amp;srcid=0301zj3JKl85H692JGwUHZzM#rd" target="_blank" rel="external">有道云笔记</a>。</p>
+<p>============update===========</p>
+<p>刚发现由于引用了MathJax.js， 本身又会引用其他一些js、css以及font， 会多增加差不多100k资源， 并且由于都是国外的cdn， 速度受限制（貌似还要翻墙），所以比较影响阅读体验。后续再想办法优化吧。</p>
 
     
   </div>
@@ -175,8 +177,6 @@ evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i}
 			<li><a href="/categories/Java/" title="Java">Java<small>4</small></a></li>
 		
 			<li><a href="/categories/ML/" title="ML">ML<small>2</small></a></li>
-		
-			<li><a href="/categories/Math/" title="Math">Math<small>0</small></a></li>
 		
 			<li><a href="/categories/default/" title="default">default<small>2</small></a></li>
 		

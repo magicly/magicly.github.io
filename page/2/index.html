@@ -85,7 +85,7 @@ var _hmt = _hmt || [];
   <header>
     
       <div class="icon"></div>
-      <a href="/2015/01/13/java-concurrrency-3-juc-source-code-read/">
+      <a href="/2015/01/13/juc-source-code-read-atomic/">
   <time datetime="2015-01-13T13:34:10.000Z">
     2015-01-13
   </time>
@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
     
     
   
-    <h1 class="title"><a href="/2015/01/13/java-concurrrency-3-juc-source-code-read/">Java Concurrency（三）——J.U.C AQS源码解读</a></h1>
+    <h1 class="title"><a href="/2015/01/13/juc-source-code-read-atomic/">J.U.C源码解读之atomic</a></h1>
   
 
   </header>
@@ -107,14 +107,14 @@ var _hmt = _hmt || [];
 <li>关于线程执行的Executors类等；</li>
 <li>一些并发的集合类，比如ConcurrentHashMap，ConcurrentLinkedQueue，CopyOnWriteArrayList等。</li>
 </ol>
-<p>今天我们主要介绍AbstractQueuedSynchronizer这个可以说是最核心的类，没有之一。整个concurrent包里，基本都直接或间接地用到了这个类。Doug Lea的这篇<a href="http://gee.cs.oswego.edu/dl/papers/aqs.pdf">论文</a>里面讲AQS的实现。</p>
+<p>今天我们主要介绍atomic包下相关内容。</p>
     
   </div>
   <footer class="end-sep">
     
       
         <div class="alignleft">
-          <a href="/2015/01/13/java-concurrrency-3-juc-source-code-read/#more" class="more-link">阅读全文</a>
+          <a href="/2015/01/13/juc-source-code-read-atomic/#more" class="more-link">阅读全文</a>
         </div>
       
       
@@ -153,8 +153,6 @@ var _hmt = _hmt || [];
 			<li><a href="/categories/Java/" title="Java">Java<small>4</small></a></li>
 		
 			<li><a href="/categories/ML/" title="ML">ML<small>2</small></a></li>
-		
-			<li><a href="/categories/Math/" title="Math">Math<small>0</small></a></li>
 		
 			<li><a href="/categories/default/" title="default">default<small>2</small></a></li>
 		
