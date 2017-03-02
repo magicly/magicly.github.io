@@ -108,3 +108,11 @@ J_\text{NEG} = \log Q_\theta(D=1 |w_t, h) +
 ============update===========
 
 刚发现由于引用了MathJax.js， 本身又会引用其他一些js、css以及font， 会多增加差不多100k资源， 并且由于都是国外的cdn， 速度受限制（貌似还要翻墙），所以比较影响阅读体验。后续再想办法优化吧。
+
+[Refs]
+* http://jzqt.github.io/2015/06/30/Markdown%E4%B8%AD%E5%86%99%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/
+* https://www.zybuluo.com/codeep/note/163962
+* http://oiltang.com/2014/05/04/markdown-and-mathjax/
+* http://www.jeyzhang.com/how-to-insert-equations-in-markdown.html
+* http://www.52nlp.cn/%E5%9C%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E9%87%8C%E4%BD%BF%E7%94%A8latex%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F
+* https://github.com/mathjax/MathJax-node
