@@ -7,8 +7,9 @@ title: JustForFun
 subtitle: 工程师，程序猿，Magic，德州扑克
 description: magicly记录各种好玩的事务的地方。 
 author: magicly
+avatar: http://tva2.sinaimg.cn/crop.0.0.180.180.180/64256cb5jw1e8qgp5bmzyj2050050aa8.jpg
 email: magicly007@qq.com
-language: zh-CN
+language: zh-Hans
 timezone:
 
 # URL
@@ -66,10 +67,12 @@ pagination_dir: page
 plugins:
   hexo-math
 ## Themes: http://hexo.io/themes/
-theme: modernist
+theme: next
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
   repo: git@github.com:magicly/magicly.github.io.git
+
+baidu_analytics: 4de38e2838c5de001401028af3beef7e
