@@ -6,6 +6,8 @@ date: 2017-03-03 10:37:02
 
 最近需要做一些自然语言处理的工作， 发现google推出的wrod2vec比较有意思，据说可以推算出king + man - woman = queue，感觉很nb啊， 后续可以拿来做文本分类、情绪分析、关键词提取等。本文记录一下在中文wiki语料库上做的实验。
 
+<!-- more -->
+
 # word2vec下载安装
 自从google推出了[word2vec](https://code.google.com/archive/p/word2vec/)后，网上已经有众多实现，包括：
 * [google发布的c++版本](https://code.google.com/archive/p/word2vec/)
