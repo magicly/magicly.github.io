@@ -89,29 +89,17 @@
 
 
 
-<meta name="description" content="最近需要做一些自然语言处理的工作， 发现google推出的wrod2vec比较有意思，据说可以推算出king + man - woman = queue，感觉很nb啊， 后续可以拿来做文本分类、情绪分析、关键词提取等。本文记录一下在中文wiki语料库上做的实验。
-word2vec下载安装自从google推出了word2vec后，网上已经有众多实现，包括：
-
-google发布的c++版本
-pytho">
+<meta name="description" content="最近需要做一些自然语言处理的工作， 发现google推出的wrod2vec比较有意思，据说可以推算出king + man - woman = queue，感觉很nb啊， 后续可以拿来做文本分类、情绪分析、关键词提取等。本文记录一下在中文wiki语料库上做的实验。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用word2vec分析中文维基语料库">
 <meta property="og:url" content="http://magicly.me/2017/03/03/word2vec-first-try-md/index.html">
 <meta property="og:site_name" content="JustForFun">
-<meta property="og:description" content="最近需要做一些自然语言处理的工作， 发现google推出的wrod2vec比较有意思，据说可以推算出king + man - woman = queue，感觉很nb啊， 后续可以拿来做文本分类、情绪分析、关键词提取等。本文记录一下在中文wiki语料库上做的实验。
-word2vec下载安装自从google推出了word2vec后，网上已经有众多实现，包括：
-
-google发布的c++版本
-pytho">
+<meta property="og:description" content="最近需要做一些自然语言处理的工作， 发现google推出的wrod2vec比较有意思，据说可以推算出king + man - woman = queue，感觉很nb啊， 后续可以拿来做文本分类、情绪分析、关键词提取等。本文记录一下在中文wiki语料库上做的实验。">
 <meta property="og:image" content="http://s12.sinaimg.cn/orignal/001OxbOzzy6EHEbsLWP8b">
-<meta property="og:updated_time" content="2017-03-03T06:49:33.000Z">
+<meta property="og:updated_time" content="2017-03-03T14:01:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用word2vec分析中文维基语料库">
-<meta name="twitter:description" content="最近需要做一些自然语言处理的工作， 发现google推出的wrod2vec比较有意思，据说可以推算出king + man - woman = queue，感觉很nb啊， 后续可以拿来做文本分类、情绪分析、关键词提取等。本文记录一下在中文wiki语料库上做的实验。
-word2vec下载安装自从google推出了word2vec后，网上已经有众多实现，包括：
-
-google发布的c++版本
-pytho">
+<meta name="twitter:description" content="最近需要做一些自然语言处理的工作， 发现google推出的wrod2vec比较有意思，据说可以推算出king + man - woman = queue，感觉很nb啊， 后续可以拿来做文本分类、情绪分析、关键词提取等。本文记录一下在中文wiki语料库上做的实验。">
 <meta name="twitter:image" content="http://s12.sinaimg.cn/orignal/001OxbOzzy6EHEbsLWP8b">
 
 
@@ -196,7 +184,7 @@ pytho">
       </a>
     </div>
       
-        <p class="site-subtitle">Programmer, Geek, Magic, Poker</p>
+        <p class="site-subtitle">Programmer, Geek, Magic, Poker, ML</p>
       
   </div>
 
@@ -390,6 +378,7 @@ pytho">
 
       
         <p>最近需要做一些自然语言处理的工作， 发现google推出的wrod2vec比较有意思，据说可以推算出king + man - woman = queue，感觉很nb啊， 后续可以拿来做文本分类、情绪分析、关键词提取等。本文记录一下在中文wiki语料库上做的实验。</p>
+<a id="more"></a>
 <h1 id="word2vec下载安装"><a href="#word2vec下载安装" class="headerlink" title="word2vec下载安装"></a>word2vec下载安装</h1><p>自从google推出了<a href="https://code.google.com/archive/p/word2vec/" target="_blank" rel="external">word2vec</a>后，网上已经有众多实现，包括：</p>
 <ul>
 <li><a href="https://code.google.com/archive/p/word2vec/" target="_blank" rel="external">google发布的c++版本</a></li>
