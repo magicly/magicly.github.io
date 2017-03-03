@@ -73,8 +73,6 @@ deploy:
   type: git
   repo: git@github.com:magicly/magicly.github.io.git
 
-baidu_analytics: 4de38e2838c5de001401028af3beef7e
-
 math:
   engine: 'mathjax' # or 'katex'
   mathjax:
