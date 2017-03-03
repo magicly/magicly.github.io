@@ -142,17 +142,16 @@
 
 
 
+
+
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript">
-    var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?4de38e2838c5de001401028af3beef7e";
+      hm.src = "//tajs.qq.com/stats?sId=60993436";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
-
-
 
 
 
@@ -1457,7 +1456,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" rel="gallery_cizskwv8y0008g5mp7qr8sv3m"
+                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" rel="gallery_cizt696fh0008nuz48c1kktdy"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" itemprop="contentUrl"/>
               </a>
@@ -1465,7 +1464,7 @@
           
             
               <a class="post-gallery-img fancybox"
-                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" rel="gallery_cizskwv8y0008g5mp7qr8sv3m"
+                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" rel="gallery_cizt696fh0008nuz48c1kktdy"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" itemprop="contentUrl"/>
               </a>
@@ -1680,7 +1679,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://magicly.me/2015/01/13/java-concurrrency-3-juc-source-code-read/">
+    <link itemprop="mainEntityOfPage" href="http://magicly.me/2015/01/13/juc-source-code-read-atomic/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="magicly">
@@ -1702,8 +1701,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/01/13/java-concurrrency-3-juc-source-code-read/" itemprop="url">
-                  Java Concurrency（三）——J.U.C AQS源码解读
+                <a class="post-title-link" href="/2015/01/13/juc-source-code-read-atomic/" itemprop="url">
+                  J.U.C源码解读之atomic
                 </a>
               
             
@@ -1760,8 +1759,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2015/01/13/java-concurrrency-3-juc-source-code-read/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/13/java-concurrrency-3-juc-source-code-read/" itemprop="commentCount"></span>
+                <a href="/2015/01/13/juc-source-code-read-atomic/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/13/juc-source-code-read-atomic/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1795,10 +1794,10 @@
 <li>关于线程执行的Executors类等；</li>
 <li>一些并发的集合类，比如ConcurrentHashMap，ConcurrentLinkedQueue，CopyOnWriteArrayList等。</li>
 </ol>
-<p>今天我们主要介绍AbstractQueuedSynchronizer这个可以说是最核心的类，没有之一。整个concurrent包里，基本都直接或间接地用到了这个类。Doug Lea的这篇<a href="http://gee.cs.oswego.edu/dl/papers/aqs.pdf">论文</a>里面讲AQS的实现。</p>
+<p>今天我们主要介绍atomic包下相关内容。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/01/13/java-concurrrency-3-juc-source-code-read/#more" rel="contents">
+            <a class="btn" href="/2015/01/13/juc-source-code-read-atomic/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
