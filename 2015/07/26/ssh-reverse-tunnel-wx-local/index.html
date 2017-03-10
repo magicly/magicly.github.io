@@ -406,7 +406,7 @@
 <li><p>ssh -R 9999:localhost:9000 ubuntu@myserver_ip_address，输入密码</p>
 </li>
 <li><p>server上查看一下是否监听了9999端口，netstat -anltp | grep 9999</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">ubuntu@VM-39-45-ubuntu:~$ netstat -anltp | grep 9999</div><div class="line">(Not all processes could be identified, non-owned process info</div><div class="line">will not be shown, you would have to be root to see it all.)</div><div class="line">tcp        0      0 127.0.0.1:9999          0.0.0.0:*               LISTEN      -</div><div class="line">tcp6       0      0 ::1:9999                :::*                    LISTEN      -</div></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ubuntu@VM-39-45-ubuntu:~$ netstat -anltp | grep 9999</div><div class="line">(Not all processes could be identified, non-owned process info</div><div class="line">will not be shown, you would have to be root to see it all.)</div><div class="line">tcp        0      0 127.0.0.1:9999          0.0.0.0:*               LISTEN      -</div><div class="line">tcp6       0      0 ::1:9999                :::*                    LISTEN      -</div></pre></td></tr></table></figure>
 </li>
 <li><p>在本地9000（我用的<a href="https://www.playframework.com/documentation/1.3.x/home" target="_blank" rel="external">play 1</a>，可以了解下它到底为啥这么好用<a href="http://segmentfault.com/a/1190000000374033" target="_blank" rel="external">Play Framework —— Java开发者的梦想框架</a>）上开启web服务</p>
 </li>
@@ -421,13 +421,13 @@
 <p>GatewayPorts<br>Specifies whether remote hosts are allowed to connect to ports forwarded for the client.  By default, sshd(8) binds remote port forwardings to the<br>loopback address.  This prevents other remote hosts from connecting to forwarded ports.  GatewayPorts can be used to specify that sshd should allow<br> remote port forwardings to bind to non-loopback addresses, thus allowing other hosts to connect.  The argument may be “no” to force remote port<br> forwardings to be available to the local host only, “yes” to force remote port forwardings to bind to the wildcard address, or “clientspecified” to<br> allow the client to select the address to which the forwarding is bound.  The default is “no”.</p>
 </blockquote>
 <p>sudo vim /etc/ssh/sshd_config，添加GatewayPorts clientspecified，GatewayPorts yes也可以，退出，sudo service sshd restart，重启ssh服务。重新ssh -R :9999:localhost:9000 ubuntu@myserver_ip_address（仔细看，就9999前多了一个冒号:），输入密码，netstat -anltp | grep 9999，果然</p>
- <figure class="highlight css"><table><tr><td class="code"><pre><div class="line"><span class="selector-tag">tcp</span>        0      0 0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-pseudo">:9999</span>            0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span>:*               <span class="selector-tag">LISTEN</span>      <span class="selector-tag">-</span></div><div class="line"><span class="selector-tag">tcp6</span>       0      0 :<span class="selector-pseudo">::9999</span>                 :::*                    <span class="selector-tag">LISTEN</span>      <span class="selector-tag">-</span></div></pre></td></tr></table></figure>
+ <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">tcp</span>        0      0 0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-pseudo">:9999</span>            0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span>:*               <span class="selector-tag">LISTEN</span>      <span class="selector-tag">-</span></div><div class="line"><span class="selector-tag">tcp6</span>       0      0 :<span class="selector-pseudo">::9999</span>                 :::*                    <span class="selector-tag">LISTEN</span>      <span class="selector-tag">-</span></div></pre></td></tr></table></figure>
 <p> 浏览器里输入<a href="http://myserver_ip_address:9999，" target="_blank" rel="external">http://myserver_ip_address:9999，</a> 这回可以看到本地打出日志了。</p>
 </li>
 <li><p>然后发现微信里面配置的url只能是80端口。简单，直接改成ssh -R :80:localhost:9000 ubuntu@myserver_ip_address就可以了，吧！奇怪，直接访问<a href="http://myserver_ip_address，" target="_blank" rel="external">http://myserver_ip_address，</a> 打不开网页！用netstat -anltp | grep 80，居然什么都没有！说明server没有在80端口监听呀！哦，对了ubuntu低于1024的端口是需要用root权限的。</p>
 </li>
 <li><p>ubuntu里root默认是关闭的。sudo passwd root，设置root密码后，可以打开。还需要在sudo vim /etc/ssh/sshd_config    添加</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><div class="line"><span class="comment">#PermitRootLogin without-password</span></div><div class="line"><span class="attribute">PermitRootLogin</span> <span class="literal">yes</span></div></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#PermitRootLogin without-password</span></div><div class="line"><span class="attribute">PermitRootLogin</span> <span class="literal">yes</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>重启ssh，再重新用root账号连接，ssh -R :80:localhost:9000 root@myserver_ip_address， 一切ok，<a href="http://myserver_ip_address，" target="_blank" rel="external">http://myserver_ip_address，</a> 本地代码打出日志，说明流量已经导入到本地了。</p>
 </li>
@@ -571,7 +571,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -580,7 +580,7 @@
           
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -589,7 +589,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>

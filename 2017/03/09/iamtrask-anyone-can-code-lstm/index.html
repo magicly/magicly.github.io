@@ -1,0 +1,915 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="rnn,neural network,dl,ml," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="JustForFun" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文翻译自@iamtrask的Anyone Can Learn To Code an LSTM-RNN in Python (Part 1: RNN)。本文作者已通过twitter联系作者，获得授权。
+概要我通过玩具代码一边学习一边调试能达到最好的学习效果。本文通过一个简单的python实现，教会你循环神经网络。
+原文作者@iamtrask说他会在twitter上继续发布第二部分LSTM，敬请关注">
+<meta property="og:type" content="article">
+<meta property="og:title" content="所有人都能学会用Python写出RNN-LSTM代码">
+<meta property="og:url" content="http://magicly.me/2017/03/09/iamtrask-anyone-can-code-lstm/index.html">
+<meta property="og:site_name" content="JustForFun">
+<meta property="og:description" content="本文翻译自@iamtrask的Anyone Can Learn To Code an LSTM-RNN in Python (Part 1: RNN)。本文作者已通过twitter联系作者，获得授权。
+概要我通过玩具代码一边学习一边调试能达到最好的学习效果。本文通过一个简单的python实现，教会你循环神经网络。
+原文作者@iamtrask说他会在twitter上继续发布第二部分LSTM，敬请关注">
+<meta property="og:image" content="http://oml1i2pi6.bkt.clouddn.com/hidden-recurrence.jpg">
+<meta property="og:image" content="http://oml1i2pi6.bkt.clouddn.com/input-recurrence.jpg">
+<meta property="og:image" content="http://iamtrask.github.io/img/basic_recurrence_singleton.png">
+<meta property="og:image" content="http://iamtrask.github.io/img/recurrence_gif.gif">
+<meta property="og:image" content="http://iamtrask.github.io/img/backprop_through_time.gif">
+<meta property="og:image" content="http://iamtrask.github.io/img/binary_addition.GIF">
+<meta property="og:updated_time" content="2017-03-10T05:28:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="所有人都能学会用Python写出RNN-LSTM代码">
+<meta name="twitter:description" content="本文翻译自@iamtrask的Anyone Can Learn To Code an LSTM-RNN in Python (Part 1: RNN)。本文作者已通过twitter联系作者，获得授权。
+概要我通过玩具代码一边学习一边调试能达到最好的学习效果。本文通过一个简单的python实现，教会你循环神经网络。
+原文作者@iamtrask说他会在twitter上继续发布第二部分LSTM，敬请关注">
+<meta name="twitter:image" content="http://oml1i2pi6.bkt.clouddn.com/hidden-recurrence.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://magicly.me/2017/03/09/iamtrask-anyone-can-code-lstm/"/>
+
+
+
+
+
+  <title> 所有人都能学会用Python写出RNN-LSTM代码 | JustForFun </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=60993436";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JustForFun</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Programmer, Geek, Magic, Poker, ML</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://magicly.me/2017/03/09/iamtrask-anyone-can-code-lstm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="magicly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://tva2.sinaimg.cn/crop.0.0.180.180.180/64256cb5jw1e8qgp5bmzyj2050050aa8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JustForFun">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                所有人都能学会用Python写出RNN-LSTM代码
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-09T22:12:59+08:00">
+                2017-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/09/iamtrask-anyone-can-code-lstm/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/09/iamtrask-anyone-can-code-lstm/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/03/09/iamtrask-anyone-can-code-lstm/" class="leancloud_visitors" data-flag-title="所有人都能学会用Python写出RNN-LSTM代码">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文翻译自<a href="https://twitter.com/iamtrask" target="_blank" rel="external">@iamtrask</a>的<a href="http://iamtrask.github.io/2015/11/15/anyone-can-code-lstm/" target="_blank" rel="external">Anyone Can Learn To Code an LSTM-RNN in Python (Part 1: RNN)</a>。本文作者已通过<a href="https://twitter.com/magicly007/with_replies" target="_blank" rel="external">twitter联系作者，获得授权</a>。</p>
+<h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><p>我通过玩具代码一边学习一边调试能达到最好的学习效果。本文通过一个简单的python实现，教会你循环神经网络。</p>
+<p>原文作者<a href="https://twitter.com/iamtrask" target="_blank" rel="external">@iamtrask</a>说他会在twitter上继续发布第二部分LSTM，敬请关注。</p>
+<a id="more"></a>
+<h1 id="废话少说，-给我看看代码"><a href="#废话少说，-给我看看代码" class="headerlink" title="废话少说， 给我看看代码"></a>废话少说， 给我看看代码</h1><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> copy, numpy as np</div><div class="line">np.random.seed(<span class="number">0</span>) <span class="comment">#固定随机数生成器的种子，便于得到固定的输出，【译者注：完全是为了方便调试用的]</span></div><div class="line"></div><div class="line"><span class="comment"># compute sigmoid nonlinearity</span></div><div class="line">def sigmoid(x): <span class="comment">#激活函数</span></div><div class="line">    <span class="attr">output</span> = <span class="number">1</span>/(<span class="number">1</span>+np.exp(-x))</div><div class="line">    return output</div><div class="line"></div><div class="line"><span class="comment"># convert output of sigmoid function to its derivative</span></div><div class="line">def sigmoid_output_to_derivative(output):<span class="comment">#激活函数的导数</span></div><div class="line">    return output*(<span class="number">1</span>-output)</div><div class="line"></div><div class="line"><span class="comment"># training dataset generation</span></div><div class="line"><span class="attr">int2binary</span> = &#123;&#125; <span class="comment">#整数到其二进制表示的映射</span></div><div class="line"><span class="attr">binary_dim</span> = <span class="number">8</span> <span class="comment">#暂时制作256以内的加法， 可以调大</span></div><div class="line"></div><div class="line"><span class="comment">## 以下5行代码计算0-256的二进制表示</span></div><div class="line"><span class="attr">largest_number</span> = pow(<span class="number">2</span>,binary_dim)</div><div class="line"><span class="attr">binary</span> = np.unpackbits(</div><div class="line">    np.array([range(largest_number)],<span class="attr">dtype=np.uint8).T,axis=1)</span></div><div class="line">for i <span class="keyword">in</span> range(largest_number):</div><div class="line">    int2binary[i] = binary[i]</div><div class="line"></div><div class="line"><span class="comment"># input variables</span></div><div class="line"><span class="attr">alpha</span> = <span class="number">0.1</span> <span class="comment">#学习速率</span></div><div class="line"><span class="attr">input_dim</span> = <span class="number">2</span> <span class="comment">#因为我们是做两个数相加，每次会喂给神经网络两个bit，所以输入的维度是2</span></div><div class="line"><span class="attr">hidden_dim</span> = <span class="number">16</span> <span class="comment">#隐藏层的神经元节点数，远比理论值要大（译者注：理论上而言，应该一个节点就可以记住有无进位了，但我试了发现4的时候都没法收敛），你可以自己调整这个数，看看调大了是容易更快地收敛还是更慢</span></div><div class="line"><span class="attr">output_dim</span> = <span class="number">1</span> <span class="comment">#我们的输出是一个数，所以维度为1</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># initialize neural network weights</span></div><div class="line"><span class="attr">synapse_0</span> = <span class="number">2</span>*np.random.random((input_dim,hidden_dim)) - <span class="number">1</span> <span class="comment">#输入层到隐藏层的转化矩阵，维度为2*16， 2是输入维度，16是隐藏层维度</span></div><div class="line"><span class="attr">synapse_1</span> = <span class="number">2</span>*np.random.random((hidden_dim,output_dim)) - <span class="number">1</span></div><div class="line"><span class="attr">synapse_h</span> = <span class="number">2</span>*np.random.random((hidden_dim,hidden_dim)) - <span class="number">1</span></div><div class="line"><span class="comment"># 译者注：np.random.random产生的是[0,1)的随机数，2 * [0, 1) - 1 =&gt; [-1, 1)，</span></div><div class="line"><span class="comment"># 是为了有正有负更快地收敛，这涉及到如何初始化参数的问题，通常来说都是靠“经验”或者说“启发式规则”，说得直白一点就是“蒙的”！机器学习里面，超参数的选择，大部分都是这种情况，哈哈。。。</span></div><div class="line"><span class="comment"># 我自己试了一下用【0, 2)之间的随机数，貌似不能收敛，用[0,1)就可以，呵呵。。。</span></div><div class="line"></div><div class="line"><span class="comment"># 以下三个分别对应三个矩阵的变化</span></div><div class="line"><span class="attr">synapse_0_update</span> = np.zeros_like(synapse_0)</div><div class="line"><span class="attr">synapse_1_update</span> = np.zeros_like(synapse_1)</div><div class="line"><span class="attr">synapse_h_update</span> = np.zeros_like(synapse_h)</div><div class="line"></div><div class="line"><span class="comment"># training logic</span></div><div class="line"><span class="comment"># 学习10000个例子</span></div><div class="line">for j <span class="keyword">in</span> range(<span class="number">100000</span>):</div><div class="line">    </div><div class="line">    <span class="comment"># 下面6行代码，随机产生两个0-128的数字，并查出他们的二进制表示。为了避免相加之和超过256，这里选择两个0-128的数字</span></div><div class="line">    <span class="comment"># generate a simple addition problem (a + b = c)</span></div><div class="line">    <span class="attr">a_int</span> = np.random.randint(largest_number/<span class="number">2</span>) <span class="comment"># int version</span></div><div class="line">    <span class="attr">a</span> = int2binary[a_int] <span class="comment"># binary encoding</span></div><div class="line"></div><div class="line">    <span class="attr">b_int</span> = np.random.randint(largest_number/<span class="number">2</span>) <span class="comment"># int version</span></div><div class="line">    <span class="attr">b</span> = int2binary[b_int] <span class="comment"># binary encoding</span></div><div class="line"></div><div class="line">    <span class="comment"># true answer</span></div><div class="line">    <span class="attr">c_int</span> = a_int + b_int</div><div class="line">    <span class="attr">c</span> = int2binary[c_int]</div><div class="line">    </div><div class="line">    <span class="comment"># where we'll store our best guess (binary encoded)</span></div><div class="line">    <span class="comment"># 存储神经网络的预测值</span></div><div class="line">    <span class="attr">d</span> = np.zeros_like(c)</div><div class="line"></div><div class="line">    <span class="attr">overallError</span> = <span class="number">0</span> <span class="comment">#每次把总误差清零</span></div><div class="line">    </div><div class="line">    <span class="attr">layer_2_deltas</span> = list() <span class="comment">#存储每个时间点输出层的误差</span></div><div class="line">    <span class="attr">layer_1_values</span> = list() <span class="comment">#存储每个时间点隐藏层的值</span></div><div class="line">    layer_1_values.append(np.zeros(hidden_dim)) <span class="comment">#一开始没有隐藏层，所以里面都是0</span></div><div class="line">    </div><div class="line">    <span class="comment"># moving along the positions in the binary encoding</span></div><div class="line">    for position <span class="keyword">in</span> range(binary_dim):<span class="comment">#循环遍历每一个二进制位</span></div><div class="line">        </div><div class="line">        <span class="comment"># generate input and output</span></div><div class="line">        <span class="attr">X</span> = np.array([[a[binary_dim - position - <span class="number">1</span>],b[binary_dim - position - <span class="number">1</span>]]])<span class="comment">#从右到左，每次去两个输入数字的一个bit位</span></div><div class="line">        <span class="attr">y</span> = np.array([[c[binary_dim - position - <span class="number">1</span>]]]).T<span class="comment">#正确答案</span></div><div class="line"></div><div class="line">        <span class="comment"># hidden layer (input ~+ prev_hidden)</span></div><div class="line">        <span class="attr">layer_1</span> = sigmoid(np.dot(X,synapse_0) + np.dot(layer_1_values[-<span class="number">1</span>],synapse_h))<span class="comment">#（输入层 + 之前的隐藏层） -&gt; 新的隐藏层，这是体现循环神经网络的最核心的地方！！！</span></div><div class="line"></div><div class="line">        <span class="comment"># output layer (new binary representation)</span></div><div class="line">        <span class="attr">layer_2</span> = sigmoid(np.dot(layer_1,synapse_1)) <span class="comment">#隐藏层 * 隐藏层到输出层的转化矩阵synapse_1 -&gt; 输出层</span></div><div class="line"></div><div class="line">        <span class="comment"># did we miss?... if so, by how much?</span></div><div class="line">        <span class="attr">layer_2_error</span> = y - layer_2 <span class="comment">#预测误差是多少</span></div><div class="line">        layer_2_deltas.append((layer_2_error)*sigmoid_output_to_derivative(layer_2)) <span class="comment">#我们把每一个时间点的误差导数都记录下来</span></div><div class="line">        overallError += np.abs(layer_2_error[<span class="number">0</span>])<span class="comment">#总误差</span></div><div class="line">    </div><div class="line">        <span class="comment"># decode estimate so we can print it out</span></div><div class="line">        d[binary_dim - position - <span class="number">1</span>] = np.round(layer_2[<span class="number">0</span>][<span class="number">0</span>]) <span class="comment">#记录下每一个预测bit位</span></div><div class="line">        </div><div class="line">        <span class="comment"># store hidden layer so we can use it in the next timestep</span></div><div class="line">        layer_1_values.append(copy.deepcopy(layer_1))<span class="comment">#记录下隐藏层的值，在下一个时间点用</span></div><div class="line">    </div><div class="line">    <span class="attr">future_layer_1_delta</span> = np.zeros(hidden_dim)</div><div class="line">    </div><div class="line">    <span class="comment">#前面代码我们完成了所有时间点的正向传播以及计算最后一层的误差，现在我们要做的是反向传播，从最后一个时间点到第一个时间点</span></div><div class="line">    for position <span class="keyword">in</span> range(binary_dim):</div><div class="line">        </div><div class="line">        <span class="attr">X</span> = np.array([[a[position],b[position]]]) <span class="comment">#最后一次的两个输入</span></div><div class="line">        <span class="attr">layer_1</span> = layer_1_values[-position-<span class="number">1</span>] <span class="comment">#当前时间点的隐藏层</span></div><div class="line">        <span class="attr">prev_layer_1</span> = layer_1_values[-position-<span class="number">2</span>] <span class="comment">#前一个时间点的隐藏层</span></div><div class="line">        </div><div class="line">        <span class="comment"># error at output layer</span></div><div class="line">        <span class="attr">layer_2_delta</span> = layer_2_deltas[-position-<span class="number">1</span>] <span class="comment">#当前时间点输出层导数</span></div><div class="line">        <span class="comment"># error at hidden layer</span></div><div class="line">        <span class="comment"># 通过后一个时间点（因为是反向传播）的隐藏层误差和当前时间点的输出层误差，计算当前时间点的隐藏层误差</span></div><div class="line">        <span class="attr">layer_1_delta</span> = (future_layer_1_delta.dot(synapse_h.T) + layer_2_delta.dot(synapse_1.T)) * sigmoid_output_to_derivative(layer_1)</div><div class="line"></div><div class="line">        <span class="comment"># let's update all our weights so we can try again</span></div><div class="line">        <span class="comment"># 我们已经完成了当前时间点的反向传播误差计算， 可以构建更新矩阵了。但是我们并不会现在就更新权重矩阵，因为我们还要用他们计算前一个时间点的更新矩阵呢。</span></div><div class="line">        <span class="comment"># 所以要等到我们完成了所有反向传播误差计算， 才会真正的去更新权重矩阵，我们暂时把更新矩阵存起来。</span></div><div class="line">        <span class="comment"># 可以看这里了解更多关于反向传播的知识http://iamtrask.github.io/2015/07/12/basic-python-network/</span></div><div class="line">        synapse_1_update += np.atleast_2d(layer_1).T.dot(layer_2_delta)</div><div class="line">        synapse_h_update += np.atleast_2d(prev_layer_1).T.dot(layer_1_delta)</div><div class="line">        synapse_0_update += X.T.dot(layer_1_delta)</div><div class="line">        </div><div class="line">        <span class="attr">future_layer_1_delta</span> = layer_1_delta</div><div class="line">    </div><div class="line"></div><div class="line">    <span class="comment"># 我们已经完成了所有的反向传播，可以更新几个转换矩阵了。并把更新矩阵变量清零</span></div><div class="line">    synapse_0 += synapse_0_update * alpha</div><div class="line">    synapse_1 += synapse_1_update * alpha</div><div class="line">    synapse_h += synapse_h_update * alpha</div><div class="line"></div><div class="line">    synapse_0_update *= <span class="number">0</span></div><div class="line">    synapse_1_update *= <span class="number">0</span></div><div class="line">    synapse_h_update *= <span class="number">0</span></div><div class="line">    </div><div class="line">    <span class="comment"># print out progress</span></div><div class="line">    <span class="keyword">if</span>(j % <span class="number">1000</span> == <span class="number">0</span>):</div><div class="line">        print(<span class="string">"Error:"</span> + str(overallError))</div><div class="line">        print(<span class="string">"Pred:"</span> + str(d))</div><div class="line">        print(<span class="string">"True:"</span> + str(c))</div><div class="line">        <span class="attr">out</span> = <span class="number">0</span></div><div class="line">        for index,x <span class="keyword">in</span> enumerate(reversed(d)):</div><div class="line">            out += x*pow(<span class="number">2</span>,index)</div><div class="line">        print(str(a_int) + <span class="string">" + "</span> + str(b_int) + <span class="string">" = "</span> + str(out))</div><div class="line">        print(<span class="string">"------------"</span>)</div></pre></td></tr></table></figure>
+<h1 id="运行时输出"><a href="#运行时输出" class="headerlink" title="运行时输出"></a>运行时输出</h1><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">Error:[ 3.45638663]</div><div class="line">Pred:[0 0 0 0 0 0 0 1]</div><div class="line">True:[0 1 0 0 0 1 0 1]</div><div class="line"><span class="section">9 + 60 = 1</span></div><div class="line">------------</div><div class="line">Error:[ 3.63389116]</div><div class="line">Pred:[1 1 1 1 1 1 1 1]</div><div class="line">True:[0 0 1 1 1 1 1 1]</div><div class="line"><span class="section">28 + 35 = 255</span></div><div class="line">------------</div><div class="line">Error:[ 3.91366595]</div><div class="line">Pred:[0 1 0 0 1 0 0 0]</div><div class="line">True:[1 0 1 0 0 0 0 0]</div><div class="line"><span class="section">116 + 44 = 72</span></div><div class="line">------------</div><div class="line">Error:[ 3.72191702]</div><div class="line">Pred:[1 1 0 1 1 1 1 1]</div><div class="line">True:[0 1 0 0 1 1 0 1]</div><div class="line"><span class="section">4 + 73 = 223</span></div><div class="line">------------</div><div class="line">Error:[ 3.5852713]</div><div class="line">Pred:[0 0 0 0 1 0 0 0]</div><div class="line">True:[0 1 0 1 0 0 1 0]</div><div class="line"><span class="section">71 + 11 = 8</span></div><div class="line">------------</div><div class="line">Error:[ 2.53352328]</div><div class="line">Pred:[1 0 1 0 0 0 1 0]</div><div class="line">True:[1 1 0 0 0 0 1 0]</div><div class="line"><span class="section">81 + 113 = 162</span></div><div class="line">------------</div><div class="line">Error:[ 0.57691441]</div><div class="line">Pred:[0 1 0 1 0 0 0 1]</div><div class="line">True:[0 1 0 1 0 0 0 1]</div><div class="line"><span class="section">81 + 0 = 81</span></div><div class="line">------------</div><div class="line">Error:[ 1.42589952]</div><div class="line">Pred:[1 0 0 0 0 0 0 1]</div><div class="line">True:[1 0 0 0 0 0 0 1]</div><div class="line"><span class="section">4 + 125 = 129</span></div><div class="line">------------</div><div class="line">Error:[ 0.47477457]</div><div class="line">Pred:[0 0 1 1 1 0 0 0]</div><div class="line">True:[0 0 1 1 1 0 0 0]</div><div class="line"><span class="section">39 + 17 = 56</span></div><div class="line">------------</div><div class="line">Error:[ 0.21595037]</div><div class="line">Pred:[0 0 0 0 1 1 1 0]</div><div class="line">True:[0 0 0 0 1 1 1 0]</div><div class="line"><span class="section">11 + 3 = 14</span></div><div class="line">------------</div></pre></td></tr></table></figure>
+<h1 id="第一部分：什么是神经元记忆"><a href="#第一部分：什么是神经元记忆" class="headerlink" title="第一部分：什么是神经元记忆"></a>第一部分：什么是神经元记忆</h1><p>顺着背出字母表，你很容易做到吧？</p>
+<p>倒着背呢， 有点难哦。</p>
+<p>试着想一首你记得的歌词。为什么顺着回忆比倒着回忆难？你能直接跳到第二小节的中间么？额， 好像有点难。 这是为什么呢？</p>
+<p>这其实很符合逻辑。 你记忆字母表或者歌词并不是像计算机把信息存储在硬盘上那样的（译者注：计算机可以随机访问磁盘。）。你是顺序记忆的。知道了前一个字母，你很容易知道下一个。这是一种条件记忆，只有你最近知道了前一个记忆，你才容易想起来下一个记忆，就想你熟悉的链表一样。</p>
+<p>但是，并不是说你不唱歌的时候，歌就不在你脑子里了。而是说你如果想直接跳到中间那部分，你会发现很难直接找到其在脑中的呈现（也许是一堆神经元）。你想直接搜索到一首歌的中间部分，这是很难的， 因为你以前没有这样做过，所以没有索引可以指向歌曲的中间部分。 就好比你邻居家有很多小路， 你从前门进去顺着路走很容易找到后院，但是让你直接到后院去就不太容易。想了解更过关于大脑的知识，请看<a href="http://www.human-memory.net/processes_recall.html" target="_blank" rel="external">这里</a>。</p>
+<p>跟链表很像，记忆这样存储很高效。我们可以发现这样存储在解决很多问题时候有优势。</p>
+<p>如果你的数据是一个序列，那么记忆就很重要（意味着你必须记住某些东西）。看下面的视频：</p>
+<iframe width="700" height="525" src="https://www.youtube.com/embed/UL0ZOgN2SqY" frameborder="0" allowfullscreen></iframe>
+
+
+<p>每一个数据点就是视频中的一帧。如果你想训练一个神经网络来预测下一帧小球的位置， 那么知道上一帧小球的位置就很重要。这样的序列数据就是我们需要构建循环神经网络的原因。那么， 神经网络怎么记住以前的信息呢？</p>
+<p>神经网络有隐藏层。一般而言，隐藏层的状态由输入决定。所以，一般而言神经网络的信息流如下图：<br><figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">input</span> -&gt;</span> <span class="function"><span class="title">hidden</span> -&gt;</span> output</div></pre></td></tr></table></figure></p>
+<p>这很简单直接。特定的输入决定特定的隐藏层，特定的隐藏层又决定了输出。这是一种封闭系统。记忆改变了这种状况。记忆意味着，隐藏状态是由当前时间点的输入和上一个时间点的隐藏状态决定的。<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="params">(input + prev_hidden)</span> -&gt;</span> hidden<span class="function"> -&gt;</span> output</div></pre></td></tr></table></figure></p>
+<p>为什么是隐藏层而不是输入层呢？我们也可以这样做呀：<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="params">(input + prev_input)</span> -&gt;</span> hidden<span class="function"> -&gt;</span> output</div></pre></td></tr></table></figure></p>
+<p>现在，仔细想想，如果有四个时间点，如果我们采用隐藏层循环是如下图：<br><img src="http://oml1i2pi6.bkt.clouddn.com/hidden-recurrence.jpg" alt="hidden layer recurrence"><br>如果采用输入层循环会是：<br><img src="http://oml1i2pi6.bkt.clouddn.com/input-recurrence.jpg" alt="input layer recurrence"><br>看到区别没，隐藏层记忆了之前所有的输入信息，而输入层循环则只能利用到上一个输入。举个例子，假设一首歌词里面有”….I love you…”和”…I love carrots…”，如果采用输入层循环，则没法根据”I love”来预测下一个词是什么？因为当前输入是love，前一个输入是I，这两种情况一致，所以没法区分。 而隐藏层循环则可以记住更久之前的输入信息，因而能更好地预测下一个词。理论上而言，隐藏层循环可以记住所有之前的输入，当然记忆会随着时间流逝逐渐忘却。有兴趣的可以看<a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank" rel="external">这篇blog</a>。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">停下来好好想想， 直到你感觉想明白了再继续。</div></pre></td></tr></table></figure></p>
+<h1 id="第二部分：RNN-神经网络记忆"><a href="#第二部分：RNN-神经网络记忆" class="headerlink" title="第二部分：RNN - 神经网络记忆"></a>第二部分：RNN - 神经网络记忆</h1><p>现在我们已经有了一些直观认识， 接下来让我们更进一步分析。正如在<a href="http://iamtrask.github.io/2015/07/12/basic-python-network/" target="_blank" rel="external">反向传播这篇blog</a>里介绍的，神经网络的输入层是由输入数据集决定的。每一行输入数据用来产生隐藏层（通过正向传播）。每个隐藏层又用于产生输出层（假设只有一层隐藏层）。如我们之前所说，记忆意味着隐藏层是由输入数据和前一次的隐藏层组合而成。怎么做的呢？很像神经网络里面其他传播的做法一样， 通过矩阵！这个矩阵定义了当前隐藏层跟前一个隐藏层的关系。</p>
+<p><img src="http://iamtrask.github.io/img/basic_recurrence_singleton.png" alt="rnn"><br>这幅图中很重要的一点是有三个权重矩阵。有两个我们很熟悉了。SYNAPSE_0用于把输入数据传播到隐藏层。SYNAPSE_1把隐藏层传播到输出数据。新矩阵（SYNAPSE_h，用于循环）把当前的隐藏层（layer_1）传播到下一个时间点的隐藏层（还是layer_1）。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">停下来好好想想， 直到你感觉想明白了再继续。</div></pre></td></tr></table></figure></p>
+<p><img src="http://iamtrask.github.io/img/recurrence_gif.gif" alt="forward"><br>上面的gif图展示了循环神经网络的神奇之处以及一些很重要的性质。它展示了四个时间点隐藏层的情况。第一个时间点，隐藏层仅由输入数据决定。第二个时间点，隐藏层是由输入数据和第一个时间点的隐藏层共同决定的。以此类推。你应该注意到了，第四个时间点的时候，网络已经“满了”。所以大概第五个时间点来的时候，就要选择哪些记忆保留，哪些记忆覆盖。现实如此。这就是记忆“容量”的概念。如你所想，更大的隐藏层，就能记住更长时间的东西。同样，这就需要神经网络学会<strong>忘记不相关的记忆</strong>然后<strong>记住重要的记忆</strong>。第三步有没看出什么重要信息？为什么<strong>绿色</strong>的要比其他颜色的多呢？</p>
+<p>另外要注意的是隐藏层夹在输入层和输出层中间，所以输出已经不仅仅取决于输入了。输入仅仅改变记忆，而输出仅仅依赖于记忆。有趣的是，如果2，3，4时间节点没有输入数据的话，隐藏层同样会随着时间流逝而变化。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">停下来好好想想，确保你明白了刚讲的内容。</div></pre></td></tr></table></figure></p>
+<h1 id="第三部分：基于时间的反向传播"><a href="#第三部分：基于时间的反向传播" class="headerlink" title="第三部分：基于时间的反向传播"></a>第三部分：基于时间的反向传播</h1><p>那么循环神经网络是怎么学习的呢？看看下面的图。黑色表示预测结果，明黄色表示错误，褐黄色表示导数。<br><img src="http://iamtrask.github.io/img/backprop_through_time.gif" alt="bp"><br>网络通过从1到4的全部前向传播（可以是任意长度的整个序列），然后再从4到1的反向传播导数来学习。你可以把它看成一个有点变形的普通神经网络，除了我们在不同的地方共享权值（synapses 0,1,and h）。除了这点， 它就是一个普通的神经网络。</p>
+<h1 id="我们的玩具代码"><a href="#我们的玩具代码" class="headerlink" title="我们的玩具代码"></a>我们的玩具代码</h1><p>来，我们用循环神经网络做个模型来实现<strong>二进制加法</strong>。看到下面的图没，你猜猜顶上的彩色的1表示什么意思呢？<br><img src="http://iamtrask.github.io/img/binary_addition.GIF" alt="toy code"><br>方框里的彩色的1表示<strong>进位</strong>。我们就要用循环神经网络来记住这个进位。求和的时候需要记住<strong>进位</strong>（如果不懂，可以看<a href="https://www.youtube.com/watch?v=jB_sRh5yoZk" target="_blank" rel="external">这里</a>）。</p>
+<p>二进制加法做法就是，从右往左，根据上面两行的bit来预测第三行的bit为1还是0。我们想要神经网络遍历整个二进制序列记住是否有进位，以便能计算出正确的结果。不要太纠结这个问题本身，神经网络也不在乎这个问题。它在乎的只是每个时刻它会收到两个输入（0或者1），然后它会传递给用于记忆是否有进位的隐藏层。神经网络会把所有这些信息（输入和隐藏层的记忆）考虑进去，来对每一位（每个时间点）做出正确的预测。</p>
+<hr>
+<p>下面原文里面是针对每行代码做的注释， 为了方便阅读， 我直接把注释写到了代码里面， 便于大家阅读。</p>
+<p>译者注：RNN在自然语言处理里面大量使用，包括机器翻译，对话系统，机器做诗词等，本文只是简单介绍了一下原理。后续我会写一些应用方面的文章，敬请期待。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/rnn/" rel="tag"># rnn</a>
+          
+            <a href="/tags/neural-network/" rel="tag"># neural network</a>
+          
+            <a href="/tags/dl/" rel="tag"># dl</a>
+          
+            <a href="/tags/ml/" rel="tag"># ml</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/03/word2vec-first-try-md/" rel="next" title="用word2vec分析中文维基语料库">
+                <i class="fa fa-chevron-left"></i> 用word2vec分析中文维基语料库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/03/09/iamtrask-anyone-can-code-lstm/"
+           data-title="所有人都能学会用Python写出RNN-LSTM代码" data-url="http://magicly.me/2017/03/09/iamtrask-anyone-can-code-lstm/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://tva2.sinaimg.cn/crop.0.0.180.180.180/64256cb5jw1e8qgp5bmzyj2050050aa8.jpg"
+               alt="magicly" />
+          <p class="site-author-name" itemprop="name">magicly</p>
+           
+              <p class="site-description motion-element" itemprop="description">magicly记录各种好玩的事务的地方。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概要"><span class="nav-number">1.</span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#废话少说，-给我看看代码"><span class="nav-number">2.</span> <span class="nav-text">废话少说， 给我看看代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行时输出"><span class="nav-number">3.</span> <span class="nav-text">运行时输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一部分：什么是神经元记忆"><span class="nav-number">4.</span> <span class="nav-text">第一部分：什么是神经元记忆</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二部分：RNN-神经网络记忆"><span class="nav-number">5.</span> <span class="nav-text">第二部分：RNN - 神经网络记忆</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三部分：基于时间的反向传播"><span class="nav-number">6.</span> <span class="nav-text">第三部分：基于时间的反向传播</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我们的玩具代码"><span class="nav-number">7.</span> <span class="nav-text">我们的玩具代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">magicly</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"magicly"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("7X94q2azroaDfCcGv3kKgaaW-gzGzoHsz", "0Dy3C3WtaiQq0SKdEsOVqy4m");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.staticfile.org/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
