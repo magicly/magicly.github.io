@@ -77,3 +77,9 @@ math:
   engine: 'mathjax' # or 'katex'
   mathjax:
     src: //cdn.staticfile.org/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+
+# Social links
+social:
+  GitHub: https://github.com/magicly
+  Twitter: https://twitter.com/magicly007
+  Weibo: http://weibo.com/magicly
