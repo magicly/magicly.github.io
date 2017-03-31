@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="js,css,animation,beizer curve," />
+  <meta name="keywords" content="rnn,ml,udacity,tensorflow,AI,cnn,lstm,word2vec," />
 
 
 
@@ -89,16 +89,34 @@
 
 
 
-<meta name="description" content="什么是贝塞尔曲线最近做一个动画效果时需要将物体做曲线移动， 本来记得css3里的动画是可以指定beizer curve的， 结果用的时候发现css3的beizer curve只用来做easing timing function。简单来说就是拿来控制动画“非线性”移动，比如越来越快（ease-in）， 越来越慢（ease-out），先慢后快再慢（ease-in-out）等， 让动画效果更“灵动”，">
+<meta name="description" content="最近在看Udacity的ud730课程，号称是tensorflow官方宣传片哈哈，因为用到的代码直接在tensorflow的代码里面。
+课程主要包括四大部分：
+
+机器学习的基本概念
+深度神经网络
+卷积神经网络
+循环神经网络">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bezier-curve">
-<meta property="og:url" content="http://magicly.me/2016/11/29/bezier-curve/index.html">
+<meta property="og:title" content="udacity课程ud730深度学习学习笔记">
+<meta property="og:url" content="http://magicly.me/2017/03/31/udacity-ud730-notes/index.html">
 <meta property="og:site_name" content="JustForFun">
-<meta property="og:description" content="什么是贝塞尔曲线最近做一个动画效果时需要将物体做曲线移动， 本来记得css3里的动画是可以指定beizer curve的， 结果用的时候发现css3的beizer curve只用来做easing timing function。简单来说就是拿来控制动画“非线性”移动，比如越来越快（ease-in）， 越来越慢（ease-out），先慢后快再慢（ease-in-out）等， 让动画效果更“灵动”，">
-<meta property="og:updated_time" content="2016-11-29T09:49:50.000Z">
+<meta property="og:description" content="最近在看Udacity的ud730课程，号称是tensorflow官方宣传片哈哈，因为用到的代码直接在tensorflow的代码里面。
+课程主要包括四大部分：
+
+机器学习的基本概念
+深度神经网络
+卷积神经网络
+循环神经网络">
+<meta property="og:updated_time" content="2017-03-31T02:08:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bezier-curve">
-<meta name="twitter:description" content="什么是贝塞尔曲线最近做一个动画效果时需要将物体做曲线移动， 本来记得css3里的动画是可以指定beizer curve的， 结果用的时候发现css3的beizer curve只用来做easing timing function。简单来说就是拿来控制动画“非线性”移动，比如越来越快（ease-in）， 越来越慢（ease-out），先慢后快再慢（ease-in-out）等， 让动画效果更“灵动”，">
+<meta name="twitter:title" content="udacity课程ud730深度学习学习笔记">
+<meta name="twitter:description" content="最近在看Udacity的ud730课程，号称是tensorflow官方宣传片哈哈，因为用到的代码直接在tensorflow的代码里面。
+课程主要包括四大部分：
+
+机器学习的基本概念
+深度神经网络
+卷积神经网络
+循环神经网络">
 
 
 
@@ -126,13 +144,13 @@
 
 
 
-  <link rel="canonical" href="http://magicly.me/2016/11/29/bezier-curve/"/>
+  <link rel="canonical" href="http://magicly.me/2017/03/31/udacity-ud730-notes/"/>
 
 
 
 
 
-  <title> bezier-curve | JustForFun </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> udacity课程ud730深度学习学习笔记 | JustForFun </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -260,7 +278,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://magicly.me/2016/11/29/bezier-curve/">
+    <link itemprop="mainEntityOfPage" href="http://magicly.me/2017/03/31/udacity-ud730-notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="magicly">
@@ -281,7 +299,7 @@
             
             
               
-                bezier-curve
+                udacity课程ud730深度学习学习笔记
               
             
           </h1>
@@ -296,8 +314,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-29T11:09:52+08:00">
-                2016-11-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T09:48:11+08:00">
+                2017-03-31
               </time>
             
 
@@ -319,8 +337,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/FE/" itemprop="url" rel="index">
-                    <span itemprop="name">FE</span>
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
                   </a>
                 </span>
 
@@ -337,8 +355,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/29/bezier-curve/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/29/bezier-curve/" itemprop="commentCount"></span>
+                <a href="/2017/03/31/udacity-ud730-notes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/31/udacity-ud730-notes/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -346,7 +364,7 @@
 
           
           
-             <span id="/2016/11/29/bezier-curve/" class="leancloud_visitors" data-flag-title="bezier-curve">
+             <span id="/2017/03/31/udacity-ud730-notes/" class="leancloud_visitors" data-flag-title="udacity课程ud730深度学习学习笔记">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -375,58 +393,53 @@
       
 
       
-        <h1 id="什么是贝塞尔曲线"><a href="#什么是贝塞尔曲线" class="headerlink" title="什么是贝塞尔曲线"></a>什么是贝塞尔曲线</h1><p>最近做一个动画效果时需要将物体做曲线移动， 本来记得css3里的动画是可以指定beizer curve的， 结果用的时候发现css3的beizer curve只用来做easing timing function。简单来说就是拿来控制动画“非线性”移动，比如越来越快（ease-in）， 越来越慢（ease-out），先慢后快再慢（ease-in-out）等， 让动画效果更“灵动”， 避免线性（linear）的死板。</p>
-<p>可以看看这两个页面， 有一个直观的感受。</p>
+        <p>最近在看Udacity的<a href="https://classroom.udacity.com/courses/ud730/" target="_blank" rel="external">ud730课程</a>，号称是tensorflow官方宣传片哈哈，因为用到的代码直接在<a href="https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/udacity" target="_blank" rel="external">tensorflow的代码里面</a>。</p>
+<p>课程主要包括四大部分：</p>
+<ul>
+<li>机器学习的基本概念</li>
+<li>深度神经网络</li>
+<li>卷积神经网络</li>
+<li>循环神经网络</li>
+</ul>
 <a id="more"></a>
-<ul>
-<li><a href="http://cubic-bezier.com/" target="_blank" rel="external">http://cubic-bezier.com/</a></li>
-<li><a href="http://easings.net/zh-cn" target="_blank" rel="external">http://easings.net/zh-cn</a></li>
+<h1 id="机器学习基本概念"><a href="#机器学习基本概念" class="headerlink" title="机器学习基本概念"></a>机器学习基本概念</h1><ul>
+<li>softmax</li>
+<li>cross-entropy</li>
+<li>overfitting &amp; regularization</li>
+<li>train / validate / test dataset的用途</li>
+<li>SGD，随机梯度下降算法</li>
+<li>Momentum &amp; learning rate decay，动量法和学习率调节下降</li>
+<li>Hyper-parameter，超参数空间</li>
 </ul>
-<p>beizer curve在css3中的使用， 可以自己google一下， 或者看下：</p>
-<ul>
-<li><a href="http://www.w3school.com.cn/css3/css3_transition.asp" target="_blank" rel="external">http://www.w3school.com.cn/css3/css3_transition.asp</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2014/02/css_transition_and_animation.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2014/02/css_transition_and_animation.html</a></li>
+<h1 id="深度神经网络"><a href="#深度神经网络" class="headerlink" title="深度神经网络"></a>深度神经网络</h1><ul>
+<li>线性模型的局限</li>
+<li>ReLu</li>
+<li>Chain Rule， 链式法则</li>
+<li>Back propagation，反向传播</li>
+<li>Regularization，正则化</li>
+<li>Dropout</li>
 </ul>
-<p>引用wiki上的介绍：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">在数学的数值分析领域中，贝塞尔曲线（英语：<span class="keyword">Bézier </span>curve）是计算机图形学中相当重要的参数曲线。更高维度的广泛化贝塞尔曲线就称作贝塞尔曲面，其中贝塞尔三角是一种特殊的实例。</div><div class="line">贝塞尔曲线于<span class="number">1962</span>年，由法国工程师皮埃尔·贝塞尔（Pierre <span class="keyword">Bézier）所广泛发表，他运用贝塞尔曲线来为汽车的主体进行设计。贝塞尔曲线最初由Paul </span>de Casteljau于<span class="number">1959</span>年运用de Casteljau算法开发，以稳定数值的方法求出贝塞尔曲线。</div></pre></td></tr></table></figure></p>
-<p>有数学功底或者有兴趣的可以参考下面几篇文章， 我就不赘述了（最讨厌那种什么都要copy过来，弄得好像跟是自己写的样， 别人已经写得很清楚了， 干嘛再重复劳动一遍呢， 又没有自己的新的见解，赠人链接， 手留余香。 😁哈）。</p>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/B%C3%A9zier_curve" target="_blank" rel="external">https://en.wikipedia.org/wiki/B%C3%A9zier_curve</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/%E8%B2%9D%E8%8C%B2%E6%9B%B2%E7%B7%9A" target="_blank" rel="external">https://zh.wikipedia.org/wiki/%E8%B2%9D%E8%8C%B2%E6%9B%B2%E7%B7%9A</a></li>
-<li><a href="http://www.html-js.com/article/1628" target="_blank" rel="external">http://www.html-js.com/article/1628</a></li>
-<li><a href="http://www.cnblogs.com/hnfxs/p/3148483.html" target="_blank" rel="external">http://www.cnblogs.com/hnfxs/p/3148483.html</a></li>
+<h1 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h1><ul>
+<li>Statistical Invariants，统计不变性</li>
+<li>Convolutional NN，Convnets，卷积网络<ul>
+<li>feature map</li>
+<li>stride</li>
+<li>max pooling</li>
+</ul>
+</li>
 <li></li>
 </ul>
-<h1 id="在线工具"><a href="#在线工具" class="headerlink" title="在线工具"></a>在线工具</h1><p>下面是几个比较有用的工具， 方便大家。</p>
-<ul>
-<li><a href="http://blogs.sitepointstatic.com/examples/tech/canvas-curves/quadratic-curve.html" target="_blank" rel="external">http://blogs.sitepointstatic.com/examples/tech/canvas-curves/quadratic-curve.html</a></li>
-<li><a href="http://myst729.github.io/bezier-curve/" target="_blank" rel="external">http://myst729.github.io/bezier-curve/</a></li>
-<li><a href="http://xuanfengge.com/easeing/ceaser/" target="_blank" rel="external">http://xuanfengge.com/easeing/ceaser/</a></li>
-<li><a href="http://yisibl.github.io/cubic-bezier/#.17,.67,.83,.67" target="_blank" rel="external">http://yisibl.github.io/cubic-bezier/#.17,.67,.83,.67</a></li>
-<li><a href="http://cubic-bezier.com/#.17,.67,.83,.67" target="_blank" rel="external">http://cubic-bezier.com/#.17,.67,.83,.67</a></li>
+<h1 id="循环神经网络"><a href="#循环神经网络" class="headerlink" title="循环神经网络"></a>循环神经网络</h1><ul>
+<li>Embeddings</li>
+<li>word2vec</li>
+<li>tSNE</li>
+<li>RNN</li>
+<li>梯度消失/爆炸</li>
+<li>LSTM</li>
+<li>Beam搜索</li>
 </ul>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>前面资料都是把bezier curve拿来当timing function的， 而我的需求是要让物体（某个dom节点）沿着某条beizer curve移动，于是继续google， 找到了几个。</p>
-<ul>
-<li>Android实现: <a href="https://github.com/Yasic/QQBubbleView" target="_blank" rel="external">https://github.com/Yasic/QQBubbleView</a></li>
-</ul>
-<p>Android的我用不到， 放这里主要是里面的gif图很直观，哈哈。</p>
-<ul>
-<li>CSS实现：<a href="http://jinlong.github.io/2016/01/14/moving-along-a-curved-path-in-css-with-layered-animation/，" target="_blank" rel="external">http://jinlong.github.io/2016/01/14/moving-along-a-curved-path-in-css-with-layered-animation/，</a> 原文：<a href="http://tobiasahlin.com/blog/curved-path-animations-in-css/" target="_blank" rel="external">http://tobiasahlin.com/blog/curved-path-animations-in-css/</a></li>
-</ul>
-<p>CSS的实现真是相当tricky， 我解释一下。CSS里面的animation translate是直接按照直线移动到目的地的， 这是因为沿X轴和Y轴都是匀速运动（linear），所以合成之后的速度必然是斜角45°移动过去的。我们可以把X轴看成时间轴， 这时如果Y轴的移动函数是某个beizer curve，那合成之后的移动曲线就是beizer curve了。具体实现的时候还用到了:after伪元素了。</p>
-<p>复杂一点的我觉得还是需要用js去控制， 于是自然想到了用js代码去按照beizer curve公式实现。</p>
-<ul>
-<li>JS实现： <a href="http://blog.csdn.net/cuixiping/article/details/6872095" target="_blank" rel="external">http://blog.csdn.net/cuixiping/article/details/6872095</a></li>
-</ul>
-<p>这个用的公式不直观，应该是进行了变换之后的， 我直接照着公式写了一个。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function">function <span class="title">PointOnCubicBezier2</span><span class="params">(cp, t)</span>  </span>&#123;</div><div class="line">   <span class="comment">// B(t) = P0 * (1-t)^3 + 3 * P1 * t * (1-t)^2 + 3 * P2 * t^2 * (1-t) + P3 * t^3</span></div><div class="line">        <span class="keyword">const</span> <span class="keyword">one_t</span> = <span class="number">1.0</span> - t;</div><div class="line">        <span class="keyword">const</span> P0 = cp[<span class="number">0</span>];</div><div class="line">        <span class="keyword">const</span> P1 = cp[<span class="number">1</span>];</div><div class="line">        <span class="keyword">const</span> P2 = cp[<span class="number">2</span>];</div><div class="line">        <span class="keyword">const</span> P3 = cp[<span class="number">3</span>];</div><div class="line">        <span class="keyword">const</span> x =  (P0.x * Math.<span class="built_in">pow</span>(<span class="keyword">one_t</span>, <span class="number">3</span>) + <span class="number">3</span> * P1.x * t * Math.<span class="built_in">pow</span>(<span class="keyword">one_t</span>, <span class="number">2</span>) + <span class="number">3</span> * P2.x * Math.<span class="built_in">pow</span>(t, <span class="number">2</span>) * <span class="keyword">one_t</span> + P3.x * Math.<span class="built_in">pow</span>(t, <span class="number">3</span>));</div><div class="line">        <span class="keyword">const</span> y =  (P0.y * Math.<span class="built_in">pow</span>(<span class="keyword">one_t</span>, <span class="number">3</span>) + <span class="number">3</span> * P1.y * t * Math.<span class="built_in">pow</span>(<span class="keyword">one_t</span>, <span class="number">2</span>) + <span class="number">3</span> * P2.y * Math.<span class="built_in">pow</span>(t, <span class="number">2</span>) * <span class="keyword">one_t</span> + P3.y * Math.<span class="built_in">pow</span>(t, <span class="number">3</span>));</div><div class="line">        <span class="keyword">const</span> pointF = <span class="keyword">new</span> Point2D(x, y);</div><div class="line">        <span class="keyword">return</span> pointF;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>对比了一下两个函数的输出值， 完全是一样的， 应该就是数学变换而已， 我懒得去做推倒了。</p>
-<p>后来找到一个三阶beizer curve的实现，看这里<br><a href="https://github.com/gre/bezier-easing，" target="_blank" rel="external">https://github.com/gre/bezier-easing，</a> 这个实现可能有点NB，以至于<a href="https://facebook.github.io/react-native/" target="_blank" rel="external">React Native</a>、<a href="http://velocityjs.org/" target="_blank" rel="external">Velocity</a>等项目都使用了，屌屌的。</p>
-<p>用<a href="https://github.com/bestiejs/benchmark.js" target="_blank" rel="external">benchmark</a>跑一下分：<a href="https://jsperf.com/beizer-curve5" target="_blank" rel="external">看这里</a>， chrome下我写的方法居然慢了94%！看样子代码可读性是要付出代价的哈。我还是老老实实用<a href="https://github.com/gre/bezier-easing吧。" target="_blank" rel="external">https://github.com/gre/bezier-easing吧。</a></p>
-<p>刚刚又搜到一篇文章， 讲解地更细致深入， 害得我不想继续写了。 直接看这里吧。<a href="http://www.jianshu.com/p/55c721887568" target="_blank" rel="external">http://www.jianshu.com/p/55c721887568</a></p>
-<h1 id="如何将多个点用贝塞尔曲线连起来"><a href="#如何将多个点用贝塞尔曲线连起来" class="headerlink" title="如何将多个点用贝塞尔曲线连起来"></a>如何将多个点用贝塞尔曲线连起来</h1><ul>
-<li><a href="http://www.zheng-hang.com/?id=43" target="_blank" rel="external">http://www.zheng-hang.com/?id=43</a></li>
-<li><a href="http://www.cnblogs.com/hnfxs/p/3148743.html" target="_blank" rel="external">http://www.cnblogs.com/hnfxs/p/3148743.html</a></li>
-<li></li>
-</ul>
+<p>课程总共有6个tasks，目前完成了3个， 代码在<a href="https://github.com/magicly/udacity-ud730" target="_blank" rel="external">github上</a>，后续会继续更新本文和代码， 欢迎有兴趣的关注。</p>
+<p>To be continued…</p>
 
       
     </div>
@@ -450,13 +463,21 @@
       
         <div class="post-tags">
           
-            <a href="/tags/js/" rel="tag"># js</a>
+            <a href="/tags/rnn/" rel="tag"># rnn</a>
           
-            <a href="/tags/css/" rel="tag"># css</a>
+            <a href="/tags/ml/" rel="tag"># ml</a>
           
-            <a href="/tags/animation/" rel="tag"># animation</a>
+            <a href="/tags/udacity/" rel="tag"># udacity</a>
           
-            <a href="/tags/beizer-curve/" rel="tag"># beizer curve</a>
+            <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
+          
+            <a href="/tags/AI/" rel="tag"># AI</a>
+          
+            <a href="/tags/cnn/" rel="tag"># cnn</a>
+          
+            <a href="/tags/lstm/" rel="tag"># lstm</a>
+          
+            <a href="/tags/word2vec/" rel="tag"># word2vec</a>
           
         </div>
       
@@ -469,8 +490,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/16/auto-deploy-githubPages-by-webhook-md/" rel="next" title="利用webhook实现github pages的自动部署">
-                <i class="fa fa-chevron-left"></i> 利用webhook实现github pages的自动部署
+              <a href="/2017/03/09/iamtrask-anyone-can-code-lstm/" rel="next" title="所有人都能学会用Python写出RNN-LSTM代码">
+                <i class="fa fa-chevron-left"></i> 所有人都能学会用Python写出RNN-LSTM代码
               </a>
             
           </div>
@@ -478,10 +499,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/12/ml-content/" rel="prev" title="机器学习计划">
-                机器学习计划 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -507,8 +524,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/11/29/bezier-curve/"
-           data-title="bezier-curve" data-url="http://magicly.me/2016/11/29/bezier-curve/">
+      <div class="ds-thread" data-thread-key="2017/03/31/udacity-ud730-notes/"
+           data-title="udacity课程ud730深度学习学习笔记" data-url="http://magicly.me/2017/03/31/udacity-ud730-notes/">
       </div>
     
   </div>
@@ -646,7 +663,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是贝塞尔曲线"><span class="nav-number">1.</span> <span class="nav-text">什么是贝塞尔曲线</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在线工具"><span class="nav-number">2.</span> <span class="nav-text">在线工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何将多个点用贝塞尔曲线连起来"><span class="nav-number">4.</span> <span class="nav-text">如何将多个点用贝塞尔曲线连起来</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习基本概念"><span class="nav-number">1.</span> <span class="nav-text">机器学习基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深度神经网络"><span class="nav-number">2.</span> <span class="nav-text">深度神经网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卷积神经网络"><span class="nav-number">3.</span> <span class="nav-text">卷积神经网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#循环神经网络"><span class="nav-number">4.</span> <span class="nav-text">循环神经网络</span></a></li></ol></div>
             
 
           </div>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://magicly.me/"/>
-  <updated>2017-03-10T05:28:04.000Z</updated>
+  <updated>2017-03-31T02:08:05.000Z</updated>
   <id>http://magicly.me/</id>
   
   <author>
@@ -14,6 +14,96 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>udacity课程ud730深度学习学习笔记</title>
+    <link href="http://magicly.me/2017/03/31/udacity-ud730-notes/"/>
+    <id>http://magicly.me/2017/03/31/udacity-ud730-notes/</id>
+    <published>2017-03-31T01:48:11.000Z</published>
+    <updated>2017-03-31T02:08:05.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在看Udacity的<a href="https://classroom.udacity.com/courses/ud730/" target="_blank" rel="external">ud730课程</a>，号称是tensorflow官方宣传片哈哈，因为用到的代码直接在<a href="https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/udacity" target="_blank" rel="external">tensorflow的代码里面</a>。</p>
+<p>课程主要包括四大部分：</p>
+<ul>
+<li>机器学习的基本概念</li>
+<li>深度神经网络</li>
+<li>卷积神经网络</li>
+<li>循环神经网络</li>
+</ul>
+<a id="more"></a>
+<h1 id="机器学习基本概念"><a href="#机器学习基本概念" class="headerlink" title="机器学习基本概念"></a>机器学习基本概念</h1><ul>
+<li>softmax</li>
+<li>cross-entropy</li>
+<li>overfitting &amp; regularization</li>
+<li>train / validate / test dataset的用途</li>
+<li>SGD，随机梯度下降算法</li>
+<li>Momentum &amp; learning rate decay，动量法和学习率调节下降</li>
+<li>Hyper-parameter，超参数空间</li>
+</ul>
+<h1 id="深度神经网络"><a href="#深度神经网络" class="headerlink" title="深度神经网络"></a>深度神经网络</h1><ul>
+<li>线性模型的局限</li>
+<li>ReLu</li>
+<li>Chain Rule， 链式法则</li>
+<li>Back propagation，反向传播</li>
+<li>Regularization，正则化</li>
+<li>Dropout</li>
+</ul>
+<h1 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h1><ul>
+<li>Statistical Invariants，统计不变性</li>
+<li>Convolutional NN，Convnets，卷积网络<ul>
+<li>feature map</li>
+<li>stride</li>
+<li>max pooling</li>
+</ul>
+</li>
+<li></li>
+</ul>
+<h1 id="循环神经网络"><a href="#循环神经网络" class="headerlink" title="循环神经网络"></a>循环神经网络</h1><ul>
+<li>Embeddings</li>
+<li>word2vec</li>
+<li>tSNE</li>
+<li>RNN</li>
+<li>梯度消失/爆炸</li>
+<li>LSTM</li>
+<li>Beam搜索</li>
+</ul>
+<p>课程总共有6个tasks，目前完成了3个， 代码在<a href="https://github.com/magicly/udacity-ud730" target="_blank" rel="external">github上</a>，后续会继续更新本文和代码， 欢迎有兴趣的关注。</p>
+<p>To be continued…</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在看Udacity的&lt;a href=&quot;https://classroom.udacity.com/courses/ud730/&quot;&gt;ud730课程&lt;/a&gt;，号称是tensorflow官方宣传片哈哈，因为用到的代码直接在&lt;a href=&quot;https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/udacity&quot;&gt;tensorflow的代码里面&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;课程主要包括四大部分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;机器学习的基本概念&lt;/li&gt;
+&lt;li&gt;深度神经网络&lt;/li&gt;
+&lt;li&gt;卷积神经网络&lt;/li&gt;
+&lt;li&gt;循环神经网络&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="ML" scheme="http://magicly.me/categories/ML/"/>
+    
+    
+      <category term="rnn" scheme="http://magicly.me/tags/rnn/"/>
+    
+      <category term="ml" scheme="http://magicly.me/tags/ml/"/>
+    
+      <category term="udacity" scheme="http://magicly.me/tags/udacity/"/>
+    
+      <category term="tensorflow" scheme="http://magicly.me/tags/tensorflow/"/>
+    
+      <category term="AI" scheme="http://magicly.me/tags/AI/"/>
+    
+      <category term="cnn" scheme="http://magicly.me/tags/cnn/"/>
+    
+      <category term="lstm" scheme="http://magicly.me/tags/lstm/"/>
+    
+      <category term="word2vec" scheme="http://magicly.me/tags/word2vec/"/>
+    
+  </entry>
   
   <entry>
     <title>所有人都能学会用Python写出RNN-LSTM代码</title>
@@ -142,11 +232,11 @@
       <category term="ML" scheme="http://magicly.me/categories/ML/"/>
     
     
+      <category term="word2vec" scheme="http://magicly.me/tags/word2vec/"/>
+    
       <category term="machine learning" scheme="http://magicly.me/tags/machine-learning/"/>
     
       <category term="nlp" scheme="http://magicly.me/tags/nlp/"/>
-    
-      <category term="word2vec" scheme="http://magicly.me/tags/word2vec/"/>
     
   </entry>
   
