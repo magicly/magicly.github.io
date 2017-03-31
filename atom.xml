@@ -91,11 +91,11 @@
     
       <category term="ml" scheme="http://magicly.me/tags/ml/"/>
     
+      <category term="AI" scheme="http://magicly.me/tags/AI/"/>
+    
       <category term="udacity" scheme="http://magicly.me/tags/udacity/"/>
     
       <category term="tensorflow" scheme="http://magicly.me/tags/tensorflow/"/>
-    
-      <category term="AI" scheme="http://magicly.me/tags/AI/"/>
     
       <category term="cnn" scheme="http://magicly.me/tags/cnn/"/>
     
@@ -232,9 +232,9 @@
       <category term="ML" scheme="http://magicly.me/categories/ML/"/>
     
     
-      <category term="word2vec" scheme="http://magicly.me/tags/word2vec/"/>
-    
       <category term="machine learning" scheme="http://magicly.me/tags/machine-learning/"/>
+    
+      <category term="word2vec" scheme="http://magicly.me/tags/word2vec/"/>
     
       <category term="nlp" scheme="http://magicly.me/tags/nlp/"/>
     
