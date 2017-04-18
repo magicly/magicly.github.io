@@ -261,6 +261,208 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://magicly.me/2017/04/15/aws-dl-config/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="magicly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://tva2.sinaimg.cn/crop.0.0.180.180.180/64256cb5jw1e8qgp5bmzyj2050050aa8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JustForFun">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/15/aws-dl-config/" itemprop="url">
+                  AWS深度学习配置
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-15T08:24:24+08:00">
+                2017-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/15/aws-dl-config/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/15/aws-dl-config/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/04/15/aws-dl-config/" class="leancloud_visitors" data-flag-title="AWS深度学习配置">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="安装AWS-Instance"><a href="#安装AWS-Instance" class="headerlink" title="安装AWS Instance"></a>安装AWS Instance</h1><h2 id="Instance选择"><a href="#Instance选择" class="headerlink" title="Instance选择"></a>Instance选择</h2><p>AWS提供很多实例，有计算型的（CPU比较好）， 有内存型的（内存比较高），有高磁盘IO型的，也有适合用于深度学习的GPU型。具体不同型号的特点配置以及价格参见<a href="https://aws.amazon.com/ec2/pricing/on-demand/" target="_blank" rel="external">AWS Pricing</a>。</p>
+<p>这里我们选择p2.xlarge，4核CPU，61G内存，一个Nvidia GPU（有2496个并行处理核，12G内存），具体信息可以看<a href="https://aws.amazon.com/blogs/aws/new-p2-instance-type-for-amazon-ec2-up-to-16-gpus/" target="_blank" rel="external">这里</a>。</p>
+<p>当然p2.xlarge的价格(0.9$/h)当然比t2.xlarge的价格(0.188$/h)要高， 所以我的建议是，在本机或者t2上写好代码，找一个小一点的数据集跑一下， 调试得差不多了， 然后启动p2.xlarge，在全量数据集上run。这里说一下，如果数据集是国外的（大部分都是），aws下载能达到20MB/s，相比国内下载速度，真是爽得不要不要的。</p>
+<h2 id="AMI选择"><a href="#AMI选择" class="headerlink" title="AMI选择"></a>AMI选择</h2><p>AWS Instance安装的时候支持选择镜像。还记得以前重装windows系统么， 装完之后需要安装各种驱动，输入法、qq、浏览器、word。。。blabla一堆软件，有可能几个小时就过去了。所以后来出了Ghost盘，安装好各种软件后，做个Ghost盘，然后以后重装的时候就只需要装Ghost盘，十分钟就可以装好，然后所有该要的软件都有了，大大节约了时间。AWS的镜像叫AMI。</p>
+<p>社区已经有很多人制作了深度学习的AMI，我们也可以选择自己制作。用云服务要改变传统开发思维，要有”随要随开，用完即走“的思想。所以用aws的基本流程如下：</p>
+<ol>
+<li>选择一个基础的AMI</li>
+<li>安装好Instance</li>
+<li>安装各种需要的软件，比如python，numpy，matplot，tensorflow，keras，cuda等</li>
+<li>在AWS管理控制台右键选中instance，点image，create image。然后就等着，几分钟就好了。</li>
+<li>做相应的开发，写代码，下载数据集等blabla。。。</li>
+<li>工作一段时间之后要休息了，制作新的AMI</li>
+<li>释放instance</li>
+<li>第二天来，新开instance，用5制作的AMI，继续上次的工作。</li>
+</ol>
+<p>这里推荐几个社区制作的深度学习相关的AMI，<a href="https://aws.amazon.com/marketplace/pp/B01M0AXXQB" target="_blank" rel="external">Deep Learning AMI Amazon Linux Version</a>, Deep Learning AMI Ubuntu Linux - 1.3_Apr2017 - ami-638c1e03, <a href="https://github.com/ritchieng/tensorflow-aws-ami" target="_blank" rel="external">TFAMI</a>。我因为最近在看<a href="http://course.fast.ai/" target="_blank" rel="external">Fast.ai</a>课程， 所以选择了课程对应的AMI。话说<a href="https://github.com/fastai/courses/tree/master/setup" target="_blank" rel="external">这个课程有完整的脚本</a>来创建、开启、连接、关闭AWS实例，很是方便， 大家可以看看。这是一个实战性很强的课程， 推荐一下。</p>
+<h1 id="jupyter-notebook"><a href="#jupyter-notebook" class="headerlink" title="jupyter notebook"></a>jupyter notebook</h1><p>jupyter notebook的作用和好处以及基本的安装我就不多说了， 自行google吧。主要说一下要在AMS上配置jupyter notebook需要注意的事项。</p>
+<ol>
+<li>需要在AMS Instance的安全组里打开8888端口。</li>
+<li>由于会在公网上访问，为了安全， 需要给jupyter notebook设置一个密码，方法如下：<figure class="highlight fortran"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ubuntu@ip-<span class="number">10</span>-<span class="number">0</span>-<span class="number">0</span>-<span class="number">14</span>:~/nbs$ ipython</div><div class="line"><span class="keyword">In</span> [<span class="number">1</span>]: from IPython.lib <span class="keyword">import</span> passwd</div><div class="line"></div><div class="line"><span class="keyword">In</span> [<span class="number">2</span>]: passwd()</div><div class="line">Enter password:</div><div class="line"><span class="built_in">Verify</span> password:</div><div class="line"><span class="keyword">Out</span>[<span class="number">2</span>]: <span class="string">'sha1:XXXXXXXXXXXXXXX'</span></div><div class="line"></div><div class="line"><span class="keyword">In</span> [<span class="number">3</span>]: <span class="keyword">exit</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>将上诉生成的密码copy到~/.jupyter/jupyter_notebook_config.py里:<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim ~<span class="regexp">/.jupyter/</span>jupyter_notebook_config.py</div><div class="line">c.NotebookApp.password = <span class="string">u'sha1:XXXXXXXXXXXXXX'</span></div></pre></td></tr></table></figure></p>
+<p>然后就可以在浏览器里输入<a href="http://[ip]:8888访问jupyter" target="_blank" rel="external">http://[ip]:8888访问jupyter</a> notebook，开心地开始写代码吧。</p>
+<p>数据存放位置<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ubuntu<span class="variable">@ip</span>-<span class="number">10</span>-<span class="number">0</span>-<span class="number">0</span>-<span class="number">14</span><span class="symbol">:~/courses/deeplearning1/nbs</span><span class="variable">$ </span>find ~ -name vgg16.h5</div><div class="line">/home/ubuntu/.keras/models/vgg16.h5</div></pre></td></tr></table></figure></p>
+<h1 id="竞价实例"><a href="#竞价实例" class="headerlink" title="竞价实例"></a>竞价实例</h1><p>竞价实例是一种特殊的实例，能够以超低的价格提供配置一样的实例，和普通实例的差别在于不可停止，因此当你想跑比较大的网络的时候（训练时间大于1小时），用竞价实例会非常划算。0.9美元每小时的 p2.xlarge 在竞价实例一个月的历史记录里很少超过0.3美元。即使超过了，也不会出高于0.9美元的价格。</p>
+<h1 id="选择哪个区的AWS"><a href="#选择哪个区的AWS" class="headerlink" title="选择哪个区的AWS"></a>选择哪个区的AWS</h1><p>这个建议看看自己的网络环境下，连哪个区的速度快。用<a href="http://www.cloudping.info/" target="_blank" rel="external">CloudPing.info</a>测试一下就可以，貌似国内访问美西要快点，我的网络好的情况下ping值能在200ms，差的时候500ms+。</p>
+<h1 id="推荐几个软件"><a href="#推荐几个软件" class="headerlink" title="推荐几个软件"></a>推荐几个软件</h1><h2 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a>tmux</h2><p>可以在一个ssh连接里面同时开启多个窗口，比如一个启动jupyter notebook，一个打开htop，一个执行正常的命令。并且用Ctrl + B d离开tmux后， 下次再进来（哪怕是重新ssh登录），直接用tmux attach可以回到上次的回话，相当方便。</p>
+<h2 id="htop"><a href="#htop" class="headerlink" title="htop"></a>htop</h2><p>监控内存、CPU占用等。</p>
+<h2 id="screen"><a href="#screen" class="headerlink" title="screen"></a>screen</h2><p>避免离开ssh后jupyter notebook挂掉。</p>
+<h1 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h1><ul>
+<li>用fast.ai课程提供的脚本创建Instance的话，再次安装的时候报错<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">An</span> <span class="selector-tag">error</span> <span class="selector-tag">occurred</span> (InvalidKeyPair.NotFound) <span class="keyword">when</span> calling the RunInstances <span class="attribute">operation</span>: The key pair <span class="string">'aws-key-fast-ai'</span> does <span class="keyword">not</span> exist</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>尝试着把~/.ssh/aws-key-fast-ai.pem删除后好了。</p>
+<p>要想做深度学习，GPU简直是必须的。举个例子， 我在t2.xlarge上用VGG16跑<a href="https://www.kaggle.com/c/dogs-vs-cats-redux-kernels-edition" target="_blank" rel="external">kaggle dogs vs cats比赛</a>，要花一个多小时，而用p2.xlarge，只需要600多s，速度提升了10倍啊！上次听AWS技术分享会，他们提到，云服务重新定义了一个公式1 * 1000 === 1000 * 1，是说你用1台服务器跑1000个小时所花的费用，跟1000台服务器跑1小时的费用是一样的，但这样几乎把效率提升了1000倍啊！这在没有云的时代，谁敢想象随随便便调用1000台服务器呢。</p>
+<p>另外国内的阿里云也有针对深度学习的配置，叫<a href="https://www.aliyun.com/product/hpc?spm=5176.8142029.388261.36.6n7Ioo" target="_blank" rel="external">HPC</a>，后面也会再写篇关于阿里云HPC的配置。</p>
+<h1 id="refers"><a href="#refers" class="headerlink" title="refers"></a>refers</h1><ul>
+<li><a href="http://www.jiqizhixin.com/article/2608" target="_blank" rel="external">http://www.jiqizhixin.com/article/2608</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/25066187" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/25066187</a></li>
+<li><a href="http://www.cnblogs.com/meelo/p/5994505.html" target="_blank" rel="external">http://www.cnblogs.com/meelo/p/5994505.html</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://magicly.me/2017/04/07/rnn-lstm-generate-name/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1744,172 +1946,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://magicly.me/2015/07/26/ssh-reverse-tunnel-wx-local/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="magicly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://tva2.sinaimg.cn/crop.0.0.180.180.180/64256cb5jw1e8qgp5bmzyj2050050aa8.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="JustForFun">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/07/26/ssh-reverse-tunnel-wx-local/" itemprop="url">
-                  利用SSH反向通道在本地调试微信公共号
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-26T11:40:25+08:00">
-                2015-07-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/weixin/" itemprop="url" rel="index">
-                    <span itemprop="name">weixin</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/07/26/ssh-reverse-tunnel-wx-local/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/26/ssh-reverse-tunnel-wx-local/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2015/07/26/ssh-reverse-tunnel-wx-local/" class="leancloud_visitors" data-flag-title="利用SSH反向通道在本地调试微信公共号">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>微信公共号现在很火，一些简单的应用，做一个公共号比开发一款app成本要小很多，而且利用朋友圈的转发，相比app去app store里上架等着用户下载，要容易很多。</p>
-<p>但是微信公共号的调试有点不方便，必须在微信<a href="https://mp.weixin.qq.com/">管理后台</a>配置一个微信能访问到（公网）的url，然后在公共号里输入内容，微信以xml格式转发给这个url，url回复之后微信再将response回复给使用公共号的微信用户。当然微信也提供了<a href="http://mp.weixin.qq.com/debug">调试工具</a>， 可以直接构造数据，方便调试各个接口。 但是依然需要一个公网的url作为接口。于是最原始的开发方式就是，修改代码，上传到server，（如果是有些静态语言还需要重启服务器），然后看是否正常work，如果不行的话，在可能错误的地方打出log，然后又是修改代码，上传server，重启。。。。。就这样，每次改一点点，你都可以泡杯咖啡了，老板就会觉得你很闲。参看<a href="http://www.oschina.net/news/15579/reasons-why-people-who-work-with-computers-seem-to">为什么搞计算机工作的人总是看上去很清闲</a>。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/07/26/ssh-reverse-tunnel-wx-local/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1959,7 +1995,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

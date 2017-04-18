@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="math," />
+  <meta name="keywords" content="rnn,neural network,dl,ml," />
 
 
 
@@ -89,16 +89,22 @@
 
 
 
-<meta name="description" content="最近准备写一下机器学习的一些学习笔记， 由于涉及到大量数学公式， 发现不把如何在markdown里写数学公式这个问题解决了会严重影响工作效率。大概而言， 主要有两种方式：">
+<meta name="description" content="安装AWS InstanceInstance选择AWS提供很多实例，有计算型的（CPU比较好）， 有内存型的（内存比较高），有高磁盘IO型的，也有适合用于深度学习的GPU型。具体不同型号的特点配置以及价格参见AWS Pricing。
+这里我们选择p2.xlarge，4核CPU，61G内存，一个Nvidia GPU（有2496个并行处理核，12G内存），具体信息可以看这里。
+当然p2.xlarge的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在markdown里如何写数学公式">
-<meta property="og:url" content="http://magicly.me/2017/03/02/markdown-math/index.html">
+<meta property="og:title" content="AWS深度学习配置">
+<meta property="og:url" content="http://magicly.me/2017/04/15/aws-dl-config/index.html">
 <meta property="og:site_name" content="JustForFun">
-<meta property="og:description" content="最近准备写一下机器学习的一些学习笔记， 由于涉及到大量数学公式， 发现不把如何在markdown里写数学公式这个问题解决了会严重影响工作效率。大概而言， 主要有两种方式：">
-<meta property="og:updated_time" content="2017-03-02T15:58:59.000Z">
+<meta property="og:description" content="安装AWS InstanceInstance选择AWS提供很多实例，有计算型的（CPU比较好）， 有内存型的（内存比较高），有高磁盘IO型的，也有适合用于深度学习的GPU型。具体不同型号的特点配置以及价格参见AWS Pricing。
+这里我们选择p2.xlarge，4核CPU，61G内存，一个Nvidia GPU（有2496个并行处理核，12G内存），具体信息可以看这里。
+当然p2.xlarge的">
+<meta property="og:updated_time" content="2017-04-18T13:40:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在markdown里如何写数学公式">
-<meta name="twitter:description" content="最近准备写一下机器学习的一些学习笔记， 由于涉及到大量数学公式， 发现不把如何在markdown里写数学公式这个问题解决了会严重影响工作效率。大概而言， 主要有两种方式：">
+<meta name="twitter:title" content="AWS深度学习配置">
+<meta name="twitter:description" content="安装AWS InstanceInstance选择AWS提供很多实例，有计算型的（CPU比较好）， 有内存型的（内存比较高），有高磁盘IO型的，也有适合用于深度学习的GPU型。具体不同型号的特点配置以及价格参见AWS Pricing。
+这里我们选择p2.xlarge，4核CPU，61G内存，一个Nvidia GPU（有2496个并行处理核，12G内存），具体信息可以看这里。
+当然p2.xlarge的">
 
 
 
@@ -126,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://magicly.me/2017/03/02/markdown-math/"/>
+  <link rel="canonical" href="http://magicly.me/2017/04/15/aws-dl-config/"/>
 
 
 
 
 
-  <title> 在markdown里如何写数学公式 | JustForFun </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> AWS深度学习配置 | JustForFun </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -260,7 +266,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://magicly.me/2017/03/02/markdown-math/">
+    <link itemprop="mainEntityOfPage" href="http://magicly.me/2017/04/15/aws-dl-config/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="magicly">
@@ -281,7 +287,7 @@
             
             
               
-                在markdown里如何写数学公式
+                AWS深度学习配置
               
             
           </h1>
@@ -296,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-02T11:16:16+08:00">
-                2017-03-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-15T08:24:24+08:00">
+                2017-04-15
               </time>
             
 
@@ -337,8 +343,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/02/markdown-math/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/02/markdown-math/" itemprop="commentCount"></span>
+                <a href="/2017/04/15/aws-dl-config/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/15/aws-dl-config/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -346,7 +352,7 @@
 
           
           
-             <span id="/2017/03/02/markdown-math/" class="leancloud_visitors" data-flag-title="在markdown里如何写数学公式">
+             <span id="/2017/04/15/aws-dl-config/" class="leancloud_visitors" data-flag-title="AWS深度学习配置">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -375,55 +381,47 @@
       
 
       
-        <p>最近准备写一下机器学习的一些学习笔记， 由于涉及到大量数学公式， 发现不把如何在markdown里写数学公式这个问题解决了会严重影响工作效率。大概而言， 主要有两种方式：</p>
-<a id="more"></a>
+        <h1 id="安装AWS-Instance"><a href="#安装AWS-Instance" class="headerlink" title="安装AWS Instance"></a>安装AWS Instance</h1><h2 id="Instance选择"><a href="#Instance选择" class="headerlink" title="Instance选择"></a>Instance选择</h2><p>AWS提供很多实例，有计算型的（CPU比较好）， 有内存型的（内存比较高），有高磁盘IO型的，也有适合用于深度学习的GPU型。具体不同型号的特点配置以及价格参见<a href="https://aws.amazon.com/ec2/pricing/on-demand/" target="_blank" rel="external">AWS Pricing</a>。</p>
+<p>这里我们选择p2.xlarge，4核CPU，61G内存，一个Nvidia GPU（有2496个并行处理核，12G内存），具体信息可以看<a href="https://aws.amazon.com/blogs/aws/new-p2-instance-type-for-amazon-ec2-up-to-16-gpus/" target="_blank" rel="external">这里</a>。</p>
+<p>当然p2.xlarge的价格(0.9$/h)当然比t2.xlarge的价格(0.188$/h)要高， 所以我的建议是，在本机或者t2上写好代码，找一个小一点的数据集跑一下， 调试得差不多了， 然后启动p2.xlarge，在全量数据集上run。这里说一下，如果数据集是国外的（大部分都是），aws下载能达到20MB/s，相比国内下载速度，真是爽得不要不要的。</p>
+<h2 id="AMI选择"><a href="#AMI选择" class="headerlink" title="AMI选择"></a>AMI选择</h2><p>AWS Instance安装的时候支持选择镜像。还记得以前重装windows系统么， 装完之后需要安装各种驱动，输入法、qq、浏览器、word。。。blabla一堆软件，有可能几个小时就过去了。所以后来出了Ghost盘，安装好各种软件后，做个Ghost盘，然后以后重装的时候就只需要装Ghost盘，十分钟就可以装好，然后所有该要的软件都有了，大大节约了时间。AWS的镜像叫AMI。</p>
+<p>社区已经有很多人制作了深度学习的AMI，我们也可以选择自己制作。用云服务要改变传统开发思维，要有”随要随开，用完即走“的思想。所以用aws的基本流程如下：</p>
 <ol>
-<li>用图片！<br>也就是编辑好公式，上传，然后在markdown里面引用图片链接的方式。这种方式方便直接，但是显得比较low一点。 有兴趣的可以参考这几篇文章。</li>
+<li>选择一个基础的AMI</li>
+<li>安装好Instance</li>
+<li>安装各种需要的软件，比如python，numpy，matplot，tensorflow，keras，cuda等</li>
+<li>在AWS管理控制台右键选中instance，点image，create image。然后就等着，几分钟就好了。</li>
+<li>做相应的开发，写代码，下载数据集等blabla。。。</li>
+<li>工作一段时间之后要休息了，制作新的AMI</li>
+<li>释放instance</li>
+<li>第二天来，新开instance，用5制作的AMI，继续上次的工作。</li>
 </ol>
-<ul>
-<li><a href="http://www.ruanyifeng.com/blog/2011/07/formula_online_generator.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2011/07/formula_online_generator.html</a><br>当然， 在某些情况下， 必须使用这种思路。 比如， 微信公众号里。 可以参考<a href="http://www.52nlp.cn/%E5%9C%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E9%87%8C%E4%BD%BF%E7%94%A8latex%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F" target="_blank" rel="external">这里</a></li>
+<p>这里推荐几个社区制作的深度学习相关的AMI，<a href="https://aws.amazon.com/marketplace/pp/B01M0AXXQB" target="_blank" rel="external">Deep Learning AMI Amazon Linux Version</a>, Deep Learning AMI Ubuntu Linux - 1.3_Apr2017 - ami-638c1e03, <a href="https://github.com/ritchieng/tensorflow-aws-ami" target="_blank" rel="external">TFAMI</a>。我因为最近在看<a href="http://course.fast.ai/" target="_blank" rel="external">Fast.ai</a>课程， 所以选择了课程对应的AMI。话说<a href="https://github.com/fastai/courses/tree/master/setup" target="_blank" rel="external">这个课程有完整的脚本</a>来创建、开启、连接、关闭AWS实例，很是方便， 大家可以看看。这是一个实战性很强的课程， 推荐一下。</p>
+<h1 id="jupyter-notebook"><a href="#jupyter-notebook" class="headerlink" title="jupyter notebook"></a>jupyter notebook</h1><p>jupyter notebook的作用和好处以及基本的安装我就不多说了， 自行google吧。主要说一下要在AMS上配置jupyter notebook需要注意的事项。</p>
+<ol>
+<li>需要在AMS Instance的安全组里打开8888端口。</li>
+<li>由于会在公网上访问，为了安全， 需要给jupyter notebook设置一个密码，方法如下：<figure class="highlight fortran"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ubuntu@ip-<span class="number">10</span>-<span class="number">0</span>-<span class="number">0</span>-<span class="number">14</span>:~/nbs$ ipython</div><div class="line"><span class="keyword">In</span> [<span class="number">1</span>]: from IPython.lib <span class="keyword">import</span> passwd</div><div class="line"></div><div class="line"><span class="keyword">In</span> [<span class="number">2</span>]: passwd()</div><div class="line">Enter password:</div><div class="line"><span class="built_in">Verify</span> password:</div><div class="line"><span class="keyword">Out</span>[<span class="number">2</span>]: <span class="string">'sha1:XXXXXXXXXXXXXXX'</span></div><div class="line"></div><div class="line"><span class="keyword">In</span> [<span class="number">3</span>]: <span class="keyword">exit</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>将上诉生成的密码copy到~/.jupyter/jupyter_notebook_config.py里:<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim ~<span class="regexp">/.jupyter/</span>jupyter_notebook_config.py</div><div class="line">c.NotebookApp.password = <span class="string">u'sha1:XXXXXXXXXXXXXX'</span></div></pre></td></tr></table></figure></p>
+<p>然后就可以在浏览器里输入<a href="http://[ip]:8888访问jupyter" target="_blank" rel="external">http://[ip]:8888访问jupyter</a> notebook，开心地开始写代码吧。</p>
+<p>数据存放位置<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ubuntu<span class="variable">@ip</span>-<span class="number">10</span>-<span class="number">0</span>-<span class="number">0</span>-<span class="number">14</span><span class="symbol">:~/courses/deeplearning1/nbs</span><span class="variable">$ </span>find ~ -name vgg16.h5</div><div class="line">/home/ubuntu/.keras/models/vgg16.h5</div></pre></td></tr></table></figure></p>
+<h1 id="竞价实例"><a href="#竞价实例" class="headerlink" title="竞价实例"></a>竞价实例</h1><p>竞价实例是一种特殊的实例，能够以超低的价格提供配置一样的实例，和普通实例的差别在于不可停止，因此当你想跑比较大的网络的时候（训练时间大于1小时），用竞价实例会非常划算。0.9美元每小时的 p2.xlarge 在竞价实例一个月的历史记录里很少超过0.3美元。即使超过了，也不会出高于0.9美元的价格。</p>
+<h1 id="选择哪个区的AWS"><a href="#选择哪个区的AWS" class="headerlink" title="选择哪个区的AWS"></a>选择哪个区的AWS</h1><p>这个建议看看自己的网络环境下，连哪个区的速度快。用<a href="http://www.cloudping.info/" target="_blank" rel="external">CloudPing.info</a>测试一下就可以，貌似国内访问美西要快点，我的网络好的情况下ping值能在200ms，差的时候500ms+。</p>
+<h1 id="推荐几个软件"><a href="#推荐几个软件" class="headerlink" title="推荐几个软件"></a>推荐几个软件</h1><h2 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a>tmux</h2><p>可以在一个ssh连接里面同时开启多个窗口，比如一个启动jupyter notebook，一个打开htop，一个执行正常的命令。并且用Ctrl + B d离开tmux后， 下次再进来（哪怕是重新ssh登录），直接用tmux attach可以回到上次的回话，相当方便。</p>
+<h2 id="htop"><a href="#htop" class="headerlink" title="htop"></a>htop</h2><p>监控内存、CPU占用等。</p>
+<h2 id="screen"><a href="#screen" class="headerlink" title="screen"></a>screen</h2><p>避免离开ssh后jupyter notebook挂掉。</p>
+<h1 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h1><ul>
+<li>用fast.ai课程提供的脚本创建Instance的话，再次安装的时候报错<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">An</span> <span class="selector-tag">error</span> <span class="selector-tag">occurred</span> (InvalidKeyPair.NotFound) <span class="keyword">when</span> calling the RunInstances <span class="attribute">operation</span>: The key pair <span class="string">'aws-key-fast-ai'</span> does <span class="keyword">not</span> exist</div></pre></td></tr></table></figure>
+</li>
 </ul>
-<ol>
-<li>用Mathjax插件来写LaTex公式。<br>哪怕你是用图片， 那也得写出LaTex公式啊。所以我们今天主要讲第二种方式。推荐<a href="https://webdemo.myscript.com/views/math.html" target="_blank" rel="external">这个工具</a>，可以直接在浏览器里手写公式，它会帮你转为LaTex！很好很强大。</li>
-</ol>
-<h1 id="MathJax插件"><a href="#MathJax插件" class="headerlink" title="MathJax插件"></a>MathJax插件</h1><p>著名的Stackoverflow网站上的漂亮公式，就是使用了MathJax插件的效果。添加MathJax插件也非常简单，只需要在markdown文件中，添加MathJax CDN，如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span></span></div><div class="line">   <span class="attr">src</span>=<span class="string">"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"</span>&gt;<span class="undefined"></span></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>就可以在md文件中插入Tex格式的公式了。</p>
-<p>行间公式的形式为<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">$</span><span class="symbol">$</span> 此处插入公式 <span class="symbol">$</span><span class="symbol">$</span></div></pre></td></tr></table></figure></p>
-<p>而行内公式的形式为<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">\\(</span> 此处插入公式 <span class="string">\\)</span></div></pre></td></tr></table></figure></p>
-<h1 id="Hexo中显示数学公式"><a href="#Hexo中显示数学公式" class="headerlink" title="Hexo中显示数学公式"></a>Hexo中显示数学公式</h1><p>Hexo原生不支持数学公式， 因此需要我们做一些修改。安装<a href="https://github.com/akfish/hexo-math" target="_blank" rel="external">hexo-math</a>插件：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-<span class="built_in">math</span> <span class="comment">--save</span></div></pre></td></tr></table></figure>
-<p>在_config.yml中增加<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">plugins:</span></div><div class="line">  hexo-math</div></pre></td></tr></table></figure></p>
-<p>完事大吉， 你现在可以写LaTex公式了， 我们来写几个看看。</p>
-<p>这是行内公式根号2这样写: \(\sqrt{2}\)<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">\\</span>(<span class="symbol">\\</span>sqrt&#123;2&#125;<span class="symbol">\\</span>)</div></pre></td></tr></table></figure></p>
-<p>这是单独一行的公式:<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">$</span><span class="symbol">$</span> a ^ <span class="number">2</span> + b ^ <span class="number">2</span> = c ^ <span class="number">2</span> <span class="symbol">$</span><span class="symbol">$</span></div><div class="line"><span class="symbol">$</span><span class="symbol">$</span> \<span class="built-in">sqrt</span>&#123;<span class="number">2</span>&#125; <span class="symbol">$</span><span class="symbol">$</span></div><div class="line"><span class="symbol">$</span><span class="symbol">$</span> evidence\_&#123;i&#125;=\<span class="keyword">sum</span> \_&#123;j&#125;W\_&#123;ij&#125;x\_&#123;j&#125;+b\_&#123;i&#125; <span class="symbol">$</span><span class="symbol">$</span></div></pre></td></tr></table></figure></p>
-<p>$$ a ^ 2 + b ^ 2 = c ^ 2 $$<br>$$ \sqrt{2} $$<br>$$ evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i} $$<br>细心的同学会发现， 里面有很多<strong>\\</strong>, <strong>\_</strong>之类， 原因是<strong>\</strong>本身在markdown和LaTex里都有含义， 因此需要转义。但是LaTex里面， <strong>\</strong>太常用了， 所以每次遇到都转义的话就很痛苦， 而且在hexo里面写的公式，复制到其他地方去就不支持了。</p>
-<p>网上有改hexo渲染的源码的， 有换用pandoc的， 其实最简单的方式是用hexo-math里的tag。网上搜索到的很多资料都是用的{&#37; math_block %}，我试了发现总是不对， 后来看<a href="https://github.com/akfish/hexo-math" target="_blank" rel="external">官网</a>，发现这个方法已经deprecated了， 最新的用{&#37; math %}，如下：</p>
-<figure class="highlight django"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="xml">这是行内公式：</span><span class="template-tag">&#123;% <span class="name">math</span> %&#125;</span><span class="xml">\sqrt&#123;2 + 3&#125;</span><span class="template-tag">&#123;% <span class="name">endmath</span> %&#125;</span><span class="xml"></span></div></pre></td></tr></table></figure>
-<p>显示为：这是行内公式：<span>$\sqrt{2 + 3}$</span><!-- Has MathJax --><br>一行公式：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="formula">$$ evidence<span class="tag">\<span class="name">_</span><span class="string">&#123;i&#125;</span>=</span><span class="tag">\<span class="name">sum</span></span> <span class="tag">\<span class="name">_</span><span class="string">&#123;j&#125;</span></span>W<span class="tag">\<span class="name">_</span><span class="string">&#123;ij&#125;</span></span>x<span class="tag">\<span class="name">_</span><span class="string">&#123;j&#125;</span></span>+b<span class="tag">\<span class="name">_</span><span class="string">&#123;i&#125;</span></span> $$</span></div><div class="line"></div><div class="line">&#123;<span class="comment">% math %&#125;</span></div><div class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;aligned&#125;</span></span></div><div class="line">evidence_&#123;i&#125;=<span class="tag">\<span class="name">sum</span></span> _&#123;j&#125;W_&#123;ij&#125;x_&#123;j&#125;+b_&#123;i&#125;</div><div class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;aligned&#125;</span></span></div><div class="line">&#123;<span class="comment">% endmath %&#125;</span></div></pre></td></tr></table></figure></p>
-<p>$$ evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i} $$<br><span>$$\begin{aligned}
-evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i}
-\end{aligned}$$</span><!-- Has MathJax --><br>可以看出， 如果有需要转义的字符， 用{&#37; math %}tag这种方式要好很多。</p>
-<p>再来一个复杂点的公式， 这是<a href="https://www.tensorflow.org/tutorials/word2vec" target="_blank" rel="external">word2vec</a>的损失函数公式（选中公式， 右键可以查看LaTex源码）：<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;<span class="variable">% math %</span>&#125;</div><div class="line">J_<span class="symbol">\t</span>ext&#123;NEG&#125; = <span class="symbol">\l</span>og Q_<span class="symbol">\t</span>heta(D=1 |w_t, h) +</div><div class="line">  k <span class="symbol">\m</span>athop&#123;<span class="symbol">\m</span>athbb&#123;E&#125;&#125;_&#123;<span class="symbol">\t</span>ilde w <span class="symbol">\s</span>im P_<span class="symbol">\t</span>ext&#123;noise&#125;&#125;</div><div class="line">     <span class="symbol">\l</span>eft[ <span class="symbol">\l</span>og Q_<span class="symbol">\t</span>heta(D = 0 |<span class="symbol">\t</span>ilde w, h) <span class="symbol">\r</span>ight]</div><div class="line">&#123;<span class="variable">% endmath %</span>&#125;</div></pre></td></tr></table></figure></p>
-<span>$$J_\text{NEG} = \log Q_\theta(D=1 |w_t, h) +
-  k \mathop{\mathbb{E}}_{\tilde w \sim P_\text{noise}}
-     \left[ \log Q_\theta(D = 0 |\tilde w, h) \right]$$</span><!-- Has MathJax -->
-<p>经过简单的配置， 我们的web页面已经可以支持很方便的书写数学公式了，而且由于不用特殊转义， 这里写的LaTex可以在其他markdown环境下使用， 比如<a href="http://mp.weixin.qq.com/s?__biz=MjM5NjAyNjkwMA==&amp;mid=2723942529&amp;idx=1&amp;sn=3b417dd77b4d5b92231ed59649844eb9&amp;chksm=81473ffab630b6ec843d77432c487e3e3a272ec26a5b9e0ae4007f5fce3dd826825a7b64a249&amp;mpshare=1&amp;scene=1&amp;srcid=0301zj3JKl85H692JGwUHZzM#rd" target="_blank" rel="external">有道云笔记</a>。</p>
-<p>============update===========</p>
-<p>刚发现由于引用了MathJax.js， 本身又会引用其他一些js、css以及font， 会多增加差不多100k资源， 并且由于都是国外的cdn， 速度受限制（貌似还要翻墙），所以比较影响阅读体验。后续再想办法优化吧。</p>
-<p>============update===========<br>发现next主题好看一些， 换成了next。 看到next直接<a href="http://theme-next.iissnan.com/third-party-services.html#others" target="_blank" rel="external">支持MathJax</a>的，换成了qiniu的cdn。但是next自带的math，不能支持{&#37; math %}，发现还是需要hexo-math， 而且很奇怪的是， 发现不用在_config.yml里面写<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">plugins:</span></div><div class="line">  hexo-math</div></pre></td></tr></table></figure></p>
-<p>居然也可以， 只要package.json里面有hexo-math就可以了。于是参考<a href="https://github.com/akfish/hexo-math" target="_blank" rel="external">hexo-math官网</a>，换成了qiniu的cdn。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">math</span>:</div><div class="line">  <span class="attribute">engine</span>: <span class="string">'mathjax'</span> # or <span class="string">'katex'</span></div><div class="line">  <span class="attribute">mathjax</span>:</div><div class="line">  <span class="attribute">src</span>: <span class="comment">//cdn.staticfile.org/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML</span></div></pre></td></tr></table></figure></p>
-<p>奇怪的是，还是有一个网络请求，不知道从哪里来的。<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https:<span class="regexp">//</span>cdn.mathjax.org<span class="regexp">/mathjax/</span>contrib<span class="regexp">/a11y/</span>accessibility-menu.js?V=<span class="number">2.7</span>.<span class="number">0</span></div></pre></td></tr></table></figure></p>
-<p>而且说的<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Your <span class="built_in">config</span> will be merged into <span class="built_in">default</span> <span class="built_in">config</span>:</div></pre></td></tr></table></figure></p>
-<p>似乎也没有。生成的代码为<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-mathjax-config"</span>&gt;</span><span class="actionscript"></span></div><div class="line">  MathJax.Hub.Config(<span class="string">""</span>);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>配置目没有了？！！好在似乎没有影响使用，那就先暂时这样用着吧~~</p>
-<p>[Refs]</p>
-<ul>
-<li><a href="http://jzqt.github.io/2015/06/30/Markdown%E4%B8%AD%E5%86%99%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/" target="_blank" rel="external">http://jzqt.github.io/2015/06/30/Markdown%E4%B8%AD%E5%86%99%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/</a></li>
-<li><a href="https://www.zybuluo.com/codeep/note/163962" target="_blank" rel="external">https://www.zybuluo.com/codeep/note/163962</a></li>
-<li><a href="http://oiltang.com/2014/05/04/markdown-and-mathjax/" target="_blank" rel="external">http://oiltang.com/2014/05/04/markdown-and-mathjax/</a></li>
-<li><a href="http://www.jeyzhang.com/how-to-insert-equations-in-markdown.html" target="_blank" rel="external">http://www.jeyzhang.com/how-to-insert-equations-in-markdown.html</a></li>
-<li><a href="http://www.52nlp.cn/%E5%9C%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E9%87%8C%E4%BD%BF%E7%94%A8latex%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F" target="_blank" rel="external">http://www.52nlp.cn/%E5%9C%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E9%87%8C%E4%BD%BF%E7%94%A8latex%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F</a></li>
-<li><a href="https://github.com/mathjax/MathJax-node" target="_blank" rel="external">https://github.com/mathjax/MathJax-node</a></li>
+<p>尝试着把~/.ssh/aws-key-fast-ai.pem删除后好了。</p>
+<p>要想做深度学习，GPU简直是必须的。举个例子， 我在t2.xlarge上用VGG16跑<a href="https://www.kaggle.com/c/dogs-vs-cats-redux-kernels-edition" target="_blank" rel="external">kaggle dogs vs cats比赛</a>，要花一个多小时，而用p2.xlarge，只需要600多s，速度提升了10倍啊！上次听AWS技术分享会，他们提到，云服务重新定义了一个公式1 * 1000 === 1000 * 1，是说你用1台服务器跑1000个小时所花的费用，跟1000台服务器跑1小时的费用是一样的，但这样几乎把效率提升了1000倍啊！这在没有云的时代，谁敢想象随随便便调用1000台服务器呢。</p>
+<p>另外国内的阿里云也有针对深度学习的配置，叫<a href="https://www.aliyun.com/product/hpc?spm=5176.8142029.388261.36.6n7Ioo" target="_blank" rel="external">HPC</a>，后面也会再写篇关于阿里云HPC的配置。</p>
+<h1 id="refers"><a href="#refers" class="headerlink" title="refers"></a>refers</h1><ul>
+<li><a href="http://www.jiqizhixin.com/article/2608" target="_blank" rel="external">http://www.jiqizhixin.com/article/2608</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/25066187" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/25066187</a></li>
+<li><a href="http://www.cnblogs.com/meelo/p/5994505.html" target="_blank" rel="external">http://www.cnblogs.com/meelo/p/5994505.html</a></li>
 </ul>
 
       
@@ -448,7 +446,13 @@ evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i}
       
         <div class="post-tags">
           
-            <a href="/tags/math/" rel="tag"># math</a>
+            <a href="/tags/rnn/" rel="tag"># rnn</a>
+          
+            <a href="/tags/neural-network/" rel="tag"># neural network</a>
+          
+            <a href="/tags/dl/" rel="tag"># dl</a>
+          
+            <a href="/tags/ml/" rel="tag"># ml</a>
           
         </div>
       
@@ -461,8 +465,8 @@ evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i}
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/12/ml-content/" rel="next" title="机器学习计划">
-                <i class="fa fa-chevron-left"></i> 机器学习计划
+              <a href="/2017/04/07/rnn-lstm-generate-name/" rel="next" title="用LSTM生成武侠人名">
+                <i class="fa fa-chevron-left"></i> 用LSTM生成武侠人名
               </a>
             
           </div>
@@ -470,10 +474,6 @@ evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i}
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/03/word2vec-first-try-md/" rel="prev" title="用word2vec分析中文维基语料库">
-                用word2vec分析中文维基语料库 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -499,8 +499,8 @@ evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i}
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/03/02/markdown-math/"
-           data-title="在markdown里如何写数学公式" data-url="http://magicly.me/2017/03/02/markdown-math/">
+      <div class="ds-thread" data-thread-key="2017/04/15/aws-dl-config/"
+           data-title="AWS深度学习配置" data-url="http://magicly.me/2017/04/15/aws-dl-config/">
       </div>
     
   </div>
@@ -638,7 +638,7 @@ evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i}
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MathJax插件"><span class="nav-number">1.</span> <span class="nav-text">MathJax插件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo中显示数学公式"><span class="nav-number">2.</span> <span class="nav-text">Hexo中显示数学公式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装AWS-Instance"><span class="nav-number">1.</span> <span class="nav-text">安装AWS Instance</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Instance选择"><span class="nav-number">1.1.</span> <span class="nav-text">Instance选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AMI选择"><span class="nav-number">1.2.</span> <span class="nav-text">AMI选择</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jupyter-notebook"><span class="nav-number">2.</span> <span class="nav-text">jupyter notebook</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#竞价实例"><span class="nav-number">3.</span> <span class="nav-text">竞价实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择哪个区的AWS"><span class="nav-number">4.</span> <span class="nav-text">选择哪个区的AWS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#推荐几个软件"><span class="nav-number">5.</span> <span class="nav-text">推荐几个软件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux"><span class="nav-number">5.1.</span> <span class="nav-text">tmux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#htop"><span class="nav-number">5.2.</span> <span class="nav-text">htop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#screen"><span class="nav-number">5.3.</span> <span class="nav-text">screen</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#坑"><span class="nav-number">6.</span> <span class="nav-text">坑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#refers"><span class="nav-number">7.</span> <span class="nav-text">refers</span></a></li></ol></div>
             
 
           </div>
