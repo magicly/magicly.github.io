@@ -3,6 +3,11 @@ tags: [rnn, neural network, dl, ml]
 category: ML
 date: 2017-04-15 08:24:24
 ---
+
+深度学习的流行跟计算能力的大大提高密不可分，尤其是GPU的大量使用，Nvidia去年股价涨了500%呢。用CPU要运行一个月的项目， 可能用GPU几个小时就运行完了，效率和速度不可同日耳语。工欲善其事必先利其器，所以正确地配置好GPU是进入深度学习的开端，而用AWS的GPU服务是最快捷方便的，本文就教你如何快速的配置好AWS的p2实例，提高深度学习效率。
+
+<!-- more -->
+
 # 安装AWS Instance
 ## Instance选择
 AWS提供很多实例，有计算型的（CPU比较好）， 有内存型的（内存比较高），有高磁盘IO型的，也有适合用于深度学习的GPU型。具体不同型号的特点配置以及价格参见[AWS Pricing](https://aws.amazon.com/ec2/pricing/on-demand/)。
