@@ -89,22 +89,16 @@
 
 
 
-<meta name="description" content="安装AWS InstanceInstance选择AWS提供很多实例，有计算型的（CPU比较好）， 有内存型的（内存比较高），有高磁盘IO型的，也有适合用于深度学习的GPU型。具体不同型号的特点配置以及价格参见AWS Pricing。
-这里我们选择p2.xlarge，4核CPU，61G内存，一个Nvidia GPU（有2496个并行处理核，12G内存），具体信息可以看这里。
-当然p2.xlarge的">
+<meta name="description" content="深度学习的流行跟计算能力的大大提高密不可分，尤其是GPU的大量使用，Nvidia去年股价涨了500%呢。用CPU要运行一个月的项目， 可能用GPU几个小时就运行完了，效率和速度不可同日耳语。工欲善其事必先利其器，所以正确地配置好GPU是进入深度学习的开端，而用AWS的GPU服务是最快捷方便的，本文就教你如何快速的配置好AWS的p2实例，提高深度学习效率。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AWS深度学习配置">
 <meta property="og:url" content="http://magicly.me/2017/04/15/aws-dl-config/index.html">
 <meta property="og:site_name" content="JustForFun">
-<meta property="og:description" content="安装AWS InstanceInstance选择AWS提供很多实例，有计算型的（CPU比较好）， 有内存型的（内存比较高），有高磁盘IO型的，也有适合用于深度学习的GPU型。具体不同型号的特点配置以及价格参见AWS Pricing。
-这里我们选择p2.xlarge，4核CPU，61G内存，一个Nvidia GPU（有2496个并行处理核，12G内存），具体信息可以看这里。
-当然p2.xlarge的">
-<meta property="og:updated_time" content="2017-04-18T13:40:15.000Z">
+<meta property="og:description" content="深度学习的流行跟计算能力的大大提高密不可分，尤其是GPU的大量使用，Nvidia去年股价涨了500%呢。用CPU要运行一个月的项目， 可能用GPU几个小时就运行完了，效率和速度不可同日耳语。工欲善其事必先利其器，所以正确地配置好GPU是进入深度学习的开端，而用AWS的GPU服务是最快捷方便的，本文就教你如何快速的配置好AWS的p2实例，提高深度学习效率。">
+<meta property="og:updated_time" content="2017-04-18T13:48:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AWS深度学习配置">
-<meta name="twitter:description" content="安装AWS InstanceInstance选择AWS提供很多实例，有计算型的（CPU比较好）， 有内存型的（内存比较高），有高磁盘IO型的，也有适合用于深度学习的GPU型。具体不同型号的特点配置以及价格参见AWS Pricing。
-这里我们选择p2.xlarge，4核CPU，61G内存，一个Nvidia GPU（有2496个并行处理核，12G内存），具体信息可以看这里。
-当然p2.xlarge的">
+<meta name="twitter:description" content="深度学习的流行跟计算能力的大大提高密不可分，尤其是GPU的大量使用，Nvidia去年股价涨了500%呢。用CPU要运行一个月的项目， 可能用GPU几个小时就运行完了，效率和速度不可同日耳语。工欲善其事必先利其器，所以正确地配置好GPU是进入深度学习的开端，而用AWS的GPU服务是最快捷方便的，本文就教你如何快速的配置好AWS的p2实例，提高深度学习效率。">
 
 
 
@@ -381,7 +375,9 @@
       
 
       
-        <h1 id="安装AWS-Instance"><a href="#安装AWS-Instance" class="headerlink" title="安装AWS Instance"></a>安装AWS Instance</h1><h2 id="Instance选择"><a href="#Instance选择" class="headerlink" title="Instance选择"></a>Instance选择</h2><p>AWS提供很多实例，有计算型的（CPU比较好）， 有内存型的（内存比较高），有高磁盘IO型的，也有适合用于深度学习的GPU型。具体不同型号的特点配置以及价格参见<a href="https://aws.amazon.com/ec2/pricing/on-demand/" target="_blank" rel="external">AWS Pricing</a>。</p>
+        <p>深度学习的流行跟计算能力的大大提高密不可分，尤其是GPU的大量使用，Nvidia去年股价涨了500%呢。用CPU要运行一个月的项目， 可能用GPU几个小时就运行完了，效率和速度不可同日耳语。工欲善其事必先利其器，所以正确地配置好GPU是进入深度学习的开端，而用AWS的GPU服务是最快捷方便的，本文就教你如何快速的配置好AWS的p2实例，提高深度学习效率。</p>
+<a id="more"></a>
+<h1 id="安装AWS-Instance"><a href="#安装AWS-Instance" class="headerlink" title="安装AWS Instance"></a>安装AWS Instance</h1><h2 id="Instance选择"><a href="#Instance选择" class="headerlink" title="Instance选择"></a>Instance选择</h2><p>AWS提供很多实例，有计算型的（CPU比较好）， 有内存型的（内存比较高），有高磁盘IO型的，也有适合用于深度学习的GPU型。具体不同型号的特点配置以及价格参见<a href="https://aws.amazon.com/ec2/pricing/on-demand/" target="_blank" rel="external">AWS Pricing</a>。</p>
 <p>这里我们选择p2.xlarge，4核CPU，61G内存，一个Nvidia GPU（有2496个并行处理核，12G内存），具体信息可以看<a href="https://aws.amazon.com/blogs/aws/new-p2-instance-type-for-amazon-ec2-up-to-16-gpus/" target="_blank" rel="external">这里</a>。</p>
 <p>当然p2.xlarge的价格(0.9$/h)当然比t2.xlarge的价格(0.188$/h)要高， 所以我的建议是，在本机或者t2上写好代码，找一个小一点的数据集跑一下， 调试得差不多了， 然后启动p2.xlarge，在全量数据集上run。这里说一下，如果数据集是国外的（大部分都是），aws下载能达到20MB/s，相比国内下载速度，真是爽得不要不要的。</p>
 <h2 id="AMI选择"><a href="#AMI选择" class="headerlink" title="AMI选择"></a>AMI选择</h2><p>AWS Instance安装的时候支持选择镜像。还记得以前重装windows系统么， 装完之后需要安装各种驱动，输入法、qq、浏览器、word。。。blabla一堆软件，有可能几个小时就过去了。所以后来出了Ghost盘，安装好各种软件后，做个Ghost盘，然后以后重装的时候就只需要装Ghost盘，十分钟就可以装好，然后所有该要的软件都有了，大大节约了时间。AWS的镜像叫AMI。</p>
