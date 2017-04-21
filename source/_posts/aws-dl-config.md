@@ -51,6 +51,7 @@ In [3]: exit
 ```
 vim ~/.jupyter/jupyter_notebook_config.py
 c.NotebookApp.password = u'sha1:XXXXXXXXXXXXXX'
+c.NotebookApp.ip = '*' #如果没有这行，会只监听localhost:8888，外网无法访问
 ```
 然后就可以在浏览器里输入http://[ip]:8888访问jupyter notebook，开心地开始写代码吧。
 
