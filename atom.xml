@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://magicly.me/"/>
-  <updated>2017-04-19T06:33:20.000Z</updated>
+  <updated>2017-04-20T04:56:57.000Z</updated>
   <id>http://magicly.me/</id>
   
   <author>
@@ -14,6 +14,61 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>jupyter-to-github-pages</title>
+    <link href="http://magicly.me/2017/04/20/jupyter-to-github-pages/"/>
+    <id>http://magicly.me/2017/04/20/jupyter-to-github-pages/</id>
+    <published>2017-04-20T03:20:43.000Z</published>
+    <updated>2017-04-20T04:56:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Pelican"><a href="#Pelican" class="headerlink" title="Pelican"></a>Pelican</h1><p><a href="https://junjiecai.github.io/posts/2016/Jun/10/blog_with_jupyter/" target="_blank" rel="external">https://junjiecai.github.io/posts/2016/Jun/10/blog_with_jupyter/</a><br><a href="http://www.jianshu.com/p/d78e9f741a79" target="_blank" rel="external">http://www.jianshu.com/p/d78e9f741a79</a><br><a href="https://zhuanlan.zhihu.com/p/22848234" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/22848234</a><br><a href="https://www.dataquest.io/blog/how-to-setup-a-data-science-blog/" target="_blank" rel="external">https://www.dataquest.io/blog/how-to-setup-a-data-science-blog/</a></p>
+<h1 id="jupyter-nbconvert"><a href="#jupyter-nbconvert" class="headerlink" title="jupyter nbconvert"></a>jupyter nbconvert</h1><p><a href="https://github.com/jupyter/nbconvert" target="_blank" rel="external">https://github.com/jupyter/nbconvert</a></p>
+<h1 id="brew加速"><a href="#brew加速" class="headerlink" title="brew加速"></a>brew加速</h1><p><a href="https://w3cboy.com/post/2017/03/homebrew-speed-up/" target="_blank" rel="external">https://w3cboy.com/post/2017/03/homebrew-speed-up/</a><br><a href="https://lug.ustc.edu.cn/wiki/mirrors/help/homebrew-bottles" target="_blank" rel="external">https://lug.ustc.edu.cn/wiki/mirrors/help/homebrew-bottles</a><br><a href="https://www.zhihu.com/question/31360766" target="_blank" rel="external">https://www.zhihu.com/question/31360766</a><br><a href="http://blog.suconghou.cn/post/homebrew-speedup/" target="_blank" rel="external">http://blog.suconghou.cn/post/homebrew-speedup/</a><br><a href="https://www.tomwei7.com/2016/01/10/brew-%E5%88%87%E6%8D%A2Git%E6%BA%90%E5%92%8C%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/" target="_blank" rel="external">https://www.tomwei7.com/2016/01/10/brew-%E5%88%87%E6%8D%A2Git%E6%BA%90%E5%92%8C%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/</a></p>
+<h1 id="jupyter"><a href="#jupyter" class="headerlink" title="jupyter"></a>jupyter</h1><p><a href="https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks" target="_blank" rel="external">https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Pelican&quot;&gt;&lt;a href=&quot;#Pelican&quot; class=&quot;headerlink&quot; title=&quot;Pelican&quot;&gt;&lt;/a&gt;Pelican&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://junjiecai.github.io/posts/2016/Ju
+    
+    </summary>
+    
+      <category term="default" scheme="http://magicly.me/categories/default/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>aws-docker</title>
+    <link href="http://magicly.me/2017/04/19/aws-docker/"/>
+    <id>http://magicly.me/2017/04/19/aws-docker/</id>
+    <published>2017-04-19T09:45:42.000Z</published>
+    <updated>2017-04-19T14:08:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="如何查看cuda版本"><a href="#如何查看cuda版本" class="headerlink" title="如何查看cuda版本"></a>如何查看cuda版本</h1><p><a href="http://www.cnblogs.com/shrimp-can/p/5253672.html" target="_blank" rel="external">http://www.cnblogs.com/shrimp-can/p/5253672.html</a></p>
+<p>默认目录为：local，进入local：cd /usr/local</p>
+<p>输入命令：ls，查看该目录下的文件，可以看到安装的cuda在此处</p>
+<p>进入cuda文件：cd cuda-7.5（我的是7.5），此处为安装的东西</p>
+<h1 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h1><p><a href="https://docs.docker.com/engine/installation/linux/ubuntu/" target="_blank" rel="external">https://docs.docker.com/engine/installation/linux/ubuntu/</a></p>
+<h1 id="安装nvidia-docker"><a href="#安装nvidia-docker" class="headerlink" title="安装nvidia-docker"></a>安装nvidia-docker</h1><p><a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="external">https://github.com/NVIDIA/nvidia-docker</a></p>
+<h1 id="docker端口映射"><a href="#docker端口映射" class="headerlink" title="docker端口映射"></a>docker端口映射</h1><p><a href="https://opskumu.gitbooks.io/docker/content/chapter5.html" target="_blank" rel="external">https://opskumu.gitbooks.io/docker/content/chapter5.html</a></p>
+<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><h2 id="dpkg-lock"><a href="#dpkg-lock" class="headerlink" title="dpkg lock"></a>dpkg lock</h2><blockquote>
+<p>dpkg: error: dpkg status database is locked by another process</p>
+</blockquote>
+<p><a href="https://askubuntu.com/questions/219545/dpkg-error-dpkg-status-database-is-locked-by-another-process" target="_blank" rel="external">https://askubuntu.com/questions/219545/dpkg-error-dpkg-status-database-is-locked-by-another-process</a><br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo rm /var/<span class="class"><span class="keyword">lib</span>/<span class="title">dpkg</span>/<span class="title">lock</span></span></div><div class="line">sudo dpkg --configure -a</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;如何查看cuda版本&quot;&gt;&lt;a href=&quot;#如何查看cuda版本&quot; class=&quot;headerlink&quot; title=&quot;如何查看cuda版本&quot;&gt;&lt;/a&gt;如何查看cuda版本&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/shrimp
+    
+    </summary>
+    
+      <category term="default" scheme="http://magicly.me/categories/default/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>阿里云HPC深度学习配置从入门到真的放弃</title>
@@ -141,7 +196,7 @@
     <link href="http://magicly.me/2017/04/15/aws-dl-config/"/>
     <id>http://magicly.me/2017/04/15/aws-dl-config/</id>
     <published>2017-04-15T00:24:24.000Z</published>
-    <updated>2017-04-18T13:48:28.000Z</updated>
+    <updated>2017-04-21T14:59:24.000Z</updated>
     
     <content type="html"><![CDATA[<p>深度学习的流行跟计算能力的大大提高密不可分，尤其是GPU的大量使用，Nvidia去年股价涨了500%呢。用CPU要运行一个月的项目， 可能用GPU几个小时就运行完了，效率和速度不可同日耳语。工欲善其事必先利其器，所以正确地配置好GPU是进入深度学习的开端，而用AWS的GPU服务是最快捷方便的，本文就教你如何快速的配置好AWS的p2实例，提高深度学习效率。</p>
 <a id="more"></a>
@@ -167,7 +222,7 @@
 <li>由于会在公网上访问，为了安全， 需要给jupyter notebook设置一个密码，方法如下：<figure class="highlight fortran"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ubuntu@ip-<span class="number">10</span>-<span class="number">0</span>-<span class="number">0</span>-<span class="number">14</span>:~/nbs$ ipython</div><div class="line"><span class="keyword">In</span> [<span class="number">1</span>]: from IPython.lib <span class="keyword">import</span> passwd</div><div class="line"></div><div class="line"><span class="keyword">In</span> [<span class="number">2</span>]: passwd()</div><div class="line">Enter password:</div><div class="line"><span class="built_in">Verify</span> password:</div><div class="line"><span class="keyword">Out</span>[<span class="number">2</span>]: <span class="string">'sha1:XXXXXXXXXXXXXXX'</span></div><div class="line"></div><div class="line"><span class="keyword">In</span> [<span class="number">3</span>]: <span class="keyword">exit</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>将上诉生成的密码copy到~/.jupyter/jupyter_notebook_config.py里:<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim ~<span class="regexp">/.jupyter/</span>jupyter_notebook_config.py</div><div class="line">c.NotebookApp.password = <span class="string">u'sha1:XXXXXXXXXXXXXX'</span></div></pre></td></tr></table></figure></p>
+<p>将上诉生成的密码copy到~/.jupyter/jupyter_notebook_config.py里:<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim ~<span class="regexp">/.jupyter/</span>jupyter_notebook_config.py</div><div class="line">c.NotebookApp.password = <span class="string">u'sha1:XXXXXXXXXXXXXX'</span></div><div class="line">c.NotebookApp.ip = <span class="string">'*'</span> <span class="comment">#如果没有这行，会只监听localhost:8888，外网无法访问</span></div></pre></td></tr></table></figure></p>
 <p>然后就可以在浏览器里输入<a href="http://[ip]:8888访问jupyter" target="_blank" rel="external">http://[ip]:8888访问jupyter</a> notebook，开心地开始写代码吧。</p>
 <p>数据存放位置<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ubuntu<span class="variable">@ip</span>-<span class="number">10</span>-<span class="number">0</span>-<span class="number">0</span>-<span class="number">14</span><span class="symbol">:~/courses/deeplearning1/nbs</span><span class="variable">$ </span>find ~ -name vgg16.h5</div><div class="line">/home/ubuntu/.keras/models/vgg16.h5</div></pre></td></tr></table></figure></p>
 <h1 id="竞价实例"><a href="#竞价实例" class="headerlink" title="竞价实例"></a>竞价实例</h1><p>竞价实例是一种特殊的实例，能够以超低的价格提供配置一样的实例，和普通实例的差别在于不可停止，因此当你想跑比较大的网络的时候（训练时间大于1小时），用竞价实例会非常划算。0.9美元每小时的 p2.xlarge 在竞价实例一个月的历史记录里很少超过0.3美元。即使超过了，也不会出高于0.9美元的价格。</p>
@@ -344,8 +399,6 @@
     
       <category term="AI" scheme="http://magicly.me/tags/AI/"/>
     
-      <category term="word2vec" scheme="http://magicly.me/tags/word2vec/"/>
-    
       <category term="udacity" scheme="http://magicly.me/tags/udacity/"/>
     
       <category term="tensorflow" scheme="http://magicly.me/tags/tensorflow/"/>
@@ -353,6 +406,8 @@
       <category term="cnn" scheme="http://magicly.me/tags/cnn/"/>
     
       <category term="lstm" scheme="http://magicly.me/tags/lstm/"/>
+    
+      <category term="word2vec" scheme="http://magicly.me/tags/word2vec/"/>
     
   </entry>
   
@@ -485,9 +540,9 @@
     
       <category term="machine learning" scheme="http://magicly.me/tags/machine-learning/"/>
     
-      <category term="nlp" scheme="http://magicly.me/tags/nlp/"/>
-    
       <category term="word2vec" scheme="http://magicly.me/tags/word2vec/"/>
+    
+      <category term="nlp" scheme="http://magicly.me/tags/nlp/"/>
     
   </entry>
   
