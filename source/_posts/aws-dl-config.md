@@ -47,7 +47,7 @@ Out[2]: 'sha1:XXXXXXXXXXXXXXX'
 
 In [3]: exit
 ```
-将上诉生成的密码copy到~/.jupyter/jupyter_notebook_config.py里:
+将上诉生成的密码copy到~/.jupyter/jupyter_notebook_config.py（如果没有此文件， 先运行jupyter notebook --generate-config）里:
 ```
 vim ~/.jupyter/jupyter_notebook_config.py
 c.NotebookApp.password = u'sha1:XXXXXXXXXXXXXX'
