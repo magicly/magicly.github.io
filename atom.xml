@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://magicly.me/"/>
-  <updated>2017-04-20T04:56:57.000Z</updated>
+  <updated>2017-05-17T09:19:58.000Z</updated>
   <id>http://magicly.me/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>jupyter-to-github-pages</title>
+    <title>jupyter转github pages</title>
     <link href="http://magicly.me/2017/04/20/jupyter-to-github-pages/"/>
     <id>http://magicly.me/2017/04/20/jupyter-to-github-pages/</id>
     <published>2017-04-20T03:20:43.000Z</published>
-    <updated>2017-04-20T04:56:57.000Z</updated>
+    <updated>2017-05-17T09:19:58.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Pelican"><a href="#Pelican" class="headerlink" title="Pelican"></a>Pelican</h1><p><a href="https://junjiecai.github.io/posts/2016/Jun/10/blog_with_jupyter/" target="_blank" rel="external">https://junjiecai.github.io/posts/2016/Jun/10/blog_with_jupyter/</a><br><a href="http://www.jianshu.com/p/d78e9f741a79" target="_blank" rel="external">http://www.jianshu.com/p/d78e9f741a79</a><br><a href="https://zhuanlan.zhihu.com/p/22848234" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/22848234</a><br><a href="https://www.dataquest.io/blog/how-to-setup-a-data-science-blog/" target="_blank" rel="external">https://www.dataquest.io/blog/how-to-setup-a-data-science-blog/</a></p>
 <h1 id="jupyter-nbconvert"><a href="#jupyter-nbconvert" class="headerlink" title="jupyter nbconvert"></a>jupyter nbconvert</h1><p><a href="https://github.com/jupyter/nbconvert" target="_blank" rel="external">https://github.com/jupyter/nbconvert</a></p>
@@ -34,17 +34,19 @@
     
     </summary>
     
-      <category term="default" scheme="http://magicly.me/categories/default/"/>
+      <category term="jupyter" scheme="http://magicly.me/categories/jupyter/"/>
     
+    
+      <category term="jupyter" scheme="http://magicly.me/tags/jupyter/"/>
     
   </entry>
   
   <entry>
-    <title>aws-docker</title>
+    <title>aws上配置docker</title>
     <link href="http://magicly.me/2017/04/19/aws-docker/"/>
     <id>http://magicly.me/2017/04/19/aws-docker/</id>
     <published>2017-04-19T09:45:42.000Z</published>
-    <updated>2017-04-19T14:08:26.000Z</updated>
+    <updated>2017-05-17T09:19:31.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="如何查看cuda版本"><a href="#如何查看cuda版本" class="headerlink" title="如何查看cuda版本"></a>如何查看cuda版本</h1><p><a href="http://www.cnblogs.com/shrimp-can/p/5253672.html" target="_blank" rel="external">http://www.cnblogs.com/shrimp-can/p/5253672.html</a></p>
 <p>默认目录为：local，进入local：cd /usr/local</p>
@@ -65,8 +67,14 @@
     
     </summary>
     
-      <category term="default" scheme="http://magicly.me/categories/default/"/>
+      <category term="ML" scheme="http://magicly.me/categories/ML/"/>
     
+    
+      <category term="ml" scheme="http://magicly.me/tags/ml/"/>
+    
+      <category term="aws" scheme="http://magicly.me/tags/aws/"/>
+    
+      <category term="docker" scheme="http://magicly.me/tags/docker/"/>
     
   </entry>
   
@@ -196,7 +204,7 @@
     <link href="http://magicly.me/2017/04/15/aws-dl-config/"/>
     <id>http://magicly.me/2017/04/15/aws-dl-config/</id>
     <published>2017-04-15T00:24:24.000Z</published>
-    <updated>2017-04-21T14:59:24.000Z</updated>
+    <updated>2017-04-23T09:18:26.000Z</updated>
     
     <content type="html"><![CDATA[<p>深度学习的流行跟计算能力的大大提高密不可分，尤其是GPU的大量使用，Nvidia去年股价涨了500%呢。用CPU要运行一个月的项目， 可能用GPU几个小时就运行完了，效率和速度不可同日耳语。工欲善其事必先利其器，所以正确地配置好GPU是进入深度学习的开端，而用AWS的GPU服务是最快捷方便的，本文就教你如何快速的配置好AWS的p2实例，提高深度学习效率。</p>
 <a id="more"></a>
@@ -222,7 +230,7 @@
 <li>由于会在公网上访问，为了安全， 需要给jupyter notebook设置一个密码，方法如下：<figure class="highlight fortran"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ubuntu@ip-<span class="number">10</span>-<span class="number">0</span>-<span class="number">0</span>-<span class="number">14</span>:~/nbs$ ipython</div><div class="line"><span class="keyword">In</span> [<span class="number">1</span>]: from IPython.lib <span class="keyword">import</span> passwd</div><div class="line"></div><div class="line"><span class="keyword">In</span> [<span class="number">2</span>]: passwd()</div><div class="line">Enter password:</div><div class="line"><span class="built_in">Verify</span> password:</div><div class="line"><span class="keyword">Out</span>[<span class="number">2</span>]: <span class="string">'sha1:XXXXXXXXXXXXXXX'</span></div><div class="line"></div><div class="line"><span class="keyword">In</span> [<span class="number">3</span>]: <span class="keyword">exit</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>将上诉生成的密码copy到~/.jupyter/jupyter_notebook_config.py里:<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim ~<span class="regexp">/.jupyter/</span>jupyter_notebook_config.py</div><div class="line">c.NotebookApp.password = <span class="string">u'sha1:XXXXXXXXXXXXXX'</span></div><div class="line">c.NotebookApp.ip = <span class="string">'*'</span> <span class="comment">#如果没有这行，会只监听localhost:8888，外网无法访问</span></div></pre></td></tr></table></figure></p>
+<p>将上诉生成的密码copy到~/.jupyter/jupyter_notebook_config.py（如果没有此文件， 先运行jupyter notebook –generate-config）里:<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim ~<span class="regexp">/.jupyter/</span>jupyter_notebook_config.py</div><div class="line">c.NotebookApp.password = <span class="string">u'sha1:XXXXXXXXXXXXXX'</span></div><div class="line">c.NotebookApp.ip = <span class="string">'*'</span> <span class="comment">#如果没有这行，会只监听localhost:8888，外网无法访问</span></div></pre></td></tr></table></figure></p>
 <p>然后就可以在浏览器里输入<a href="http://[ip]:8888访问jupyter" target="_blank" rel="external">http://[ip]:8888访问jupyter</a> notebook，开心地开始写代码吧。</p>
 <p>数据存放位置<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ubuntu<span class="variable">@ip</span>-<span class="number">10</span>-<span class="number">0</span>-<span class="number">0</span>-<span class="number">14</span><span class="symbol">:~/courses/deeplearning1/nbs</span><span class="variable">$ </span>find ~ -name vgg16.h5</div><div class="line">/home/ubuntu/.keras/models/vgg16.h5</div></pre></td></tr></table></figure></p>
 <h1 id="竞价实例"><a href="#竞价实例" class="headerlink" title="竞价实例"></a>竞价实例</h1><p>竞价实例是一种特殊的实例，能够以超低的价格提供配置一样的实例，和普通实例的差别在于不可停止，因此当你想跑比较大的网络的时候（训练时间大于1小时），用竞价实例会非常划算。0.9美元每小时的 p2.xlarge 在竞价实例一个月的历史记录里很少超过0.3美元。即使超过了，也不会出高于0.9美元的价格。</p>
@@ -623,19 +631,19 @@ evidence_{i}=\sum _{j}W_{ij}x_{j}+b_{i}
     <link href="http://magicly.me/2017/02/12/ml-content/"/>
     <id>http://magicly.me/2017/02/12/ml-content/</id>
     <published>2017-02-12T14:04:10.000Z</published>
-    <updated>2017-02-23T02:46:30.000Z</updated>
+    <updated>2017-05-17T09:15:33.000Z</updated>
     
     <content type="html"><![CDATA[<p>机器学习已经影响了我们生活中的每一个地方， 了解一些机器学习知识， 便于提高竞争力， 避免被机器替代。<br>下面是我参考咨询了很多大牛之后搜集整理的一些学习资料， 基本都是该领域世界最顶尖的高手亲自授课，以及一些最流行的工具库， 值得学习。</p>
 <a id="more"></a>
-<p><em>. Andrew NG <a href="https://www.coursera.org/learn/machine-learning（已完成）" target="_blank" rel="external">https://www.coursera.org/learn/machine-learning（已完成）</a>
-</em>. Andrew NG Unsupervised Feature Learning and Deep Learning <a href="http://deeplearning.stanford.edu/tutorial/（学习ing）" target="_blank" rel="external">http://deeplearning.stanford.edu/tutorial/（学习ing）</a><br><em>. <a href="http://neuralnetworksanddeeplearning.com/" target="_blank" rel="external">http://neuralnetworksanddeeplearning.com/</a> （已完成）
-</em>. Andrew NG, standford的机器学习课程之一， <a href="http://cs229.stanford.edu/" target="_blank" rel="external">http://cs229.stanford.edu/</a><br><em>. Neural Networks for Machine Learning <a href="https://www.coursera.org/learn/neural-networks" target="_blank" rel="external">https://www.coursera.org/learn/neural-networks</a> by Geoffrey Hinton, Professor(深度学习创始人) （学习中）
-</em>. 李飞飞课程<a href="http://cs231n.github.io/" target="_blank" rel="external">http://cs231n.github.io/</a><br><em>. 斯坦福自然语言处理 <a href="http://web.stanford.edu/class/cs224n/" target="_blank" rel="external">http://web.stanford.edu/class/cs224n/</a>
-</em>. Tensorflow for Deep Learning Research <a href="http://web.stanford.edu/class/cs20si/" target="_blank" rel="external">http://web.stanford.edu/class/cs20si/</a><br><em>. 伯克利人工智能课程 <a href="http://www-inst.eecs.berkeley.edu/~cs188/archives.html" target="_blank" rel="external">http://www-inst.eecs.berkeley.edu/~cs188/archives.html</a>
-</em>. <a href="http://www.deeplearningbook.org/" target="_blank" rel="external">http://www.deeplearningbook.org/</a>, by Ian Goodfellow and Yoshua Bengio（深度学习四大金刚之一） and Aaron Courville<br><em>. udacity深度学习课程tensorflow <a href="https://classroom.udacity.com/courses/ud730/（学习中）" target="_blank" rel="external">https://classroom.udacity.com/courses/ud730/（学习中）</a>
-</em>. <a href="https://keras.io" target="_blank" rel="external">https://keras.io</a><br><em>. <a href="https://scikit-learn.org" target="_blank" rel="external">https://scikit-learn.org</a>
-</em>. <a href="https://www.tensorflow.org" target="_blank" rel="external">https://www.tensorflow.org</a><br><em>. <a href="http://deeplearning.net/" target="_blank" rel="external">http://deeplearning.net/</a>
-</em>. <a href="https://www.kaggle.com" target="_blank" rel="external">https://www.kaggle.com</a></p>
+<p><em>. Fast.ai课程，<a href="http://course.fast.ai/，" target="_blank" rel="external">http://course.fast.ai/，</a> 中文版<a href="http://geek.ai100.com.cn/tag/fast-ai，已完成，这个是我目前觉得最好的课程。" target="_blank" rel="external">http://geek.ai100.com.cn/tag/fast-ai，已完成，这个是我目前觉得最好的课程。</a>
+</em>. Andrew NG <a href="https://www.coursera.org/learn/machine-learning（已完成）" target="_blank" rel="external">https://www.coursera.org/learn/machine-learning（已完成）</a><br><em>. Andrew NG Unsupervised Feature Learning and Deep Learning <a href="http://deeplearning.stanford.edu/tutorial/（学习ing）" target="_blank" rel="external">http://deeplearning.stanford.edu/tutorial/（学习ing）</a>
+</em>. <a href="http://neuralnetworksanddeeplearning.com/" target="_blank" rel="external">http://neuralnetworksanddeeplearning.com/</a> （已完成）<br><em>. Andrew NG, standford的机器学习课程之一， <a href="http://cs229.stanford.edu/" target="_blank" rel="external">http://cs229.stanford.edu/</a>
+</em>. Neural Networks for Machine Learning <a href="https://www.coursera.org/learn/neural-networks" target="_blank" rel="external">https://www.coursera.org/learn/neural-networks</a> by Geoffrey Hinton, Professor(深度学习创始人) （学习中），有点后悔， 这个课程并不是适合初学者。参考<a href="https://www.quora.com/Is-it-wise-to-learn-deep-learning-from-Hintons-course-on-Coursera" target="_blank" rel="external">这里</a><br><em>. 李飞飞课程<a href="http://cs231n.github.io/" target="_blank" rel="external">http://cs231n.github.io/</a>
+</em>. 斯坦福自然语言处理 <a href="http://web.stanford.edu/class/cs224n/" target="_blank" rel="external">http://web.stanford.edu/class/cs224n/</a><br><em>. Tensorflow for Deep Learning Research <a href="http://web.stanford.edu/class/cs20si/" target="_blank" rel="external">http://web.stanford.edu/class/cs20si/</a>
+</em>. 伯克利人工智能课程 <a href="http://www-inst.eecs.berkeley.edu/~cs188/archives.html" target="_blank" rel="external">http://www-inst.eecs.berkeley.edu/~cs188/archives.html</a><br><em>. <a href="http://www.deeplearningbook.org/" target="_blank" rel="external">http://www.deeplearningbook.org/</a>, by Ian Goodfellow and Yoshua Bengio（深度学习四大金刚之一） and Aaron Courville
+</em>. udacity深度学习课程tensorflow <a href="https://classroom.udacity.com/courses/ud730/（学习中）" target="_blank" rel="external">https://classroom.udacity.com/courses/ud730/（学习中）</a><br><em>. <a href="https://keras.io" target="_blank" rel="external">https://keras.io</a>
+</em>. <a href="https://scikit-learn.org" target="_blank" rel="external">https://scikit-learn.org</a><br><em>. <a href="https://www.tensorflow.org" target="_blank" rel="external">https://www.tensorflow.org</a>
+</em>. <a href="http://deeplearning.net/" target="_blank" rel="external">http://deeplearning.net/</a><br>*. <a href="https://www.kaggle.com" target="_blank" rel="external">https://www.kaggle.com</a></p>
 ]]></content>
     
     <summary type="html">
