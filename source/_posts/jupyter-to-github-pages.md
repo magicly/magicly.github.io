@@ -4,6 +4,10 @@ category: jupyter
 date: 2017-04-20 11:20:43
 ---
 
+最近用jupyter开发比较多， 确实很方便， 为了把jupyter页面部署到github pages方便博客读者阅读，调研了一下jupyter转静态html页面的工具。
+
+<!-- more -->
+
 # Pelican
 https://junjiecai.github.io/posts/2016/Jun/10/blog_with_jupyter/
 http://www.jianshu.com/p/d78e9f741a79

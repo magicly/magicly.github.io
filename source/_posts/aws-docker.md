@@ -13,6 +13,8 @@ http://www.cnblogs.com/shrimp-can/p/5253672.html
 
 进入cuda文件：cd cuda-7.5（我的是7.5），此处为安装的东西
 
+<!-- more -->
+
 # 安装docker
 https://docs.docker.com/engine/installation/linux/ubuntu/
 # 安装nvidia-docker

@@ -65,7 +65,8 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: next
+#theme: next
+theme: yilia
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
@@ -83,3 +84,22 @@ social:
   GitHub: https://github.com/magicly
   Twitter: https://twitter.com/magicly007
   Weibo: http://weibo.com/magicly
+
+jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: false
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
