@@ -1,5 +1,6 @@
+---
 title: Java Concurrency（三）——J.U.C AQS源码解读
-date: 2015-01-13 21:34:10
+date: "2015-01-13T21:34:10Z"
 tags: [Java, concurrency, jdk, 源码阅读]
 category: Java
 ---
@@ -14,7 +15,7 @@ java5之后的java.util.concurrent包是世界级并发大师Doug Lea的作品�
 
 <!-- more -->
 
-#AQS
+# AQS
 
 首先，我们来想象一下，一间屋里有一个大家都想要得到的会让你很爽的东西（something which makes you so happy, e.g. W.C）。当有人进去把门关起来在独占享用的时候，其他人就只能在外面排队等待，既然在等待，你就不能老是去敲门说哎，好了没有啊。老是这样的话里面的人就很不爽了，而且你可以利用这点等待时间干点别的，比如看看小说视频背背单词或者就干脆椅子上睡觉，当前面独占的人爽完之后，就会出来说，啊，好爽，到你们了。然后大家可能按照排队顺序获取或者大家疯抢这个状态，有可能一个人自己进去独占，有可能几个人说，哎没关系，我们可以一起来。然后他们进去爽，爽完之后再出来通知下一个。
 
@@ -29,9 +30,9 @@ AQS是一个abstract class，可以通过继承AQS，定义state的含义，以�
 
 下面我们来看J.U.C里面两个常用的Synchronizers。
 
-#ReentrantLock
+# ReentrantLock
 
-##使用
+## 使用
 
 ReentrantLock的语义跟synchronized关键字基本一样，而且我之前看[《深入理解Java虚拟机》][jvm]里面的评测说JDK6之后，两者的效率基本一致了（JDK5之前ReentrantLock要比synchronized快很多）。Javadoc里面说基本用法如下：
 ```
@@ -49,7 +50,7 @@ class X {
 }
 ```
 
-##源码
+## 源码
 
 ReentrantLock用state表示是否被锁，0表示没有线程获取到锁，>=1表示某个线程获取了N次锁（因为是重入的，只要保证lock和unlock成对出现就没有问题）。
 ```
@@ -278,11 +279,11 @@ tryAcquire是要在子类里自己实现的，在FairSync如下;
             return false;
         }
 ```
-#CountDownLatch
+# CountDownLatch
 
 我们之前说了，AQS支持独占EXCLUSIVE和共享SHARED两种模式，而刚刚的ReentrantLock的就是独占模式，我们来看看一个使用共享模式的类。
 
-##使用
+## 使用
 
 CountDownLatch就好比一道门，它可以用来等所有资源都到齐了，才开门，让这些线程同时通过。比如如下是CountDownLatch一个通用用法：
 ```
@@ -332,7 +333,7 @@ public class IndexPlusPlusTest01 {
 ```
 对了，上面代码是拿来验证volatile不具备原子性的，是错误的代码哦。如果想并发安全，大家可以想想可以用哪些方式实现。
 
-##源码
+## 源码
 
 CountDownLatch同样也是定义了一个继承自AQS的内部类Sync：
 ```
@@ -546,11 +547,11 @@ unparkSuccessor跟之前独占模式里面的是同一个函数，即调用unpar
 ```
 
 
-#总结
+# 总结
 
 J.U.C里AQS是一个相当核心的类，可以说没有它就没有J.U.C包。推荐大家看看[AQS][aqs]这篇论文（网上有一些翻译，推荐大家还是看原文吧）。主要是用一个state表示状态，子类可以根据需要来定义state的含义，以及获取释放资源时具体如何操作state，当然需要通过CAS实现原子更改。当获取不到state的时候，线程加入队列，挂起。释放之后，唤醒队列中的线程。AQS支持两种模式，独占EXCLUSIVE和共享SHARED。J.U.C里本身也有很多直接继承AQS实现的类，包括Lock，CountDownLatch，Semaphore，FutureTask等，如果这些还不能满足你的使用，那么可以直接继承AQS来实现需要。
 
-#Refers
+# Refers
 1. [http://gee.cs.oswego.edu/dl/papers/aqs.pdf](http://gee.cs.oswego.edu/dl/papers/aqs.pdf)
 2. [http://ifeve.com/introduce-abstractqueuedsynchronizer/](http://ifeve.com/introduce-abstractqueuedsynchronizer/)
 3. [http://ifeve.com/jdk1-8-abstractqueuedsynchronizer/](http://ifeve.com/jdk1-8-abstractqueuedsynchronizer/)

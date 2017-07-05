@@ -1,3 +1,4 @@
+---
 title: 一个Java对象到底有多大
 date: 2015-06-13 21:34:10
 tags: [Java, JVM, Java反射]
@@ -10,7 +11,7 @@ category: Java
 
 <!-- more -->
 
-#测试
+# 测试
 
 实践是检验真理的唯一标准！比如你要想cache10w条记录，那你就把10w条记录加载到内存，然后看看到底用了多少内存。至于怎么看内存花了多少，你可以
 1. 任务管理器
@@ -68,20 +69,20 @@ public class TestMemory {
 
 上面方法的最大好处就是可以直接获得实际占用内存大小，是比较简单有效的方法。不好的地方就是如果数据量比较小，可能偏差比较大，而且你也不能解释为什么Integer[]比int[]占用内存大很多，关键是专家说：这种内存占用应该是心里算出来的，你还要去run一下程序，明显就low了，还想晋级？再练练吧！所以我们来看看怎么掐指一算！
 
-#计算
+# 计算
 
 这个需要了解JVM里的内存分布，知道每个对象都有object header，blabal。这里推荐一篇好文[一个Java对象到底占用多大内存？](http://www.cnblogs.com/magialmoon/p/3757767.html)，我就不重复了。
 
 还看到另一种计算方式，用的Unsafe，不过感觉没有前面用Instrumentation的好。参考这里[Java计算一个对象占用内存的大小](http://blog.csdn.net/bobpauline/article/details/20699233)
 
-#线上查看
+# 线上查看
 
 如果是要查看线上程序哪个对象占用了大量内存（比如分析内存泄露），那么可以使用jmap。
 
-#相关知识
+# 相关知识
 你可能需要了解jps，jinfo，打包jar，manifest，查看jvm运行参数等。
 
-#refers
+# refers
 1. [http://www.importnew.com/14948.html](http://www.importnew.com/14948.html)
 2. [http://www.cnblogs.com/magialmoon/p/3757767.html](http://www.cnblogs.com/magialmoon/p/3757767.html)
 3. [http://www.oschina.net/question/1_4486](http://www.oschina.net/question/1_4486)
